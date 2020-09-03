@@ -1,6 +1,6 @@
 import * as S from './styles'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 const Header = () => {
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
