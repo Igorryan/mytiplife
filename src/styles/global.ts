@@ -16,7 +16,14 @@ const GlobalStyles = createGlobalStyle`
  }
 
  body {
-   font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+   font-family: 'Roboto', sans-serif;
+   -webkit-font-smoothing: antialiased;
+   font-size: 14px;
+ }
+
+ h1, h2, h3, h4, h5, h6, strong, a {
+   font-family: 'Rubik', sans-serif;
+   font-weight: 500;
  }
 `
 
