@@ -2,6 +2,12 @@
 const withPWA = require('next-pwa')
 const isProd = process.env.NODE_ENV === 'production'
 
+module.exports = {
+  devIndicators: {
+    autoPrerender: false
+  }
+}
+
 module.exports = withPWA({
   pwa: {
     dest: 'public',

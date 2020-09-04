@@ -1,4 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { IoIosHelpCircleOutline } from 'react-icons/io'
+
+interface ButtonProps {
+  disabled: boolean
+}
+
+interface ColorOptionProps {
+  selected?: boolean
+}
 
 export const Wrapper = styled.main``
 
@@ -36,8 +45,7 @@ export const UnitsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin: 30px 0;
+  margin-top: 30px;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
 
@@ -88,11 +96,11 @@ export const UnitsWrapper = styled.div`
         position: absolute;
         border-radius: 50%;
         border: 1px solid #bfbfbf;
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         font-size: 14px;
-        margin-left: -18px;
-        margin-top: 5px;
+        margin-left: -16px;
+        margin-top: 6.1px;
       }
     }
   }
@@ -105,6 +113,7 @@ export const UnitsWrapper = styled.div`
     justify-content: space-between;
 
     h2 {
+      text-align: center;
       font-size: 36px;
       font-family: 'roboto', sans-serif;
       font-weight: 700;
@@ -119,28 +128,95 @@ export const UnitsWrapper = styled.div`
         }
       }
     }
-
-    button {
-      width: 150px;
-      height: 50px;
-
-      background: #11cea2;
-      border-radius: 9px;
-      color: #fff;
-
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
   }
 `
 
-export const BackgoundColorsWrapper = styled.div``
+export const AddToCartButton = styled.button<ButtonProps>`
+  width: 150px;
+  height: 50px;
 
-export const ColorsWrapper = styled.div``
+  background: ${(props) => (props.disabled ? '#989898' : '#11cea2')};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+  border-radius: 9px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+`
 
-export const ColorOption = styled.div``
+export const CustomizationsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+`
 
-export const Info = styled.div``
+export const BackgoundColorsWrapper = styled.div`
+  padding: 24px;
+  border-radius: 12px;
+  background: #f6f6f6;
+  width: 48%;
+  height: 200px;
 
-export const UploadInfosWrapper = styled.div``
+  h3 {
+    font-size: 18px;
+    color: #153d57;
+  }
+`
+
+export const ColorsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+`
+
+export const ColorOption = styled.div<ColorOptionProps>`
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: box-shadow 0.5s;
+  opacity: 0.6;
+
+  ${(props) =>
+    props.selected &&
+    css`
+      opacity: 1;
+      box-shadow: 1px 2px 1px #153d57;
+    `};
+`
+
+export const Interrogation = styled(IoIosHelpCircleOutline)``
+
+export const UploadInfosWrapper = styled.div`
+  padding: 24px;
+  border-radius: 12px;
+  background: #f6f6f6;
+  width: 48%;
+  height: 200px;
+
+  h3 {
+    font-size: 18px;
+    color: #153d57;
+  }
+
+  div {
+    margin-bottom: 10px;
+
+    h3 {
+      margin-bottom: 15px;
+    }
+
+    input {
+      margin-bottom: 8px;
+      border: 1px solid #d9d9d9;
+      padding: 10px;
+      width: 100%;
+      color: #153d57;
+      border-radius: 4px;
+
+      outline-color: #153d57;
+    }
+  }
+`

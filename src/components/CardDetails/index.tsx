@@ -1,11 +1,45 @@
 import * as S from './styles'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 const CardDetails = () => {
+  const inputNameRef = useRef<HTMLInputElement>(null)
+  const inputJobRef = useRef<HTMLInputElement>(null)
+
+  const [cardPrice, setCardPrice] = useState(12)
   const [quantity, setQuantity] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [name, setName] = useState('')
+  const [job, setJob] = useState('')
+  const [color, setColor] = useState(1)
+  const [formCompleted, setFormCompleted] = useState(false)
+
+  useEffect(() => {
+    setTotal(quantity * cardPrice)
+  }, [quantity, cardPrice])
+
+  useEffect(() => {
+    if (name && job && total) setFormCompleted(true)
+    else setFormCompleted(false)
+  }, [name, job, total])
 
   const handleChangeSelectedQuantity = useCallback((quantitySelected) => {
     setQuantity(quantitySelected)
+  }, [])
+
+  const handleInsertName = useCallback(() => {
+    if (inputNameRef.current) {
+      setName(inputNameRef.current.value)
+    }
+  }, [])
+
+  const handleInsertJob = useCallback(() => {
+    if (inputJobRef.current) {
+      setJob(inputJobRef.current.value)
+    }
+  }, [])
+
+  const handleColorSelected = useCallback((colorSelected) => {
+    setColor(colorSelected)
   }, [])
 
   return (
@@ -18,6 +52,62 @@ const CardDetails = () => {
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam,
           </p>
+
+          <S.CustomizationsWrapper>
+            <S.BackgoundColorsWrapper>
+              <h3>Custom Background</h3>
+              <S.ColorsWrapper>
+                <S.ColorOption
+                  onClick={() => handleColorSelected(1)}
+                  selected={color === 1 ? true : false}
+                  style={{ background: '#59C398' }}
+                />
+                <S.ColorOption
+                  onClick={() => handleColorSelected(2)}
+                  selected={color === 2 ? true : false}
+                  style={{ background: '#59A5E5' }}
+                />
+                <S.ColorOption
+                  onClick={() => handleColorSelected(3)}
+                  selected={color === 3 ? true : false}
+                  style={{ background: '#CF5289' }}
+                />
+                <S.ColorOption
+                  onClick={() => handleColorSelected(4)}
+                  selected={color === 4 ? true : false}
+                  style={{ background: '#FCCA4C' }}
+                />
+                <S.ColorOption
+                  onClick={() => handleColorSelected(5)}
+                  selected={color === 5 ? true : false}
+                  style={{ background: '#FCCA4C' }}
+                />
+                <S.ColorOption
+                  onClick={() => handleColorSelected(6)}
+                  selected={color === 6 ? true : false}
+                  style={{ background: '#FCCA4C' }}
+                />
+              </S.ColorsWrapper>
+            </S.BackgoundColorsWrapper>
+
+            <S.UploadInfosWrapper>
+              <div>
+                <h3>Your informations</h3>
+                <input
+                  ref={inputNameRef}
+                  placeholder="Your name"
+                  onChange={handleInsertName}
+                  type="text"
+                />
+                <input
+                  ref={inputJobRef}
+                  placeholder="Your job"
+                  onChange={handleInsertJob}
+                  type="text"
+                />
+              </div>
+            </S.UploadInfosWrapper>
+          </S.CustomizationsWrapper>
 
           <S.UnitsWrapper>
             <ul>
@@ -54,34 +144,15 @@ const CardDetails = () => {
             </ul>
             <div>
               <h2>
-                <span>$</span>1200.<span>65</span>
+                <span>$</span>
+                {total}
+                <span>.0</span>
               </h2>
-              <button>Add to cart</button>
+              <S.AddToCartButton disabled={!formCompleted}>
+                Add to cart
+              </S.AddToCartButton>
             </div>
           </S.UnitsWrapper>
-
-          <S.BackgoundColorsWrapper>
-            <h3>Custom Background</h3>
-            <S.ColorsWrapper>
-              <S.ColorOption>#59C398</S.ColorOption>
-              <S.ColorOption>#59A5E5</S.ColorOption>
-              <S.ColorOption>#CF5289</S.ColorOption>
-              <S.ColorOption>#FCCA4C</S.ColorOption>
-            </S.ColorsWrapper>
-            <S.Info>?</S.Info>
-          </S.BackgoundColorsWrapper>
-
-          <S.UploadInfosWrapper>
-            <div className="fieldWrapper">
-              <h3>Custom Name</h3>
-              <input placeholder="Your name" type="text" />
-            </div>
-            <div className="fieldWrapper">
-              <h3>Custom Job</h3>
-              <input placeholder="Your job" type="text" />
-            </div>
-            <button>Upload</button>
-          </S.UploadInfosWrapper>
         </S.Details>
       </S.Section>
     </S.Wrapper>
