@@ -19,11 +19,19 @@ const GlobalStyles = createGlobalStyle`
    font-family: 'Roboto', sans-serif;
    -webkit-font-smoothing: antialiased;
    font-size: 14px;
+   line-height: 22px;
  }
 
  h1, h2, h3, h4, h5, h6, strong, a {
    font-family: 'Rubik', sans-serif;
    font-weight: 500;
+ }
+
+ button {
+      outline: none;
+      border: none;
+      font-family: 'Roboto', sans-serif;
+      cursor:pointer;
  }
 `
 
