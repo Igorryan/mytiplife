@@ -1,16 +1,18 @@
 import * as S from './styles'
 import { useState, useCallback, useEffect, useRef } from 'react'
 
+import Card2 from '../Card2'
+
 const CardDetails = () => {
   const inputNameRef = useRef<HTMLInputElement>(null)
   const inputJobRef = useRef<HTMLInputElement>(null)
 
-  const [cardPrice, setCardPrice] = useState(12)
+  const cardPrice = 12
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
-  const [name, setName] = useState('')
-  const [job, setJob] = useState('')
-  const [color, setColor] = useState(1)
+  const [name, setName] = useState('Your name')
+  const [job, setJob] = useState('Your Job')
+  const [color, setColor] = useState('#59C398')
   const [formCompleted, setFormCompleted] = useState(false)
 
   useEffect(() => {
@@ -18,7 +20,8 @@ const CardDetails = () => {
   }, [quantity, cardPrice])
 
   useEffect(() => {
-    if (name && job && total) setFormCompleted(true)
+    if (name !== 'Your name' && job !== 'Your Job' && total)
+      setFormCompleted(true)
     else setFormCompleted(false)
   }, [name, job, total])
 
@@ -28,13 +31,15 @@ const CardDetails = () => {
 
   const handleInsertName = useCallback(() => {
     if (inputNameRef.current) {
-      setName(inputNameRef.current.value)
+      if (!inputNameRef.current.value) setName('Your name')
+      else setName(inputNameRef.current.value)
     }
   }, [])
 
   const handleInsertJob = useCallback(() => {
     if (inputJobRef.current) {
-      setJob(inputJobRef.current.value)
+      if (!inputJobRef.current.value) setJob('Your Job')
+      else setJob(inputJobRef.current.value)
     }
   }, [])
 
@@ -45,7 +50,9 @@ const CardDetails = () => {
   return (
     <S.Wrapper>
       <S.Section>
-        <S.Carousel></S.Carousel>
+        <S.Carousel>
+          <Card2 color={color} job={job} name={name} />
+        </S.Carousel>
         <S.Details>
           <h1>Sticker Card</h1>
           <p>
@@ -55,36 +62,36 @@ const CardDetails = () => {
 
           <S.CustomizationsWrapper>
             <S.BackgoundColorsWrapper>
-              <h3>Custom Background</h3>
+              <h3>Custom background</h3>
               <S.ColorsWrapper>
                 <S.ColorOption
-                  onClick={() => handleColorSelected(1)}
-                  selected={color === 1 ? true : false}
+                  onClick={() => handleColorSelected('#59C398')}
+                  selected={color === '#59C398' ? true : false}
                   style={{ background: '#59C398' }}
                 />
                 <S.ColorOption
-                  onClick={() => handleColorSelected(2)}
-                  selected={color === 2 ? true : false}
+                  onClick={() => handleColorSelected('#59A5E5')}
+                  selected={color === '#59A5E5' ? true : false}
                   style={{ background: '#59A5E5' }}
                 />
                 <S.ColorOption
-                  onClick={() => handleColorSelected(3)}
-                  selected={color === 3 ? true : false}
+                  onClick={() => handleColorSelected('#CF5289')}
+                  selected={color === '#CF5289' ? true : false}
                   style={{ background: '#CF5289' }}
                 />
                 <S.ColorOption
-                  onClick={() => handleColorSelected(4)}
-                  selected={color === 4 ? true : false}
+                  onClick={() => handleColorSelected('#FCCA4C')}
+                  selected={color === '#FCCA4C' ? true : false}
                   style={{ background: '#FCCA4C' }}
                 />
                 <S.ColorOption
-                  onClick={() => handleColorSelected(5)}
-                  selected={color === 5 ? true : false}
+                  onClick={() => handleColorSelected('#FCCA4C')}
+                  selected={color === '#FCCA4C' ? true : false}
                   style={{ background: '#FCCA4C' }}
                 />
                 <S.ColorOption
-                  onClick={() => handleColorSelected(6)}
-                  selected={color === 6 ? true : false}
+                  onClick={() => handleColorSelected('#FCCA4C')}
+                  selected={color === '#FCCA4C' ? true : false}
                   style={{ background: '#FCCA4C' }}
                 />
               </S.ColorsWrapper>
@@ -108,6 +115,14 @@ const CardDetails = () => {
               </div>
             </S.UploadInfosWrapper>
           </S.CustomizationsWrapper>
+
+          <S.UploadPhoto>
+            <input id="pictureUploader" type="file"></input>
+            <label htmlFor="pictureUploader">
+              <img src="/img/upload.svg" alt="upload" width="40" />
+              <h3>Send your picture</h3>
+            </label>
+          </S.UploadPhoto>
 
           <S.UnitsWrapper>
             <ul>

@@ -13,7 +13,6 @@ export const Wrapper = styled.main``
 
 export const Section = styled.section`
   display: flex;
-  align-items: center;
   justify-content: center;
 
   margin-top: 60px;
@@ -21,7 +20,6 @@ export const Section = styled.section`
 
 export const Carousel = styled.div`
   width: 500px;
-  height: 30px;
 `
 
 export const Details = styled.div`
@@ -45,7 +43,7 @@ export const UnitsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 15px;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
 
@@ -183,7 +181,7 @@ export const ColorOption = styled.div<ColorOptionProps>`
     props.selected &&
     css`
       opacity: 1;
-      box-shadow: 1px 2px 1px #153d57;
+      border: 2px solid rgba(21, 61, 87, 0.7);
     `};
 `
 
@@ -217,6 +215,33 @@ export const UploadInfosWrapper = styled.div`
       border-radius: 4px;
 
       outline-color: #153d57;
+    }
+  }
+`
+export const UploadPhoto = styled.div`
+  padding: 18px 24px;
+  border-radius: 12px;
+  background: #f6f6f6;
+
+  margin-top: 15px;
+  width: 100%;
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    img {
+      margin-right: 20px;
+    }
+
+    h3 {
+      font-size: 18px;
+      color: #153d57;
     }
   }
 `
