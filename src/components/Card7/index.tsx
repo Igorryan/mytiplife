@@ -7,11 +7,13 @@ interface IProps {
 }
 
 const Card7 = ({ color, name, job }: IProps) => (
-  <S.CardOption>
+  <S.CardOption className="card">
     <div className="content" style={{ backgroundColor: color }}>
-      <div className="imageUploadedWrapper">
-        <div className="imageUploaded"></div>
-      </div>
+      <img
+        className="illustration"
+        src="/img/illustration1.svg"
+        alt="illustration of a man playing the drums"
+      />
       <h2>{name}</h2>
       <p>{job}</p>
       <img
@@ -19,6 +21,8 @@ const Card7 = ({ color, name, job }: IProps) => (
         src="/img/qrcode_example.png"
         alt="QR Code Example"
       />
+    </div>
+    <div className="footer">
       <img className="logoCard" src="/img/logo_v2.svg" alt="MyTipLife Logo" />
     </div>
   </S.CardOption>

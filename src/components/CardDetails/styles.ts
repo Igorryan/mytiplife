@@ -14,12 +14,7 @@ export const Wrapper = styled.main``
 export const Section = styled.section`
   display: flex;
   justify-content: center;
-
   margin-top: 60px;
-`
-
-export const Carousel = styled.div`
-  width: 500px;
 `
 
 export const Details = styled.div`

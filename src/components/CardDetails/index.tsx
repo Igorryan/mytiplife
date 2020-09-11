@@ -1,7 +1,26 @@
 import * as S from './styles'
 import { useState, useCallback, useEffect, useRef } from 'react'
 
+import Carousel from '../Carousel'
+
+import Card1 from '../Card1'
 import Card2 from '../Card2'
+import Card3 from '../Card3'
+import Card4 from '../Card4'
+import Card5 from '../Card5'
+import Card6 from '../Card6'
+import Card7 from '../Card7'
+
+const colorsData = [
+  '#59C398',
+  '#59A5E5',
+  '#CF5289',
+  '#FCCA4C',
+  '#FCCA4D',
+  '#FCCA4E'
+]
+
+const unitsCardsDataOptions = [100, 500, 1000]
 
 const CardDetails = () => {
   const inputNameRef = useRef<HTMLInputElement>(null)
@@ -50,9 +69,16 @@ const CardDetails = () => {
   return (
     <S.Wrapper>
       <S.Section>
-        <S.Carousel>
-          <Card2 color={color} job={job} name={name} />
-        </S.Carousel>
+        <Carousel>
+          <Card1 color={color} name={name} job={job} />
+          <Card2 color={color} name={name} job={job} />
+          <Card3 color={color} name={name} job={job} />
+          <Card4 color={color} name={name} job={job} />
+          <Card5 color={color} name={name} job={job} />
+          <Card6 color={color} name={name} job={job} />
+          <Card7 color={color} name={name} job={job} />
+        </Carousel>
+
         <S.Details>
           <h1>Sticker Card</h1>
           <p>
@@ -64,36 +90,14 @@ const CardDetails = () => {
             <S.BackgoundColorsWrapper>
               <h3>Custom background</h3>
               <S.ColorsWrapper>
-                <S.ColorOption
-                  onClick={() => handleColorSelected('#59C398')}
-                  selected={color === '#59C398' ? true : false}
-                  style={{ background: '#59C398' }}
-                />
-                <S.ColorOption
-                  onClick={() => handleColorSelected('#59A5E5')}
-                  selected={color === '#59A5E5' ? true : false}
-                  style={{ background: '#59A5E5' }}
-                />
-                <S.ColorOption
-                  onClick={() => handleColorSelected('#CF5289')}
-                  selected={color === '#CF5289' ? true : false}
-                  style={{ background: '#CF5289' }}
-                />
-                <S.ColorOption
-                  onClick={() => handleColorSelected('#FCCA4C')}
-                  selected={color === '#FCCA4C' ? true : false}
-                  style={{ background: '#FCCA4C' }}
-                />
-                <S.ColorOption
-                  onClick={() => handleColorSelected('#FCCA4C')}
-                  selected={color === '#FCCA4C' ? true : false}
-                  style={{ background: '#FCCA4C' }}
-                />
-                <S.ColorOption
-                  onClick={() => handleColorSelected('#FCCA4C')}
-                  selected={color === '#FCCA4C' ? true : false}
-                  style={{ background: '#FCCA4C' }}
-                />
+                {colorsData.map((c, i) => (
+                  <S.ColorOption
+                    key={i}
+                    onClick={() => handleColorSelected(c)}
+                    selected={color === c ? true : false}
+                    style={{ background: c }}
+                  />
+                ))}
               </S.ColorsWrapper>
             </S.BackgoundColorsWrapper>
 
@@ -119,43 +123,28 @@ const CardDetails = () => {
           <S.UploadPhoto>
             <input id="pictureUploader" type="file"></input>
             <label htmlFor="pictureUploader">
-              <img src="/img/upload.svg" alt="upload" width="40" />
+              <img src="/img/upload.svg" alt="upload" width="30" />
               <h3>Send your picture</h3>
             </label>
           </S.UploadPhoto>
 
           <S.UnitsWrapper>
             <ul>
-              <li>
-                <input
-                  onClick={() => handleChangeSelectedQuantity(100)}
-                  type="radio"
-                  id="oneHundred"
-                  name="quantityCard"
-                  value="100"
-                />
-                <label htmlFor="oneHundred">100</label>
-              </li>
-              <li>
-                <input
-                  onClick={() => handleChangeSelectedQuantity(500)}
-                  type="radio"
-                  id="fiveHundred"
-                  name="quantityCard"
-                  value="500"
-                />
-                <label htmlFor="fiveHundred">500</label>
-              </li>
-              <li>
-                <input
-                  onClick={() => handleChangeSelectedQuantity(1000)}
-                  type="radio"
-                  id="thousand"
-                  name="quantityCard"
-                  value="1000"
-                />
-                <label htmlFor="thousand">1000</label>
-              </li>
+              {unitsCardsDataOptions.map((units, i) => {
+                const idName = `id_${units}`
+                return (
+                  <li key={i}>
+                    <input
+                      onClick={() => handleChangeSelectedQuantity(units)}
+                      type="radio"
+                      id={idName}
+                      name="quantityCard"
+                      value={units}
+                    />
+                    <label htmlFor={idName}>{units}</label>
+                  </li>
+                )
+              })}
             </ul>
             <div>
               <h2>

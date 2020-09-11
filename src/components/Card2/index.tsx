@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const Card2 = ({ color, name, job }: IProps) => (
-  <S.CardOption>
+  <S.CardOption className="card">
     <div className="content" style={{ backgroundColor: color }}>
       <h2>{name}</h2>
       <p>{job}</p>
