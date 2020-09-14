@@ -1,18 +1,26 @@
 import styled from 'styled-components'
 
 export const CardOption = styled.div`
-  display: flex;
-  position: relative;
-
-  padding: 0rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
   width: 400px;
-  height: 565px;
+  height: 520px;
+  border-radius: 5px;
+
+  position: relative;
+  transition: all 1s;
+  cursor: pointer;
   background: url('/img/profile_example.png');
+
+  &.active {
+    height: 565px;
+  }
 
   div.content {
     display: flex;
     position: absolute;
     bottom: 0;
+    border-radius: 5px;
     width: 100%;
   }
 
@@ -23,6 +31,7 @@ export const CardOption = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0 0 0 5px;
 
     border-top-right-radius: 3.5rem;
 

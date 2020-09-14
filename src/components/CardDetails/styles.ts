@@ -9,12 +9,11 @@ interface ColorOptionProps {
   selected?: boolean
 }
 
-export const Wrapper = styled.main``
-
-export const Section = styled.section`
+export const Wrapper = styled.main`
   display: flex;
   justify-content: center;
-  margin-top: 60px;
+  align-items: center;
+  margin-bottom: 3rem;
 `
 
 export const Details = styled.div`
@@ -26,7 +25,7 @@ export const Details = styled.div`
     font-size: 26px;
     font-weight: 700;
     color: #153d57;
-    margin-bottom: 30px;
+    margin-bottom: 14px;
   }
 
   p {
@@ -127,6 +126,8 @@ export const UnitsWrapper = styled.div`
 export const AddToCartButton = styled.button<ButtonProps>`
   width: 150px;
   height: 50px;
+  position: absolute;
+  right: 0;
 
   background: ${(props) => (props.disabled ? '#989898' : '#11cea2')};
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};

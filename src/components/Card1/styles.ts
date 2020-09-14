@@ -1,15 +1,33 @@
 import styled from 'styled-components'
 
 export const CardOption = styled.div`
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  width: 400px;
+  height: 520px;
+
+  border-radius: 3px;
+  float: left;
+  position: relative;
+  transition: all 1s;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  &.active {
+    height: 565px;
+  }
+
   div.content {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border-radius: 5px;
     z-index: 10;
 
-    width: 400px;
-    height: 565px;
+    width: 100%;
+    height: 100%;
     padding: 4rem;
     transition: background-color 0.2s;
 
@@ -92,5 +110,6 @@ export const CardOption = styled.div`
     height: 248px;
     margin-top: -248px;
     z-index: 0;
+    border-radius: 5px;
   }
 `

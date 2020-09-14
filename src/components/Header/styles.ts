@@ -8,10 +8,11 @@ export const Wrapper = styled.main`
   width: 100vw;
   padding: 3rem 0;
   border: 1px solid #eeeeee;
+  margin-bottom: 4rem;
 
   img {
     width: 120px;
-    margin-right: 22px;
+    margin-right: 30px;
   }
 
   a {
@@ -34,7 +35,7 @@ export const Wrapper = styled.main`
 export const SearchBar = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 22px;
+  margin-left: 34px;
   height: 30px;
   border-radius: 8px;
   border: 1px solid #bdbdbd;

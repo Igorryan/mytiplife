@@ -1,20 +1,33 @@
 import styled from 'styled-components'
 
 export const CardOption = styled.div`
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
   width: 400px;
-  height: 565px;
+  height: 520px;
+  float: left;
+  position: relative;
+  transition: all 1s;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  border-radius: 0 0 5px 5px;
   background: #fafafa;
+
+  &.active {
+    height: 565px;
+  }
 
   div.content {
     display: flex;
     justify-content: center;
     flex-direction: column;
     text-align: right;
+    border-radius: 5px 5px 0 0;
 
     padding: 4rem;
     width: 100%;
+    height: 100%;
 
     h2 {
       text-transform: uppercase;
@@ -53,6 +66,7 @@ export const CardOption = styled.div`
     background: url('/img/mask03.svg');
     height: 100%;
     background-size: cover;
+    border-radius: 0 0 5px 5px;
     justify-content: center;
   }
 `

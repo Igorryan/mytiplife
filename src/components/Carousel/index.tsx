@@ -52,8 +52,6 @@ const Carousel: React.FC = ({ children }) => {
       }
 
       setCurrent(currentIndex)
-
-      console.log({ current })
     },
     [current]
   )
@@ -66,11 +64,9 @@ const Carousel: React.FC = ({ children }) => {
             return (
               <div
                 key={i}
-                style={{
-                  opacity: current === i ? 1 : 0.4,
-                  overflow: 'hidden'
-                }}
-                className="cardContainer"
+                className={`cardContainer ${
+                  current === i ? 'active' : 'disabled'
+                }`}
                 onClick={() => {
                   handleChangeComponent(i)
                 }}

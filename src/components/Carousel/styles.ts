@@ -3,15 +3,20 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   width: 520px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3rem;
 
   .slider {
     width: 500px;
     overflow: hidden;
-    margin-top: -10px;
   }
   .slider .thumbs {
+    display: flex;
+    align-items: center;
     position: relative;
-    height: 565px;
+    height: 580px;
     width: max-content;
     transition: transform 1s;
   }
@@ -19,18 +24,10 @@ export const Wrapper = styled.div`
   .slider .thumbs div.cardContainer {
     float: left;
     transition: opacity 1s;
-  }
+    margin-bottom: 10px;
 
-  .slider .thumbs div.card {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    border-radius: 3px;
-    float: left;
-    position: relative;
-    transition: all 1s;
-  }
-
-  div.card {
-    cursor: pointer;
+    &.active .card {
+      height: 565px;
+    }
   }
 `
