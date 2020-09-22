@@ -1,7 +1,11 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.div`
-  width: 520px;
+interface ICarouselProps {
+  cardFocusWidth: number
+  cardFocusHeight: number
+}
+
+export const Wrapper = styled.div<ICarouselProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -9,7 +13,6 @@ export const Wrapper = styled.div`
   margin-right: 3rem;
 
   .slider {
-    width: 500px;
     overflow: hidden;
   }
   .slider .thumbs {
@@ -27,7 +30,11 @@ export const Wrapper = styled.div`
     margin-bottom: 10px;
 
     &.active .card {
-      height: 565px;
+      ${({ cardFocusHeight, cardFocusWidth }) =>
+        css`
+          width: ${cardFocusWidth}px;
+          height: ${cardFocusHeight}px;
+        `};
     }
   }
 `

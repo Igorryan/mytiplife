@@ -1,5 +1,6 @@
-import StickerCard from 'pages/StickerCard'
+//import PocketSizeCards from 'pages/PocketSizeCards'
+import BigPlasticCards from 'pages/BigPlasticCards'
 
 export default function Home() {
-  return <StickerCard />
+  return <BigPlasticCards />
 }

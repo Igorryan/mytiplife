@@ -29,9 +29,9 @@ const products = [
 
 const RelatedProducts = () => {
   const handleMouseEnter = useCallback((index: number) => {
-    if (index === 0) $('.productSelected').animate({ left: '0px' }, 0)
-    if (index === 1) $('.productSelected').animate({ left: '340px' }, 0)
-    if (index === 2) $('.productSelected').animate({ left: '680px' }, 0)
+    if (index === 0) $('.productSelected').animate({ left: '0px' }, 10)
+    if (index === 1) $('.productSelected').animate({ left: '340px' }, 10)
+    if (index === 2) $('.productSelected').animate({ left: '680px' }, 10)
   }, [])
 
   return (

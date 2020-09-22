@@ -1,6 +1,12 @@
 import * as S from './styles'
 
-const HowToUse = () => (
+interface IProps {
+  img1: string
+  img2: string
+  img3: string
+}
+
+const HowToUse: React.FC<IProps> = ({ img1, img2, img3 }) => (
   <S.Wrapper>
     <h1>How to use your sticker</h1>
     <img
@@ -25,15 +31,15 @@ const HowToUse = () => (
 
     <div>
       <img
-        src="/img/howtouse1.png"
+        src={img1}
         alt="waitress taking an order. She is wearing her mytiplife badge around her neck."
       />
       <img
-        src="/img/howtouse2.png"
+        src={img2}
         alt="waitress taking an order. She is wearing her mytiplife badge around her neck."
       />
       <img
-        src="/img/howtouse3.png"
+        src={img3}
         alt="waitress taking an order. She is wearing her mytiplife badge around her neck."
       />
     </div>

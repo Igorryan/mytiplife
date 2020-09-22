@@ -14,10 +14,6 @@ export const CardOption = styled.div`
 
   cursor: pointer;
 
-  &.active {
-    height: 565px;
-  }
-
   div.content {
     display: flex;
     align-items: center;

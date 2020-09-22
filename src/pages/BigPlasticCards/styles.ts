@@ -10,12 +10,14 @@ interface ColorOptionProps {
 }
 
 export const Wrapper = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 3rem;
-`
+  overflow-x: hidden;
 
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`
 export const Details = styled.div`
   width: 400px;
   margin-left: 30px;

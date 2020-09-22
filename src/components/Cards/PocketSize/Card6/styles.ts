@@ -5,11 +5,14 @@ export const CardOption = styled.div`
   margin: 10px;
   width: 400px;
   height: 520px;
-  border-radius: 5px;
   float: left;
   position: relative;
   transition: all 1s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 5px 5px;
+  background: #fafafa;
 
   &.active {
     height: 565px;
@@ -17,57 +20,54 @@ export const CardOption = styled.div`
 
   div.content {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
-    z-index: 10;
-    border-radius: 5px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+
+    padding: 4rem;
     width: 100%;
     height: 100%;
 
-    padding: 4rem;
-    transition: background-color 0.2s;
-
     h2 {
-      margin-top: 4rem;
-
       text-transform: uppercase;
       font-weight: 900;
       font-size: 2.5rem;
       color: #fff;
+      z-index: 1;
+      margin-top: 1.5rem;
     }
 
     p {
       color: #fff;
       font-size: 2rem;
       font-weight: 500;
+      z-index: 1;
       margin-top: 0.5rem;
     }
 
-    img.qrCode {
-      width: 24rem;
-      height: 24rem;
-
-      margin-top: 2rem;
-      z-index: 1;
+    img.illustration {
+      position: absolute;
+      margin-left: -4rem;
     }
 
-    img.logoCard {
-      width: 34rem;
-      margin-top: 5rem;
+    img.qrCode {
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+      width: 22rem;
+      height: 22rem;
       z-index: 1;
     }
   }
 
-  &:after {
-    content: '';
-    background: #fafafa;
-    background-size: cover;
-    position: absolute;
-    width: 400px;
-    height: 168px;
+  div.footer {
+    display: flex;
+    background: url('/img/logo_with_illustration.svg') no-repeat;
+    height: 100%;
+    background-position: center;
+    background-size: 80%;
     border-radius: 0 0 5px 5px;
-    margin-top: -168px;
-    z-index: 0;
+    justify-content: center;
   }
 `

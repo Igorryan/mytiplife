@@ -1,42 +1,53 @@
 import * as S from './styles'
 import $ from 'jquery'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import React from 'react'
 
-const Carousel: React.FC = ({ children }) => {
+interface ICarouselProps {
+  width: number
+  sliderWidth: number
+  cardFocusWidth?: number
+  cardFocusHeight?: number
+}
+
+const Carousel: React.FC<ICarouselProps> = ({
+  children,
+  width,
+  sliderWidth,
+  cardFocusWidth = 400,
+  cardFocusHeight = 565
+}) => {
   const [current, setCurrent] = useState(0)
 
   //Transformando children em array
   const childrenArray = React.Children.toArray(children)
 
+  useEffect(() => {
+    console.log(childrenArray[0])
+  })
+
   const handleChangeComponent = useCallback(
     (currentIndex: number) => {
       const move = (index: number): number => {
-        switch (index) {
-          case 0:
-            return 0
-          case 1:
-            return 382
-          case 2:
-            return 802
-          case 3:
-            return 1222
-          case 4:
-            return 1642
-          case 5:
-            return 2062
-          case 6:
-            return 2442
-          default:
-            return 0
+        const _91percentComponentWidth = (91 * width) / 100
+
+        if (index === 1) {
+          return _91percentComponentWidth
         }
+
+        if (index === 0 || index > childrenArray.length - 1) {
+          return 0
+        }
+
+        return _91percentComponentWidth + (index - 1) * width
       }
 
       if (currentIndex === current) {
         console.log('next')
         $('.thumbs').css('transform', `translateX(-${move(current + 1)}px)`)
-        const newCurrent = current === 6 ? 0 : current + 1
+        const newCurrent =
+          current === childrenArray.length - 1 ? 0 : current + 1
         setCurrent(newCurrent)
         return
       }
@@ -53,12 +64,16 @@ const Carousel: React.FC = ({ children }) => {
 
       setCurrent(currentIndex)
     },
-    [current]
+    [current, childrenArray, width]
   )
 
   return (
-    <S.Wrapper>
-      <div className="slider">
+    <S.Wrapper
+      cardFocusHeight={cardFocusHeight}
+      cardFocusWidth={cardFocusWidth}
+      style={{ width: sliderWidth }}
+    >
+      <div style={{ width: sliderWidth }} className="slider">
         <div className="thumbs">
           {childrenArray.map((element, i) => {
             return (
