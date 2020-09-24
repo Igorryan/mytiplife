@@ -7,7 +7,7 @@ export const CardOption = styled.div`
   position: relative;
 
   width: 500px;
-  height: 500px;
+  height: 380px;
   margin: 10px;
 
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);

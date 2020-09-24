@@ -1,6 +1,7 @@
 //import PocketSizeCards from 'pages/PocketSizeCards'
-import BigPlasticCards from 'pages/BigPlasticCards'
+import SmallAcrilic from 'pages/SmallAcrilic'
+// import BigPlasticCards from 'pages/BigPlasticCards'
 
 export default function Home() {
-  return <BigPlasticCards />
+  return <SmallAcrilic />
 }

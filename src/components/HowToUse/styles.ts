@@ -17,7 +17,7 @@ export const Wrapper = styled.main`
 
     position: absolute;
     z-index: 4;
-    margin-left: 64.5rem;
+    margin-left: 30.5rem;
   }
 
   .small_stars {

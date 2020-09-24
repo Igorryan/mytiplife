@@ -7,7 +7,7 @@ export const CardOption = styled.div`
   justify-content: center;
 
   width: 500px;
-  height: 500px;
+  height: 380px;
   margin: 10px;
 
   position: relative;

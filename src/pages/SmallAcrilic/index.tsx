@@ -8,10 +8,9 @@ import Footer from '../../components/Footer'
 import HowToUse from '../../components/HowToUse'
 import Carousel from '../../components/Carousel'
 
-import Card1 from '../../components/Cards/BigPlastic/Card1'
-import Card2 from '../../components/Cards/BigPlastic/Card2'
-import Card3 from '../../components/Cards/BigPlastic/Card3'
-import Card4 from '../../components/Cards/BigPlastic/Card4'
+import Card1 from '../../components/Cards/SmallAcrilic/Card1'
+import Card2 from '../../components/Cards/SmallAcrilic/Card2'
+import Card3 from '../../components/Cards/SmallAcrilic/Card3'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
@@ -26,7 +25,7 @@ const colorsData = [
 
 const unitsCardsDataOptions = [100, 500, 1000]
 
-const BigPlasticCards = () => {
+const SmallAcrilic = () => {
   const inputNameRef = useRef<HTMLInputElement>(null)
   const inputJobRef = useRef<HTMLInputElement>(null)
   const inputSendFileRef = useRef<HTMLInputElement>(null)
@@ -82,18 +81,17 @@ const BigPlasticCards = () => {
       <section>
         <Carousel
           width={520}
-          sliderWidth={665}
-          cardFocusHeight={550}
-          cardFocusWidth={550}
+          sliderWidth={650}
+          cardFocusWidth={540}
+          cardFocusHeight={450}
         >
           <Card1 color={color} name={name} job={job} />
           <Card2 color={color} name={name} job={job} />
           <Card3 color={color} name={name} job={job} />
-          <Card4 color={color} name={name} job={job} />
         </Carousel>
 
         <S.Details>
-          <h1>Big Plastic Tip Jar</h1>
+          <h1>Small Acrilic TipJar</h1>
           <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam,
@@ -201,4 +199,4 @@ const BigPlasticCards = () => {
   )
 }
 
-export default BigPlasticCards
+export default SmallAcrilic
