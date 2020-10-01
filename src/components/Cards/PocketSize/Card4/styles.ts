@@ -10,7 +10,9 @@ export const CardOption = styled.div`
   position: relative;
   transition: all 1s;
   cursor: pointer;
-  background: url('/img/profile_example.png');
+
+  background-size: cover;
+  background-position: center;
 
   &.active {
     height: 565px;

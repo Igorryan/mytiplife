@@ -14,9 +14,7 @@ export const CardOption = styled.div`
   cursor: pointer;
 
   div.img {
-    background: url('/img/profile_example_big_plastic.png');
     background-size: cover;
-
     width: 60%;
   }
 

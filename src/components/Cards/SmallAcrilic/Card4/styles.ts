@@ -21,33 +21,57 @@ export const CardOption = styled.div`
 
   div {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     right: 0;
-    width: 46%;
-    height: 87%;
+    width: 42%;
+    height: 80%;
     border-radius: 3rem;
     margin-right: 5%;
+
+    svg.backgroundMask {
+      position: absolute;
+      z-index: 2;
+    }
+
+    svg.bottomMask {
+      position: absolute;
+      bottom: -2.2rem;
+      z-index: 1;
+    }
   }
 
   h2 {
     text-transform: uppercase;
+    font-size: 1.8rem;
     font-weight: 900;
     color: #fff;
+    z-index: 3;
+    margin-top: 1.5rem;
   }
 
   p {
-    color: #fff;
+    color: #151515;
     font-weight: 600;
+    z-index: 4;
+    text-align: center;
+    background: #ffe066;
+    width: 15.5rem;
+    padding: 1rem 0;
+    border-radius: 3rem;
+    position: absolute;
+    top: -2rem;
   }
 
   .qrCode {
-    width: 18rem;
+    width: 16rem;
     margin: 2rem 0;
+    z-index: 3;
   }
 
   .logoCard {
-    margin-top: 1rem;
+    z-index: 3;
   }
 `

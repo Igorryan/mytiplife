@@ -7,20 +7,18 @@ interface IProps {
   image: string
 }
 
-const Card4 = ({ image, color, name, job }: IProps) => (
-  <S.CardOption className="card">
-    <div
-      style={{
-        backgroundImage: image
-          ? `url('${image}')`
-          : 'url(/img/card_upload5.svg)'
-      }}
-      className="img"
-    ></div>
-
-    <div className="color" style={{ backgroundColor: color }}>
-      <p>{job}</p>
+const Card6 = ({ image, color, name, job }: IProps) => (
+  <S.CardOption
+    style={{
+      backgroundImage: image ? `url('${image}')` : 'url(/img/card_upload3.svg)'
+    }}
+    className="card"
+  >
+    <div>
       <h2>{name}</h2>
+    </div>
+    <div>
+      <p>{job}</p>
       <img
         className="qrCode"
         src="/img/qrcode_example.png"
@@ -31,8 +29,10 @@ const Card4 = ({ image, color, name, job }: IProps) => (
         src="/img/logo_v2_white.svg"
         alt="MyTipLife Logo"
       />
+
+      <div style={{ background: color }}></div>
     </div>
   </S.CardOption>
 )
 
-export default Card4
+export default Card6

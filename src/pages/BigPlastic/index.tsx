@@ -13,7 +13,7 @@ import Card2 from '../../components/Cards/BigPlastic/Card2'
 import Card3 from '../../components/Cards/BigPlastic/Card3'
 import Card4 from '../../components/Cards/BigPlastic/Card4'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 const colorsData = [
   '#59C398',
@@ -37,20 +37,37 @@ const BigPlasticCards = () => {
   const [name, setName] = useState('Your name')
   const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
+  const [image, setImage] = useState('')
   const [formCompleted, setFormCompleted] = useState(false)
+  const [imageSubmited, setImageSubmited] = useState<FormData>()
 
   useEffect(() => {
     setTotal(quantity * cardPrice)
   }, [quantity, cardPrice])
 
   useEffect(() => {
-    if (name !== 'Your name' && job !== 'Your Job' && total)
+    if (name !== 'Your name' && job !== 'Your Job' && total && imageSubmited)
       setFormCompleted(true)
     else setFormCompleted(false)
-  }, [name, job, total])
+  }, [name, job, total, imageSubmited])
 
-  const handleSendImage = useCallback((image) => {
-    console.log(image)
+  const handleSendImage = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      //Salvando imagem em estado
+      const data = new FormData()
+      data.append('avatar', e.target.files[0])
+      setImageSubmited(data)
+
+      //Exibindo imagem nos cards
+      const file = new FileReader()
+      file.onload = function (event) {
+        const result = event.target?.result
+        if (typeof result === 'string') setImage(result)
+        console.log(result)
+      }
+
+      file.readAsDataURL(e.target.files[0])
+    }
   }, [])
 
   const handleChangeSelectedQuantity = useCallback((quantitySelected) => {
@@ -87,9 +104,9 @@ const BigPlasticCards = () => {
           cardFocusWidth={550}
         >
           <Card1 color={color} name={name} job={job} />
-          <Card2 color={color} name={name} job={job} />
-          <Card3 color={color} name={name} job={job} />
-          <Card4 color={color} name={name} job={job} />
+          <Card2 image={image} color={color} name={name} job={job} />
+          <Card3 image={image} color={color} name={name} job={job} />
+          <Card4 image={image} color={color} name={name} job={job} />
         </Carousel>
 
         <S.Details>
@@ -136,7 +153,7 @@ const BigPlasticCards = () => {
           <S.UploadPhoto>
             <input
               ref={inputSendFileRef}
-              onChange={(e) => handleSendImage(e.currentTarget.files)}
+              onChange={handleSendImage}
               id="pictureUploader"
               type="file"
             ></input>

@@ -16,8 +16,10 @@ export const CardOption = styled.div`
   justify-content: space-between;
   position: relative;
 
+  background-position: center;
+  background-size: cover;
+
   padding: 2rem;
-  background: url('/img/profile_example.png');
 
   div.background {
     position: absolute;
@@ -42,6 +44,7 @@ export const CardOption = styled.div`
 
     img {
       width: 18rem;
+      height: 18rem;
     }
 
     div.infos {

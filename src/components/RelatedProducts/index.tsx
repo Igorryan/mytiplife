@@ -9,21 +9,21 @@ const products = [
     title: 'Small Acrilic TipJar with Sticker',
     description:
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,',
-    link: 'https://www.linkedin.com/in/igorryan/'
+    link: '/SmallAcrilic'
   },
   {
     photo: '/img/product2.png',
     title: 'Big Plastic Tip Jar with Sticker',
     description:
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,',
-    link: 'https://www.linkedin.com/in/igorryan/'
+    link: '/BigPlastic'
   },
   {
     photo: '/img/product3.png',
     title: 'Pocket Size Business Card',
     description:
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,',
-    link: 'https://www.linkedin.com/in/igorryan/'
+    link: '/PocketSize'
   }
 ]
 

@@ -54,9 +54,17 @@ export const CardOption = styled.div`
       width: 10rem;
       height: 10rem;
       border-radius: 50%;
-      background-image: url('/img/profile_example.png');
       background-size: contain;
       background-position: center;
+      position: relative;
+
+      img {
+        position: absolute;
+        object-fit: cover;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+      }
 
       &:after {
         content: '';

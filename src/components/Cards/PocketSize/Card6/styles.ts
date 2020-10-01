@@ -64,7 +64,7 @@ export const CardOption = styled.div`
   div.footer {
     display: flex;
     background: url('/img/logo_with_illustration.svg') no-repeat;
-    height: 100%;
+    height: 40%;
     background-position: center;
     background-size: 80%;
     border-radius: 0 0 5px 5px;

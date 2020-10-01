@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const CardOption = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
   justify-content: center;
 
   width: 500px;
@@ -14,30 +13,54 @@ export const CardOption = styled.div`
 
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
   transition: all 1s;
+  background-position: center;
+  background-size: cover;
 
   cursor: pointer;
 
   div:nth-child(1) {
-    background-size: cover;
-    background-position: center;
     width: 50%;
-    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 2rem;
+    padding-bottom: 3rem;
   }
 
   div:nth-child(2) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    position: relative;
     right: 0;
     width: 50%;
     height: 100%;
+    padding-bottom: 3rem;
+    margin-right: 3rem;
+
+    div {
+      width: 100%;
+      height: 45%;
+      position: absolute;
+      z-index: 0;
+      border-top-left-radius: 3rem;
+      border-top-right-radius: 3rem;
+      bottom: 0;
+    }
   }
 
   h2 {
     text-transform: uppercase;
     font-weight: 900;
     color: #fff;
+    z-index: 1;
+    writing-mode: vertical-rl;
+    font-size: 7rem;
+    line-height: 6.5rem;
+    width: 85%;
+    height: 90%;
+    transform: rotate(180deg);
+    word-wrap: break-word;
   }
 
   p {
@@ -48,9 +71,11 @@ export const CardOption = styled.div`
   .qrCode {
     width: 18rem;
     margin: 2rem 0;
+    z-index: 1;
   }
 
   .logoCard {
     margin-top: 1rem;
+    z-index: 1;
   }
 `

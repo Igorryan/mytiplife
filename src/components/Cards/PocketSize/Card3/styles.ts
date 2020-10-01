@@ -16,12 +16,14 @@ export const CardOption = styled.div`
     z-index: 0;
     width: 40rem;
     height: 46rem;
-
-    background-image: url('/img/profile_example.png');
     background-repeat: no-repeat;
-    background-size: cover;
     border-radius: 5px 5px 0 0;
-    background-position: center;
+
+    img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
   }
 
   div.content {

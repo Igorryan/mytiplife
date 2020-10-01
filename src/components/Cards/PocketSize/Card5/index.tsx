@@ -4,10 +4,16 @@ interface IProps {
   color: string
   name: string
   job: string
+  image: string
 }
 
-const Card5 = ({ color, name, job }: IProps) => (
-  <S.CardOption className="card">
+const Card5 = ({ image, color, name, job }: IProps) => (
+  <S.CardOption
+    style={{
+      backgroundImage: image ? `url(${image})` : 'url(/img/card_upload2.svg)'
+    }}
+    className="card"
+  >
     <div className="background" style={{ backgroundColor: color }}></div>
     <div className="logoWrapper">
       <img

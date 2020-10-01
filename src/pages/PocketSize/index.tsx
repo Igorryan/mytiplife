@@ -15,7 +15,7 @@ import Card4 from '../../components/Cards/PocketSize/Card4'
 import Card5 from '../../components/Cards/PocketSize/Card5'
 import Card6 from '../../components/Cards/PocketSize/Card6'
 import Card7 from '../../components/Cards/PocketSize/Card7'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 const colorsData = [
   '#59C398',
@@ -39,20 +39,37 @@ const PocketSizeCards = () => {
   const [name, setName] = useState('Your name')
   const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
+  const [image, setImage] = useState('')
   const [formCompleted, setFormCompleted] = useState(false)
+  const [imageSubmited, setImageSubmited] = useState<FormData>()
 
   useEffect(() => {
     setTotal(quantity * cardPrice)
   }, [quantity, cardPrice])
 
   useEffect(() => {
-    if (name !== 'Your name' && job !== 'Your Job' && total)
+    if (name !== 'Your name' && job !== 'Your Job' && total && imageSubmited)
       setFormCompleted(true)
     else setFormCompleted(false)
-  }, [name, job, total])
+  }, [name, job, total, imageSubmited])
 
-  const handleSendImage = useCallback((image) => {
-    console.log(image)
+  const handleSendImage = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      //Salvando imagem em estado
+      const data = new FormData()
+      data.append('avatar', e.target.files[0])
+      setImageSubmited(data)
+
+      //Exibindo imagem nos cards
+      const file = new FileReader()
+      file.onload = function (event) {
+        const result = event.target?.result
+        if (typeof result === 'string') setImage(result)
+        console.log(result)
+      }
+
+      file.readAsDataURL(e.target.files[0])
+    }
   }, [])
 
   const handleChangeSelectedQuantity = useCallback((quantitySelected) => {
@@ -83,11 +100,11 @@ const PocketSizeCards = () => {
 
       <section>
         <Carousel width={420} sliderWidth={500}>
-          <Card1 color={color} name={name} job={job} />
+          <Card1 image={image} color={color} name={name} job={job} />
           <Card2 color={color} name={name} job={job} />
-          <Card3 color={color} name={name} job={job} />
-          <Card4 color={color} name={name} job={job} />
-          <Card5 color={color} name={name} job={job} />
+          <Card3 image={image} color={color} name={name} job={job} />
+          <Card4 image={image} color={color} name={name} job={job} />
+          <Card5 image={image} color={color} name={name} job={job} />
           <Card6 color={color} name={name} job={job} />
           <Card7 color={color} name={name} job={job} />
         </Carousel>
@@ -136,7 +153,7 @@ const PocketSizeCards = () => {
           <S.UploadPhoto>
             <input
               ref={inputSendFileRef}
-              onChange={(e) => handleSendImage(e.currentTarget.files)}
+              onChange={handleSendImage}
               id="pictureUploader"
               type="file"
             ></input>

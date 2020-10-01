@@ -4,11 +4,14 @@ interface IProps {
   color: string
   name: string
   job: string
+  image: string
 }
 
-const Card3 = ({ color, name, job }: IProps) => (
+const Card3 = ({ image, color, name, job }: IProps) => (
   <S.CardOption className="card">
-    <div className="imageUploaded"></div>
+    <div className="imageUploaded">
+      <img src={image ? image : '/img/card_upload2.svg'} alt="" />
+    </div>
 
     <div className="content" style={{ backgroundColor: color }}>
       <div className="wrapper">

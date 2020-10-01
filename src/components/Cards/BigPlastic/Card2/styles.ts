@@ -12,7 +12,6 @@ export const CardOption = styled.div`
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
   transition: all 1s;
 
-  background: url('/img/profile_example_big_plastic.png');
   background-size: cover;
 
   cursor: pointer;
@@ -30,7 +29,6 @@ export const CardOption = styled.div`
 
   .maskBackground {
     bottom: 28.5rem;
-    right: 7.1rem;
     z-index: 2;
 
     p {
@@ -60,7 +58,7 @@ export const CardOption = styled.div`
 
       position: absolute;
       bottom: 29.8rem;
-      right: 7.5rem;
+      right: 8rem;
 
       width: 14rem;
       height: 5rem;
@@ -73,7 +71,7 @@ export const CardOption = styled.div`
 
       width: 11rem;
 
-      right: 9rem;
+      right: 9.5rem;
       bottom: 18rem;
     }
 
@@ -82,7 +80,7 @@ export const CardOption = styled.div`
 
       width: 10rem;
 
-      right: 9.5rem;
+      right: 10rem;
       bottom: 10.5rem;
     }
   }
