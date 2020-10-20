@@ -10,7 +10,7 @@ export const Wrapper = styled.div<ICarouselProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 3rem;
+  transition: transform 0.2s;
 
   .slider {
     overflow: hidden;
@@ -36,5 +36,23 @@ export const Wrapper = styled.div<ICarouselProps>`
           height: ${cardFocusHeight}px;
         `};
     }
+  }
+
+  @media (max-width: 1092px) {
+    transform: scale(1.1);
+    margin-top: 20px;
+    margin-bottom: 80px;
+  }
+
+  @media (max-width: 720px) {
+    transform: scale(0.8);
+    margin-top: -60px;
+    margin-bottom: 0px;
+  }
+
+  @media (max-width: 500px) {
+    transform: scale(0.6);
+    margin-top: -150px;
+    margin-bottom: -80px;
   }
 `

@@ -16,11 +16,17 @@ export const Wrapper = styled.main`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 170px;
+  }
+  @media (max-width: 1092px) {
+    section {
+      flex-direction: column;
+    }
   }
 `
 export const Details = styled.div`
   width: 400px;
-  margin-left: 30px;
+  margin-left: 40px;
 
   h1 {
     text-transform: uppercase;
@@ -33,27 +39,33 @@ export const Details = styled.div`
   p {
     font-size: 14px;
   }
+
+  @media (max-width: 1092px) {
+    margin-left: 0px;
+    width: 88%;
+  }
 `
 
 export const UnitsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-top: 15px;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
 
   ul {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    width: 100%;
     border-bottom: 1px solid #e8e8e8;
-    padding: 20px 40px;
+    padding: 20px 0;
+    overflow-x: scroll;
 
     li {
       list-style: none;
+      margin: 0 10px;
+
+      :first-of-type {
+        margin-left: 40px;
+      }
     }
 
     input {
@@ -78,11 +90,13 @@ export const UnitsWrapper = styled.div`
       font-weight: 400;
       color: #bfbfbf;
       cursor: pointer;
+      position: relative;
 
       ::after {
         content: 'UN';
         font-size: 14px;
         margin-left: 2px;
+        margin-right: 20px;
       }
 
       ::before {
@@ -101,10 +115,14 @@ export const UnitsWrapper = styled.div`
 
   div {
     display: flex;
-    padding: 20px 0;
-    width: 80%;
+    padding: 20px 15px;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
+
+    label {
+      width: 60%;
+    }
 
     h2 {
       text-align: center;
@@ -152,6 +170,7 @@ export const BackgoundColorsWrapper = styled.div`
   background: #f6f6f6;
   width: 48%;
   height: 200px;
+  min-width: 183px;
 
   h3 {
     font-size: 18px;
@@ -233,7 +252,36 @@ export const UploadPhoto = styled.div`
     align-items: center;
     cursor: pointer;
 
+    .imageMiniature {
+      border-radius: 50%;
+      height: 30px;
+      transition: 0.3s;
+      width: 30px;
+      object-fit: cover;
+      animation: flip 2s;
+    }
+
+    @keyframes flip {
+      0% {
+        transform: rotateY(0deg);
+      }
+
+      45% {
+        opacity: 0;
+      }
+
+      50% {
+        transform: rotateY(180deg);
+      }
+
+      100% {
+        transform: rotateY(0deg);
+        opacity: 1;
+      }
+    }
+
     img {
+      transition: 0.3s;
       margin-right: 20px;
     }
 

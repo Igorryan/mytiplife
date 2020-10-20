@@ -1,7 +1,5 @@
 import * as S from './styles'
 import { HiOutlineArrowRight } from 'react-icons/hi'
-import { useCallback } from 'react'
-import $ from 'jquery'
 
 const products = [
   {
@@ -28,12 +26,6 @@ const products = [
 ]
 
 const RelatedProducts = () => {
-  const handleMouseEnter = useCallback((index: number) => {
-    if (index === 0) $('.productSelected').animate({ left: '0px' }, 10)
-    if (index === 1) $('.productSelected').animate({ left: '340px' }, 10)
-    if (index === 2) $('.productSelected').animate({ left: '680px' }, 10)
-  }, [])
-
   return (
     <S.Wrapper>
       <h1>Related Products</h1>
@@ -43,15 +35,17 @@ const RelatedProducts = () => {
       </p>
 
       <div className="products">
-        <div className="productSelected"></div>
+        <div></div>
         {products.map(({ title, photo, description, link }, i) => (
-          <S.Product onMouseEnter={() => handleMouseEnter(i)} key={i}>
+          <S.Product className="selected" key={i}>
             <img src={photo} alt={title} />
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <a href={link}>
-              <span>View offer</span> <HiOutlineArrowRight size={14} />
-            </a>
+            <div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <a href={link}>
+                <span>View offer</span> <HiOutlineArrowRight size={14} />
+              </a>
+            </div>
           </S.Product>
         ))}
       </div>

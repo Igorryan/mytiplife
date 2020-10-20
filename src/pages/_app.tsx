@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Cart from '../components/Cart'
 
 import GlobalStyles from 'styles/global'
 
@@ -20,6 +21,7 @@ function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         ></link>
       </Head>
+      <Cart></Cart>
       <GlobalStyles />
       <Component {...pageProps} />
     </>

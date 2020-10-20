@@ -13,6 +13,7 @@ export const CardOption = styled.div`
   transition: all 1s;
 
   background-size: cover;
+  background-position: center;
 
   cursor: pointer;
 

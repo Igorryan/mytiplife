@@ -1,34 +1,101 @@
 import styled from 'styled-components'
+import { GiHamburgerMenu } from 'react-icons/gi'
+
+interface IProps {
+  toLeft: boolean
+}
 
 export const Wrapper = styled.main`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100vw;
-  padding: 3rem 0;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  position: fixed;
+  width: 100%;
+  z-index: 12;
+  color: #003d59;
+  background: #fff;
   border: 1px solid #eeeeee;
-  margin-bottom: 4rem;
+  transition: top 0.3s;
 
-  img {
-    width: 120px;
-    margin-right: 30px;
-  }
+  nav {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  a {
-    text-transform: uppercase;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 500;
-    color: #003d59;
-    margin: 0 2rem;
-    border-bottom: 1px solid transparent;
-    transition: border 0.4s;
-
-    :hover {
-      border-bottom: 1px solid #003d59;
+    img {
+      width: 180px;
+      margin-right: 40px;
     }
+
+    @media (max-width: 1100px) {
+      justify-content: space-between;
+      img {
+        padding-left: 50px;
+      }
+
+      ul li a {
+        font-size: 16px;
+      }
+    }
+  }
+`
+
+export const MenuList = styled.ul<IProps>`
+  float: right;
+  margin-right: 20px;
+
+  li {
+    display: inline-block;
+    line-height: 90px;
+
+    a {
+      color: #003d59;
+      font-size: 20px;
+      text-transform: uppercase;
+      text-decoration: none;
+
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 2rem;
+      border-bottom: 1px solid transparent;
+      transition: border 0.4s;
+
+      :hover {
+        border-bottom: 1px solid #003d59;
+      }
+    }
+  }
+  @media (max-width: 1100px) {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 100px;
+    background: #fff;
+    left: ${(props) => (props.toLeft ? 0 : '-100%')};
+    text-align: center;
+    transition: all 0.5s;
+    li {
+      display: block;
+      z-index: 11;
+
+      a {
+        font-size: 20px;
+      }
+    }
+  }
+`
+
+export const Icon = styled(GiHamburgerMenu)`
+  float: right;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+
+  @media (max-width: 1100px) {
+    display: block;
   }
 `
 
@@ -43,7 +110,7 @@ export const SearchBar = styled.div`
   transition: border 0.2s;
 
   input {
-    width: 150px;
+    width: 120px;
     padding: 0 10px;
     font-size: 12px;
 
@@ -53,5 +120,9 @@ export const SearchBar = styled.div`
     ::placeholder {
       color: #bdbdbd;
     }
+  }
+
+  @media (max-width: 1100px) {
+    display: none;
   }
 `

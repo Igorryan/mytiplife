@@ -14,12 +14,11 @@ export const CardOption = styled.div`
 
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.1);
   transition: all 1s;
-
+  background-size: cover;
+  background-position: center;
   cursor: pointer;
 
   div:nth-child(1) {
-    background-size: cover;
-    background-position: center;
     width: 50%;
     height: 100%;
   }

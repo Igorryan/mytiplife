@@ -10,7 +10,7 @@ interface IProps {
 const Card4 = ({ image, color, name, job }: IProps) => (
   <S.CardOption
     style={{
-      backgroundImage: image ? `url(${image})` : 'url(/img/card_upload2.svg)'
+      backgroundImage: image ? `url(${image})` : 'url(/img/card_upload7.svg)'
     }}
     className="card"
   >

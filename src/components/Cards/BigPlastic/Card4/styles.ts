@@ -15,6 +15,7 @@ export const CardOption = styled.div`
 
   div.img {
     background-size: cover;
+    background-position: center;
     width: 60%;
   }
 

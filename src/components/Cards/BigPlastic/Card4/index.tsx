@@ -13,7 +13,7 @@ const Card4 = ({ image, color, name, job }: IProps) => (
       style={{
         backgroundImage: image
           ? `url('${image}')`
-          : 'url(/img/card_upload5.svg)'
+          : 'url(/img/card_upload2.svg)'
       }}
       className="img"
     ></div>
