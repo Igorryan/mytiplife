@@ -1,6 +1,8 @@
 import * as S from './styles'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useState, useCallback, useEffect } from 'react'
+import { handleOpenCart } from '../../hooks/cart'
+
 import debounce from '../../utils/debounce.js'
 
 const Header = () => {
@@ -57,7 +59,9 @@ const Header = () => {
             <a href="#">Categories</a>
           </li>
           <li>
-            <a href="#">Cart</a>
+            <a href="#" onClick={handleOpenCart}>
+              Cart
+            </a>
           </li>
         </S.MenuList>
         <S.SearchBar

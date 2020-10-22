@@ -1,7 +1,7 @@
 import * as S from './styles'
 import $ from 'jquery'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import React from 'react'
 
 interface ICarouselProps {
@@ -9,6 +9,8 @@ interface ICarouselProps {
   sliderWidth: number
   cardFocusWidth?: number
   cardFocusHeight?: number
+  currentCard: number
+  setCurrentCard: (currentCard: number) => void
 }
 
 const Carousel: React.FC<ICarouselProps> = ({
@@ -16,16 +18,12 @@ const Carousel: React.FC<ICarouselProps> = ({
   width,
   sliderWidth,
   cardFocusWidth = 400,
-  cardFocusHeight = 565
+  cardFocusHeight = 565,
+  currentCard,
+  setCurrentCard
 }) => {
-  const [current, setCurrent] = useState(0)
-
   //Transformando children em array
   const childrenArray = React.Children.toArray(children)
-
-  useEffect(() => {
-    console.log(childrenArray[0])
-  })
 
   const handleChangeComponent = useCallback(
     (currentIndex: number) => {
@@ -43,28 +41,25 @@ const Carousel: React.FC<ICarouselProps> = ({
         return _91percentComponentWidth + (index - 1) * width
       }
 
-      if (currentIndex === current) {
-        console.log('next')
-        $('.thumbs').css('transform', `translateX(-${move(current + 1)}px)`)
+      if (currentIndex === currentCard) {
+        $('.thumbs').css('transform', `translateX(-${move(currentCard + 1)}px)`)
         const newCurrent =
-          current === childrenArray.length - 1 ? 0 : current + 1
-        setCurrent(newCurrent)
+          currentCard === childrenArray.length - 1 ? 0 : currentCard + 1
+        setCurrentCard(newCurrent)
         return
       }
 
-      if (currentIndex < current) {
-        console.log('prev')
+      if (currentIndex < currentCard) {
         $('.thumbs').css('transform', `translateX(-${move(currentIndex)}px)`)
       }
 
-      if (currentIndex > current) {
-        console.log('next')
+      if (currentIndex > currentCard) {
         $('.thumbs').css('transform', `translateX(-${move(currentIndex)}px)`)
       }
 
-      setCurrent(currentIndex)
+      setCurrentCard(currentIndex)
     },
-    [current, childrenArray, width]
+    [currentCard, childrenArray, width, setCurrentCard]
   )
 
   return (
@@ -80,7 +75,7 @@ const Carousel: React.FC<ICarouselProps> = ({
               <div
                 key={i}
                 className={`cardContainer ${
-                  current === i ? 'active' : 'disabled'
+                  currentCard === i ? 'active' : 'disabled'
                 }`}
                 onClick={() => {
                   handleChangeComponent(i)

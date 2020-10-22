@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.main`
+export const Wrapper = styled.footer`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 4rem 3rem;
+  padding: 2rem 4rem 3rem;
+  background: #fcfcfc;
+  border-top: 1px solid #eeeeee;
+  width: 100%;
+
   img {
     width: 10rem;
     margin-right: 1rem;

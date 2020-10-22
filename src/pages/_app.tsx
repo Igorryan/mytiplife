@@ -1,8 +1,13 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Cart from '../components/Cart'
-
 import GlobalStyles from 'styles/global'
+
+//Components
+import Cart from 'components/Cart'
+
+//Contexts
+import { AuthProvider } from 'hooks/auth'
+import { CartProvider } from 'hooks/cart'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -21,9 +26,14 @@ function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         ></link>
       </Head>
-      <Cart></Cart>
       <GlobalStyles />
-      <Component {...pageProps} />
+
+      <AuthProvider>
+        <CartProvider>
+          <Cart></Cart>
+          <Component {...pageProps} />
+        </CartProvider>
+      </AuthProvider>
     </>
   )
 }

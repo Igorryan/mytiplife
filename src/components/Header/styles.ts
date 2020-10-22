@@ -5,7 +5,7 @@ interface IProps {
   toLeft: boolean
 }
 
-export const Wrapper = styled.main`
+export const Wrapper = styled.header`
   padding: 0;
   margin: 0;
   text-decoration: none;

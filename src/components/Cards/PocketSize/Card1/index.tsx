@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import * as S from './styles'
 
 interface IProps {
@@ -9,10 +8,6 @@ interface IProps {
 }
 
 const Card1 = ({ image, color, name, job }: IProps) => {
-  useEffect(() => {
-    console.log(image)
-  }, [image])
-
   return (
     <S.CardOption className="card">
       <div className="content" style={{ backgroundColor: color }}>

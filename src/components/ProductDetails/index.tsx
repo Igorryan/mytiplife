@@ -1,6 +1,9 @@
 import * as S from './styles'
 import { motion } from 'framer-motion'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { useCart, handleOpenCart } from '../../hooks/cart'
+import getFractionalNumber from '../../utils/getFractionalNumber'
+import { uuid } from 'uuidv4'
 
 interface IProps {
   colorsOptions: string[]
@@ -14,6 +17,7 @@ interface IProps {
     job: string
     color: string
     image: string
+    currentCard: number
   }
   setStates: {
     setName: (newColor: string) => void
@@ -30,15 +34,16 @@ const ProductDetails: React.FC<IProps> = ({
   setStates,
   states
 }) => {
+  const { addProduct } = useCart()
   const { title, description } = product
-  const { name, job, color, image } = states
+  const { name, job, color, image, currentCard } = states
   const { setName, setJob, setColor, setImage } = setStates
 
   const inputNameRef = useRef<HTMLInputElement>(null)
   const inputJobRef = useRef<HTMLInputElement>(null)
   const inputSendFileRef = useRef<HTMLInputElement>(null)
 
-  const cardPrice = 12
+  const cardPrice = 12.211
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
   const [formCompleted, setFormCompleted] = useState(false)
@@ -67,7 +72,6 @@ const ProductDetails: React.FC<IProps> = ({
         file.onload = function (event) {
           const result = event.target?.result
           if (typeof result === 'string') setImage(result)
-          console.log(result)
         }
 
         file.readAsDataURL(e.target.files[0])
@@ -100,6 +104,36 @@ const ProductDetails: React.FC<IProps> = ({
     },
     [setColor]
   )
+
+  const handleAddProductToCart = useCallback(() => {
+    const product = {
+      id: uuid(),
+      name,
+      job,
+      color,
+      image: '',
+      total,
+      quantity,
+      product: {
+        title,
+        description
+      },
+      currentCard: currentCard + 1
+    }
+
+    addProduct(product)
+    handleOpenCart()
+  }, [
+    addProduct,
+    color,
+    currentCard,
+    description,
+    job,
+    name,
+    quantity,
+    title,
+    total
+  ])
 
   return (
     <S.Wrapper>
@@ -180,8 +214,8 @@ const ProductDetails: React.FC<IProps> = ({
           <label>
             <h2>
               <span>$</span>
-              {total}
-              <span>.0</span>
+              {Math.trunc(total)}
+              <span>.{getFractionalNumber(total)}</span>
             </h2>
           </label>
 
@@ -199,7 +233,10 @@ const ProductDetails: React.FC<IProps> = ({
               width: 150
             }}
           >
-            <S.AddToCartButton disabled={!formCompleted}>
+            <S.AddToCartButton
+              disabled={!formCompleted}
+              onClick={handleAddProductToCart}
+            >
               Add to cart
             </S.AddToCartButton>
           </motion.div>

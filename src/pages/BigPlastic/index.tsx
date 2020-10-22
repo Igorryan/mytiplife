@@ -36,6 +36,7 @@ const BigPlasticCards = () => {
   const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
   const [image, setImage] = useState('')
+  const [currentCard, setCurrentCard] = useState(0)
 
   return (
     <S.Wrapper>
@@ -47,6 +48,8 @@ const BigPlasticCards = () => {
           sliderWidth={665}
           cardFocusHeight={550}
           cardFocusWidth={550}
+          currentCard={currentCard}
+          setCurrentCard={setCurrentCard}
         >
           <Card1 color={color} name={name} job={job} />
           <Card2 image={image} color={color} name={name} job={job} />
@@ -56,7 +59,7 @@ const BigPlasticCards = () => {
 
         <ProductDetails
           product={productData}
-          states={{ name, job, color, image }}
+          states={{ name, job, color, image, currentCard }}
           setStates={{ setName, setJob, setColor, setImage }}
           colorsOptions={colorsData}
           unitsOptions={unitsData}
