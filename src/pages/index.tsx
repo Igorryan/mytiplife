@@ -1,5 +1,5 @@
-import PocketSize from 'pages/PocketSize'
+import Home from 'pages/Home'
 
-export default function Home() {
-  return <PocketSize />
+export default function Index() {
+  return <Home />
 }

@@ -7,21 +7,6 @@ export const Wrapper = styled.main`
   align-items: center;
   justify-content: space-between;
 
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fcfcfc;
-    border-bottom: 1px solid #eeeeee;
-    height: 130px;
-    width: 100%;
-    overflow: hidden;
-
-    img {
-      width: 800px;
-    }
-  }
-
   section {
     display: flex;
     margin: 60px 0;

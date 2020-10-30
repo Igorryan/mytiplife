@@ -11,6 +11,12 @@ const GlobalStyles = createGlobalStyle`
    font-size: 62.5%
  }
 
+ input:focus {
+        border: none;
+        outline: none;
+        border: 1px solid #11cea2;
+      }
+
  html, body, #__next {
    height: 100%;
  }
@@ -33,6 +39,22 @@ const GlobalStyles = createGlobalStyle`
       font-family: 'Roboto', sans-serif;
       cursor:pointer;
  }
+
+ .customScrollBar {
+  &::-webkit-scrollbar {
+    width: 6px; /* width of the entire scrollbar */
+  }
+  &::-webkit-scrollbar-track {
+    background: #e3e3e3; /* color of the tracking area */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffe066; /* color of the scroll thumb */
+  }
+ }
+
+
+
+
 `
 
 export default GlobalStyles

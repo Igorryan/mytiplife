@@ -65,7 +65,6 @@ export const Wrapper = styled.div`
     overflow-y: scroll;
     overflow-x: hidden;
     height: calc(100vh - 220px);
-    -webkit-overflow-scrolling: touch;
 
     /* margin-right: -50px;
     padding-right: 50px; */

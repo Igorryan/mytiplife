@@ -3,11 +3,7 @@ import Head from 'next/head'
 import GlobalStyles from 'styles/global'
 
 //Components
-import Cart from 'components/Cart'
-
-//Contexts
-import { AuthProvider } from 'hooks/auth'
-import { CartProvider } from 'hooks/cart'
+import AppProvider from 'hooks'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -28,12 +24,9 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
 
-      <AuthProvider>
-        <CartProvider>
-          <Cart></Cart>
-          <Component {...pageProps} />
-        </CartProvider>
-      </AuthProvider>
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
     </>
   )
 }

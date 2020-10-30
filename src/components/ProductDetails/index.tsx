@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { useCart, handleOpenCart } from '../../hooks/cart'
 import getFractionalNumber from '../../utils/getFractionalNumber'
-import { uuid } from 'uuidv4'
+import { v4 } from 'uuid'
 
 interface IProps {
   colorsOptions: string[]
@@ -107,7 +107,7 @@ const ProductDetails: React.FC<IProps> = ({
 
   const handleAddProductToCart = useCallback(() => {
     const product = {
-      id: uuid(),
+      id: v4(),
       name,
       job,
       color,

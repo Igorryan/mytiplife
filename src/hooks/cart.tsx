@@ -1,16 +1,19 @@
 import IProductToCart from 'DTOS/IProductsInCartDTO'
-import React, {
+import {
   createContext,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState
 } from 'react'
+import Cart from 'components/Cart'
 
 interface ICartContextData {
   products: IProductToCart[]
   addProduct(product: IProductToCart): void
   removeProduct(product_id: string): void
+  totalCartValue: number
 }
 
 function addEventCloseCart() {
@@ -58,6 +61,17 @@ const CartContext = createContext<ICartContextData>({} as ICartContextData)
 const CartProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<IProductToCart[]>([])
 
+  const totalCartValue = useMemo(() => {
+    let total = 0
+
+    data &&
+      data.forEach((p) => {
+        total += p.total
+      })
+
+    return total
+  }, [data])
+
   useEffect(() => {
     const cartInStorage = localStorage.getItem('@MyTipLife:cart')
 
@@ -93,7 +107,11 @@ const CartProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <CartContext.Provider value={{ products: data, addProduct, removeProduct }}>
+    <CartContext.Provider
+      value={{ products: data, addProduct, removeProduct, totalCartValue }}
+    >
+      <Cart></Cart>
+
       {children}
     </CartContext.Provider>
   )

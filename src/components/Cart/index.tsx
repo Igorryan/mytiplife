@@ -1,24 +1,21 @@
 import * as S from './styles'
 import { VscArrowLeft } from 'react-icons/vsc'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import { useMemo } from 'react'
 import getFractionalNumber from '../../utils/getFractionalNumber'
 import { useCart, handleCloseCart } from '../../hooks/cart'
+import { useAuth } from 'hooks/auth'
 import { motion } from 'framer-motion'
+import { useCallback } from 'react'
+import Redirect from 'utils/Redirect'
 
 const Cart: React.FC = () => {
-  const { products, removeProduct } = useCart()
+  const { products, removeProduct, totalCartValue } = useCart()
+  const { name } = useAuth()
 
-  const totalCartValue = useMemo(() => {
-    let total = 0
-
-    products &&
-      products.forEach((p) => {
-        total += p.total
-      })
-
-    return total
-  }, [products])
+  const handleFinishCart = useCallback(() => {
+    const toRoute = name ? 'FinishCart' : 'Sign'
+    Redirect(toRoute)
+  }, [name])
 
   return (
     <S.Wrapper id="cart">
@@ -87,6 +84,7 @@ const Cart: React.FC = () => {
             justifyContent: 'center',
             margin: '20px 0'
           }}
+          onClick={handleFinishCart}
         >
           <button>FINISH CART</button>
         </motion.div>

@@ -80,6 +80,7 @@ export const MenuList = styled.ul<IProps>`
     li {
       display: block;
       z-index: 11;
+      line-height: 70px;
 
       a {
         font-size: 20px;

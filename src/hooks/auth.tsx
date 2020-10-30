@@ -21,6 +21,7 @@ interface AuthContextData {
   name: string
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
+  isAuthenticated(): boolean
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -61,8 +62,20 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState)
   }, [])
 
+  const isAuthenticated = useCallback(() => {
+    const token = localStorage.getItem('@MyTipLife:token')
+
+    if (!token) {
+      return false
+    }
+
+    return true
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ name: data.name, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ name: data.name, signIn, signOut, isAuthenticated }}
+    >
       {children}
     </AuthContext.Provider>
   )

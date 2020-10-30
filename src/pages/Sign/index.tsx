@@ -1,18 +1,17 @@
 import * as S from './styles'
 import Footer from '../../components/Footer'
-import FormSignIn from '../../components/FormSignIn'
-import FormSignUp from '../../components/FormSignUp'
+import SignIn from '../../components/SignIn'
+import SignUp from '../../components/SignUp'
+import SimpleHeader from 'components/SimpleHeader'
 
 const Sign = () => (
   <S.Wrapper>
-    <header>
-      <img src="/img/headerIllustration.svg" alt="" />
-    </header>
+    <SimpleHeader />
 
     <section>
-      <FormSignIn></FormSignIn>
+      <SignIn></SignIn>
       <div className="divisor"></div>
-      <FormSignUp></FormSignUp>
+      <SignUp></SignUp>
     </section>
 
     <Footer></Footer>
