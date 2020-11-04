@@ -2,16 +2,14 @@ import * as S from './styles'
 import { motion } from 'framer-motion'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { useCart, handleOpenCart } from '../../hooks/cart'
-import getFractionalNumber from '../../utils/getFractionalNumber'
 import { v4 } from 'uuid'
+import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
+import { IProductsProps } from 'data/Products'
 
 interface IProps {
   colorsOptions: string[]
   unitsOptions: number[]
-  product: {
-    title: string
-    description: string
-  }
+  product: IProductsProps
   states: {
     name: string
     job: string
@@ -74,7 +72,9 @@ const ProductDetails: React.FC<IProps> = ({
           if (typeof result === 'string') setImage(result)
         }
 
-        file.readAsDataURL(e.target.files[0])
+        if (file) {
+          file.readAsDataURL(e.target.files[0])
+        }
       }
     },
     [setImage]
@@ -106,32 +106,31 @@ const ProductDetails: React.FC<IProps> = ({
   )
 
   const handleAddProductToCart = useCallback(() => {
-    const product = {
+    const order = {
       id: v4(),
       name,
       job,
       color,
-      image: '',
+      image,
       total,
       quantity,
-      product: {
-        title,
-        description
-      },
+      product,
       currentCard: currentCard + 1
     }
 
-    addProduct(product)
+    console.log(image)
+
+    addProduct(order)
     handleOpenCart()
   }, [
     addProduct,
     color,
     currentCard,
-    description,
+    image,
     job,
     name,
+    product,
     quantity,
-    title,
     total
   ])
 
@@ -214,8 +213,10 @@ const ProductDetails: React.FC<IProps> = ({
           <label>
             <h2>
               <span>$</span>
-              {Math.trunc(total)}
-              <span>.{getFractionalNumber(total)}</span>
+              {getIntegerAndFractionalValues(total).integerPart}
+              <span>
+                .{getIntegerAndFractionalValues(total).fractionalPart}
+              </span>
             </h2>
           </label>
 

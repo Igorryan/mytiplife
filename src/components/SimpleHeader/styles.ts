@@ -12,5 +12,6 @@ export const Wrapper = styled.header`
 
   img {
     width: 800px;
+    cursor: pointer;
   }
 `

@@ -76,12 +76,12 @@ export const Wrapper = styled.div`
       border-bottom: 2px solid #f5f5f5;
 
       img {
-        height: 150px;
+        height: 160px;
       }
 
       .description {
         margin-left: 25px;
-        margin-top: 15px;
+        margin-top: 10px;
 
         header {
           display: flex;

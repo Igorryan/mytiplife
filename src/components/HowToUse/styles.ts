@@ -42,39 +42,64 @@ export const Wrapper = styled.div`
     position: absolute;
     z-index: 10;
     width: 6rem;
-    margin-top: 10vh;
-    margin-left: -25vw;
+
+    left: 31.5%;
+    bottom: 40%;
   }
 
   .coin2 {
     position: absolute;
-    margin-left: 45vw;
-    margin-top: 20rem;
+
     z-index: 10;
+
+    right: 10.5%;
+    bottom: 24%;
   }
   .coin3 {
     position: absolute;
-    margin-left: 20vw;
-    margin-top: -15rem;
+
     z-index: 10;
     transform: rotate(40deg);
+
+    right: 40.5%;
+    top: 18%;
   }
 
-  @media (max-width: 1092px) {
-  }
-
-  @media (max-width: 720px) {
-  }
-
-  @media (max-width: 500px) {
+  @media (max-width: 940px) {
     .coin1 {
-      width: 4rem;
-      margin-left: -17vw;
+      width: 40px;
+      left: 14.5%;
+      bottom: 40%;
     }
 
     .coin2 {
+      width: 60px;
+      right: 32px;
+      bottom: 24%;
     }
     .coin3 {
+      width: 70px;
+      right: 40.5%;
+      top: 18%;
+    }
+  }
+
+  @media (max-width: 510px) {
+    .coin1 {
+      width: 40px;
+      left: -15px;
+      bottom: 60%;
+    }
+
+    .coin2 {
+      width: 60px;
+      right: 60px;
+      bottom: 10%;
+    }
+    .coin3 {
+      width: 70px;
+      right: 40px;
+      top: 18%;
     }
   }
 

@@ -1,29 +1,39 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
 import * as S from './styles'
 
 import SimpleHeader from 'components/SimpleHeader'
-import DeliveryAddress from 'components/FinishCartStages/DeliveryAddress'
-import PaymentDetails from 'components/FinishCartStages/PaymentDetails'
-import Finished from 'components/FinishCartStages/Finished'
+import DeliveryAddress, { ILocationData } from './DeliveryAddress'
+import PaymentDetails from './PaymentDetails'
+import Finished from './Finished'
 import Footer from 'components/Footer'
+import { useToast } from 'hooks/toast'
+import { useAuth } from 'hooks/auth'
+import { useCart } from 'hooks/cart'
+import ProcessOrders from 'components/ProcessOrders'
+
+export interface IOrderData {
+  deliveryAddress: ILocationData
+  name: string
+  deliveryData: string
+  requestNumber: string
+  cartTotal: number
+}
 
 const FinishCart = () => {
+  const { addToast } = useToast()
+  const { isAuthenticated, name } = useAuth()
+  const { totalCartValue, products } = useCart()
+
+  const [deliveryAddress, setDeliveryAddress] = useState<ILocationData>(
+    {} as ILocationData
+  )
+  const [paymentAccept, setPaymentAccept] = useState(false)
+  const [orderData, setOrderData] = useState<IOrderData>({} as IOrderData)
+
   const [stage, setStage] = useState(1)
   const [animation, setAnimation] = useState('fadeInRight')
   const animationWrapperRef = useRef<HTMLDivElement>(null)
-
-  function animated(
-    animationOut: string,
-    animationIn: string,
-    toStage: number,
-    ms: number
-  ) {
-    setAnimation(animationOut)
-    setTimeout(() => {
-      setAnimation(animationIn)
-      setStage(toStage)
-    }, ms)
-  }
 
   const handleSetStage = useCallback(
     (toStage: number) => {
@@ -40,11 +50,61 @@ const FinishCart = () => {
     [stage]
   )
 
+  useEffect(() => {
+    if (paymentAccept) {
+      //Send Order to backend
+      //received order and send to finish part
+
+      console.log('Pagamento aceito, enviando PDF...')
+
+      const response = {
+        deliveryAddress,
+        name,
+        deliveryData: 'Your order will arrive by day X',
+        requestNumber: 'MKJ2345HQ',
+        cartTotal: totalCartValue
+      }
+
+      setOrderData(response)
+      handleSetStage(3)
+      //limpar carrinho
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deliveryAddress, name, paymentAccept, totalCartValue])
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      addToast({
+        type: 'error',
+        title: 'You need to log in again',
+        description: 'We will redirect you',
+        timer: true
+      })
+
+      setTimeout(() => {
+        window.location.href = '/Sign'
+      }, 3500)
+    }
+  }, [addToast, isAuthenticated, products.length])
+
+  function animated(
+    animationOut: string,
+    animationIn: string,
+    toStage: number,
+    ms: number
+  ) {
+    setAnimation(animationOut)
+    setTimeout(() => {
+      setAnimation(animationIn)
+      setStage(toStage)
+    }, ms)
+  }
+
   return (
     <S.Wrapper>
       <SimpleHeader></SimpleHeader>
       <S.ProgressBar progress={stage}>
-        <ul>
+        <ul className="divToPdf">
           <li>Address</li>
           <li>Payment</li>
           <li>Finished</li>
@@ -60,13 +120,19 @@ const FinishCart = () => {
       <S.StagesFinishCartWrapper>
         <S.WrapperForAnimation animation={animation} ref={animationWrapperRef}>
           {stage === 1 ? (
-            <DeliveryAddress handleSetStage={handleSetStage} />
+            <DeliveryAddress
+              handleSetStage={handleSetStage}
+              setDeliveryAddress={setDeliveryAddress}
+            />
           ) : stage === 2 ? (
-            <PaymentDetails handleSetStage={handleSetStage} />
+            <PaymentDetails
+              handleSetStage={handleSetStage}
+              setPaymentAccept={setPaymentAccept}
+            />
           ) : stage === 3 ? (
-            <Finished />
+            <ProcessOrders handleSetStage={handleSetStage}></ProcessOrders>
           ) : (
-            ''
+            <Finished orderData={orderData} />
           )}
         </S.WrapperForAnimation>
       </S.StagesFinishCartWrapper>

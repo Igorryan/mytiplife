@@ -1,36 +1,48 @@
 import { useCallback, useRef } from 'react'
 import * as Yup from 'yup'
 import * as S from './styles'
+import { useToast } from 'hooks/toast'
 import api from 'services/api'
 
-const FormSignUp = () => {
-  const nameRef = useRef<HTMLInputElement>(null)
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
-  const password_confirmationRef = useRef<HTMLInputElement>(null)
+import { FormHandles } from '@unform/core'
+import getValidationErrors from 'utils/getValidationErrors'
 
-  const displayErrors = useCallback((err: Yup.ValidationError) => {
-    console.log(err.errors)
-  }, [])
+import { FiMail, FiUser } from 'react-icons/fi'
+import { RiLockPasswordLine, RiLockPasswordFill } from 'react-icons/ri'
+
+import Input from 'components/Input'
+import Button from 'components/Button'
+import { useCart } from 'hooks/cart'
+import { useAuth } from 'hooks/auth'
+import Redirect from 'utils/Redirect'
+
+interface IDataProps {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
+
+const FormSignUp = () => {
+  const formRef = useRef<FormHandles>(null)
+
+  const { signIn } = useAuth()
+  const { addToast } = useToast()
+  const { products } = useCart()
 
   const handleSignUp = useCallback(
-    async (e) => {
-      e.preventDefault()
-
-      const data = {
-        name: nameRef.current?.value,
-        email: emailRef.current?.value,
-        password: passwordRef.current?.value,
-        password_confirmation: password_confirmationRef.current?.value
-      }
+    async (data: IDataProps) => {
+      formRef.current?.setErrors({})
 
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
-          email: Yup.string().email().required(),
-          password: Yup.string().required(),
-          password_confirmation: Yup.string()
-            .required()
+          email: Yup.string()
+            .email('Enter a valid email address')
+            .required('E-mail required'),
+          password: Yup.string().min(6, 'At least 6 digits'),
+          confirmPassword: Yup.string()
+            .required('Password confirmation required')
             .oneOf([Yup.ref('password')], 'Passwords do not match')
         })
 
@@ -45,37 +57,74 @@ const FormSignUp = () => {
           password: data.password
         })
 
-        console.log(response)
+        if (!response.data.status) {
+          throw new Error(response.data.message)
+        }
+
+        console.log(response.data)
+
+        addToast({
+          type: 'success',
+          title: `Welcome ${data.name.toUpperCase()}`,
+          description: 'Signing in with your account',
+          timer: true
+        })
+
+        await signIn({
+          email: data.email,
+          password: data.password
+        })
+
+        setTimeout(() => {
+          if (products.length > 0) {
+            Redirect('FinishCart')
+          } else {
+            Redirect('')
+          }
+        }, 3200)
       } catch (err) {
+        const errors = getValidationErrors(err)
         if (err instanceof Yup.ValidationError) {
-          displayErrors(err)
+          formRef.current?.setErrors(errors)
+        } else {
+          addToast({
+            type: 'error',
+            title: err.message
+          })
         }
       }
     },
-    [displayErrors]
+    [addToast, products.length, signIn]
   )
 
   return (
-    <S.Wrapper onSubmit={(e) => handleSignUp(e)}>
+    <S.Wrapper ref={formRef} onSubmit={(e) => handleSignUp(e)}>
       <h1>New to My tip life?</h1>
 
-      <label htmlFor="name">Your name</label>
-      <input ref={nameRef} type="text" />
+      <Input icon={FiUser} placeholder="Your name" name="name" type="text" />
 
-      <label htmlFor="email">Email</label>
-      <input ref={emailRef} type="text" />
-
-      <label htmlFor="password">Password</label>
-      <input ref={passwordRef} type="password" id="password" />
-
-      <label htmlFor="password_confirmation">Re-enter password</label>
-      <input
-        ref={password_confirmationRef}
-        type="password"
-        id="password_confirmation"
+      <Input
+        icon={FiMail}
+        placeholder="Your best e-mail"
+        name="email"
+        type="text"
       />
 
-      <button>Create your Tip My Life account</button>
+      <Input
+        icon={RiLockPasswordLine}
+        placeholder="Password"
+        name="password"
+        type="password"
+      />
+
+      <Input
+        icon={RiLockPasswordFill}
+        placeholder="Confirm your password"
+        name="confirmPassword"
+        type="password"
+      />
+
+      <Button>Create your Tip My Life account</Button>
     </S.Wrapper>
   )
 }

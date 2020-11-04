@@ -16,26 +16,15 @@ import Card5 from 'components/Cards/SmallAcrilic/Card5'
 import Card6 from 'components/Cards/SmallAcrilic/Card6'
 import Card7 from 'components/Cards/SmallAcrilic/Card7'
 
+export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
+
 import { useState } from 'react'
 
-const colorsData = [
-  '#59C398',
-  '#59A5E5',
-  '#CF5289',
-  '#FCCA4C',
-  '#D55EFF',
-  '#313131'
-]
-
-const productData = {
-  title: 'Small Acrilic TipJar',
-  description:
-    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,'
-}
-
-const unitsData = [100, 500, 1000, 1500]
+import Products from 'data/Products'
 
 const SmallAcrilic = () => {
+  const { colors, units } = Products[1]
+
   const [name, setName] = useState('Your name')
   const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
@@ -65,11 +54,11 @@ const SmallAcrilic = () => {
         </Carousel>
 
         <ProductDetails
-          product={productData}
+          product={Products[1]}
           states={{ name, job, color, image, currentCard }}
           setStates={{ setName, setJob, setColor, setImage }}
-          colorsOptions={colorsData}
-          unitsOptions={unitsData}
+          colorsOptions={colors}
+          unitsOptions={units}
         ></ProductDetails>
       </section>
 

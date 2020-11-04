@@ -1,17 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import * as S from './styles'
 import api from 'services/api'
-import changeInputValue from 'utils/changeInputValue'
 import compareIsEqualsJSONObject from 'utils/compareIsEqualsJSONObject'
-import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
 import Redirect from 'utils/Redirect'
 
-interface IProps {
-  handleSetStage(stage: number): void
-}
-
-interface ILocationData {
+export interface ILocationData {
   type: string
   location: string
   completeAddress: string
@@ -19,21 +13,24 @@ interface ILocationData {
   howToReach?: string
 }
 
-const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
-  const [locationSelected, setLocationSelected] = useState('')
+interface IProps {
+  handleSetStage(stage: number): void
+  setDeliveryAddress(address: ILocationData): void
+}
+
+const DeliveryAddress: React.FC<IProps> = ({
+  handleSetStage,
+  setDeliveryAddress
+}) => {
+  const [tagLocationSelected, setTagLocationSelected] = useState('')
   const [locations, setLocations] = useState<ILocationData[]>([])
 
-  const { isAuthenticated } = useAuth()
   const { addToast } = useToast()
 
-  const inputYourLocationRef = useRef<HTMLInputElement>(null)
-  const inputCompleteAddressRef = useRef<HTMLInputElement>(null)
-  const inputFloorRef = useRef<HTMLInputElement>(null)
-  const inputHowToReachRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (!isAuthenticated()) window.location.href = '/Sign'
-  }, [isAuthenticated])
+  const [location, setLocation] = useState('')
+  const [completeAddress, setCompleteAddress] = useState('')
+  const [floor, setFloor] = useState('')
+  const [howToReach, setHowToReach] = useState('')
 
   useMemo(async () => {
     try {
@@ -47,7 +44,7 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
 
         const address: ILocationData[] = response.data.data
 
-        if (address) {
+        if (address.length !== 0) {
           addToast({
             title: `You have ${address.length} saved addresses`
           })
@@ -59,12 +56,13 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
       addToast({
         type: 'error',
         title: 'Unauthorized Authentication',
-        description: 'Redirecting to sign'
+        description: 'Redirecting to sign',
+        timer: true
       })
 
       setTimeout(() => {
         Redirect('Sign')
-      }, 3000)
+      }, 3500)
     }
   }, [addToast])
 
@@ -72,37 +70,35 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
     async (e) => {
       e.preventDefault()
 
-      if (!inputYourLocationRef.current?.value) {
+      if (!location) {
         alert('Preencha a sua localização')
-        inputYourLocationRef.current?.focus()
         return false
       }
 
-      if (!inputCompleteAddressRef.current?.value) {
+      if (!completeAddress) {
         alert('Complete o seu endereço')
-        inputCompleteAddressRef.current?.focus()
         return false
       }
 
-      if (locationSelected) {
-        const locationSelectedData: ILocationData = {
-          type: locationSelected,
-          location: inputYourLocationRef.current.value,
-          completeAddress: inputCompleteAddressRef.current.value,
-          floor: inputFloorRef.current?.value || '',
-          howToReach: inputHowToReachRef.current?.value || ''
+      if (tagLocationSelected) {
+        const tagLocationSelectedData: ILocationData = {
+          type: tagLocationSelected,
+          location,
+          completeAddress,
+          floor: floor || '',
+          howToReach: howToReach || ''
         }
 
         const newLocations: ILocationData[] = []
 
         locations &&
           locations.forEach((l) => {
-            if (l.type !== locationSelected) {
+            if (l.type !== tagLocationSelected) {
               newLocations.push(l)
             }
           })
 
-        newLocations.push(locationSelectedData)
+        newLocations.push(tagLocationSelectedData)
 
         if (!compareIsEqualsJSONObject(newLocations, locations)) {
           const token = localStorage.getItem('@MyTipLife:token')
@@ -115,11 +111,21 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
             })
           }
         }
+        setDeliveryAddress(tagLocationSelectedData)
       }
 
       handleSetStage(2)
     },
-    [locationSelected, handleSetStage, locations]
+    [
+      location,
+      completeAddress,
+      tagLocationSelected,
+      floor,
+      howToReach,
+      locations,
+      handleSetStage,
+      setDeliveryAddress
+    ]
   )
 
   const isTagAddressAvailable = useCallback(
@@ -141,25 +147,18 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
 
   const handleTagLocationSelected = useCallback(
     (toLocation) => {
-      setLocationSelected(toLocation)
+      setTagLocationSelected(toLocation)
 
       const addressSelected = locations.find((l) => l.type === toLocation)
 
       if (!addressSelected) {
-        changeInputValue('', inputYourLocationRef)
-        changeInputValue('', inputCompleteAddressRef)
-        changeInputValue('', inputFloorRef)
-        changeInputValue('', inputHowToReachRef)
         return false
       }
 
-      const { location, completeAddress, floor, howToReach } = addressSelected
-
-      location && changeInputValue(location, inputYourLocationRef)
-      completeAddress &&
-        changeInputValue(completeAddress, inputCompleteAddressRef)
-      floor && changeInputValue(floor, inputFloorRef)
-      howToReach && changeInputValue(howToReach, inputHowToReachRef)
+      setLocation(addressSelected.location)
+      setCompleteAddress(addressSelected.completeAddress)
+      setFloor(addressSelected.floor || '')
+      setHowToReach(addressSelected.howToReach || '')
     },
     [locations]
   )
@@ -173,28 +172,28 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
         <S.LocationsWrapper>
           <S.LocationTag
             available={isTagAddressAvailable('Home')}
-            selected={locationSelected === 'Home'}
+            selected={tagLocationSelected === 'Home'}
             onClick={() => handleTagLocationSelected('Home')}
           >
             home
           </S.LocationTag>
           <S.LocationTag
             available={isTagAddressAvailable('Work')}
-            selected={locationSelected === 'Work'}
+            selected={tagLocationSelected === 'Work'}
             onClick={() => handleTagLocationSelected('Work')}
           >
             work
           </S.LocationTag>
           <S.LocationTag
             available={isTagAddressAvailable('Office')}
-            selected={locationSelected === 'Office'}
+            selected={tagLocationSelected === 'Office'}
             onClick={() => handleTagLocationSelected('Office')}
           >
             office
           </S.LocationTag>
           <S.LocationTag
             available={isTagAddressAvailable('Other')}
-            selected={locationSelected === 'Other'}
+            selected={tagLocationSelected === 'Other'}
             onClick={() => handleTagLocationSelected('Other')}
           >
             other
@@ -204,22 +203,46 @@ const DeliveryAddress: React.FC<IProps> = ({ handleSetStage }) => {
 
       <div>
         <p>Your location*</p>
-        <input ref={inputYourLocationRef} type="text" />
+        <input
+          value={location}
+          onChange={(e) => {
+            setLocation(e.currentTarget.value)
+          }}
+          type="text"
+        />
       </div>
 
       <div>
         <p>Complete address*</p>
-        <input ref={inputCompleteAddressRef} type="text" />
+        <input
+          value={completeAddress}
+          onChange={(e) => {
+            setCompleteAddress(e.currentTarget.value)
+          }}
+          type="text"
+        />
       </div>
 
       <div>
         <p>Floor (optional)</p>
-        <input ref={inputFloorRef} type="text" />
+        <input
+          value={floor}
+          onChange={(e) => {
+            setFloor(e.currentTarget.value)
+          }}
+          type="text"
+        />
       </div>
 
       <div>
         <p>How to reach (optional)</p>
-        <input ref={inputHowToReachRef} type="text" />
+        <input
+          value={howToReach}
+          onChange={(e) => {
+            setHowToReach(e.currentTarget.value)
+          }}
+          type="text"
+        />
       </div>
 
       <button>Continue</button>

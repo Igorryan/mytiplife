@@ -1,3 +1,5 @@
+import { IProductsProps } from 'data/Products'
+
 export default interface IProductToCart {
   id: string
   name: string
@@ -6,9 +8,6 @@ export default interface IProductToCart {
   image?: string
   total: number
   quantity: number
-  product: {
-    title: string
-    description: string
-  }
+  product: IProductsProps
   currentCard: number
 }

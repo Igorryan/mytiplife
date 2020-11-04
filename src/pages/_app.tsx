@@ -13,9 +13,9 @@ function App({ Component, pageProps }: AppProps) {
           name="description"
           content="A simple project starter to work with TypeScript, React, NextJS and Styled Components"
         />
-        <title>React Avançado - Boilerplate</title>
-        <link rel="shortcut icon" href="/img/nextjs.png" />
-        <link rel="apple-touch-icon" href="/img/nextjs.png" />
+        <title>MyTipLife</title>
+        <link rel="shortcut icon" href="/img/favicon3.svg" />
+        <link rel="apple-touch-icon" href="/img/favicon3.svg" />
         <link rel="manifest" href="/manifest.json" />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@400;500;700;900&display=swap"

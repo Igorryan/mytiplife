@@ -45,7 +45,7 @@ export const UnitsWrapper = styled.div`
 
     li {
       list-style: none;
-      margin: 0 10px;
+      margin: 0 16px;
 
       :first-of-type {
         margin-left: 40px;
@@ -70,17 +70,15 @@ export const UnitsWrapper = styled.div`
     label {
       font-size: 20px;
       font-family: 'Rubik', sans-serif;
-      margin-left: 8px;
       font-weight: 400;
       color: #bfbfbf;
       cursor: pointer;
       position: relative;
+      margin-right: 10px;
 
       ::after {
         content: 'UN';
         font-size: 14px;
-        margin-left: 2px;
-        margin-right: 20px;
       }
 
       ::before {
@@ -124,6 +122,18 @@ export const UnitsWrapper = styled.div`
         }
       }
     }
+
+    @media (max-width: 530px) {
+      padding: 20px 15px 20px 0;
+
+      h2 {
+        font-size: 28px;
+
+        span {
+          font-size: 20px;
+        }
+      }
+    }
   }
 `
 
@@ -140,6 +150,12 @@ export const AddToCartButton = styled.button<ButtonProps>`
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.5px;
+
+  @media (max-width: 530px) {
+    width: 120px;
+    height: 45px;
+    font-size: 12px;
+  }
 `
 
 export const CustomizationsWrapper = styled.div`
@@ -150,11 +166,12 @@ export const CustomizationsWrapper = styled.div`
 
 export const BackgoundColorsWrapper = styled.div`
   padding: 24px;
+  padding-right: 14px;
   border-radius: 12px;
   background: #f6f6f6;
   width: 48%;
   height: 200px;
-  min-width: 183px;
+  min-width: 150px;
 
   h3 {
     font-size: 18px;
@@ -184,6 +201,11 @@ export const ColorOption = styled.div<ColorOptionProps>`
       opacity: 1;
       border: 2px solid rgba(21, 61, 87, 0.7);
     `};
+
+  @media (max-width: 530px) {
+    width: 30px;
+    height: 30px;
+  }
 `
 
 export const Interrogation = styled(IoIosHelpCircleOutline)``

@@ -33,6 +33,7 @@ const Toast: React.FC<ToastProps> = ({ toast, style }) => {
       style={style}
       type={toast.type}
       hasdescription={toast.description ? 1 : 0}
+      timer={toast.timer ? 1 : 0}
     >
       {icons[toast.type || 'info']}
 

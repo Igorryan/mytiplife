@@ -1,12 +1,12 @@
 import * as S from './styles'
 import { VscArrowLeft } from 'react-icons/vsc'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import getFractionalNumber from '../../utils/getFractionalNumber'
 import { useCart, handleCloseCart } from '../../hooks/cart'
 import { useAuth } from 'hooks/auth'
 import { motion } from 'framer-motion'
 import { useCallback } from 'react'
 import Redirect from 'utils/Redirect'
+import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 
 const Cart: React.FC = () => {
   const { products, removeProduct, totalCartValue } = useCart()
@@ -33,7 +33,7 @@ const Cart: React.FC = () => {
         {products &&
           products.map(({ id, product, total, quantity }, i) => (
             <li key={i}>
-              <img src="/img/example_productCardImage.png" alt="" />
+              <img src={product.productImage} alt="" />
               <div className="description">
                 <header>
                   <h1>{product.title}</h1>
@@ -46,8 +46,10 @@ const Cart: React.FC = () => {
                 <div>
                   <strong>
                     <span>$</span>
-                    {Math.trunc(total)}
-                    <span>.{getFractionalNumber(total)}</span>
+                    {getIntegerAndFractionalValues(total).integerPart}
+                    <span>
+                      .{getIntegerAndFractionalValues(total).fractionalPart}
+                    </span>
                   </strong>
                   <button onClick={() => removeProduct(id)}>
                     TO REMOVE
@@ -69,8 +71,10 @@ const Cart: React.FC = () => {
           <span>CART TOTAL:</span>
           <strong className="">
             <span>$</span>
-            {Math.trunc(totalCartValue)}
-            <span>.{getFractionalNumber(totalCartValue)}</span>
+            {getIntegerAndFractionalValues(totalCartValue).integerPart}
+            <span>
+              .{getIntegerAndFractionalValues(totalCartValue).fractionalPart}
+            </span>
           </strong>
         </div>
         <motion.div

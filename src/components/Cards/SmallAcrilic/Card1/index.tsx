@@ -1,13 +1,8 @@
 import * as S from './styles'
 
-interface IProps {
-  color: string
-  name: string
-  job: string
-  image: string
-}
+import { ICardProps } from 'DTOS/ICardProducts'
 
-const Card1 = ({ image, name, job }: IProps) => (
+const Card1 = ({ image, name, job }: ICardProps) => (
   <S.CardOption
     style={{
       backgroundImage: image ? `url('${image}')` : 'url(/img/card_upload5.svg)'

@@ -1,9 +1,16 @@
+import Redirect from 'utils/Redirect'
 import * as S from './styles'
 
-const SimpleHeader = () => (
-  <S.Wrapper>
-    <img src="/img/headerIllustration.svg" alt="" />
-  </S.Wrapper>
-)
+const SimpleHeader = () => {
+  return (
+    <S.Wrapper>
+      <img
+        onClick={() => Redirect('Home')}
+        src="/img/headerIllustration.svg"
+        alt=""
+      />
+    </S.Wrapper>
+  )
+}
 
 export default SimpleHeader

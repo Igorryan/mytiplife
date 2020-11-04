@@ -7,6 +7,7 @@ export interface IToastMessage {
   type?: 'success' | 'error' | 'info'
   title: string
   description?: string
+  timer?: boolean
 }
 
 interface IToastContextData {
@@ -14,7 +15,7 @@ interface IToastContextData {
   removeToast(id: string): void
 }
 
-const toastContext = createContext<IToastContextData>({} as IToastContextData)
+const ToastContext = createContext<IToastContextData>({} as IToastContextData)
 
 const ToastProvider: React.FC = ({ children }) => {
   const [messages, setMessages] = useState<IToastMessage[]>([])
@@ -33,15 +34,15 @@ const ToastProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <toastContext.Provider value={{ addToast, removeToast }}>
+    <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
       <ToastContainer messages={messages}></ToastContainer>
-    </toastContext.Provider>
+    </ToastContext.Provider>
   )
 }
 
 function useToast(): IToastContextData {
-  const context = useContext(toastContext)
+  const context = useContext(ToastContext)
 
   if (!context) {
     throw new Error('useToast must be used within a ToastProvider')

@@ -15,26 +15,16 @@ import Card4 from 'components/Cards/PocketSize/Card4'
 import Card5 from 'components/Cards/PocketSize/Card5'
 import Card6 from 'components/Cards/PocketSize/Card6'
 import Card7 from 'components/Cards/PocketSize/Card7'
+
+export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
+
 import { useState } from 'react'
 
-const colorsData = [
-  '#59C398',
-  '#59A5E5',
-  '#CF5289',
-  '#FCCA4C',
-  '#D55EFF',
-  '#313131'
-]
-
-const unitsData = [100, 500, 1000, 1500]
-
-const productData = {
-  title: 'Pocket Size Business',
-  description:
-    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,'
-}
+import Products from 'data/Products'
 
 const PocketSizeCards = () => {
+  const { colors, units } = Products[0]
+
   const [name, setName] = useState('Your name')
   const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
@@ -62,11 +52,11 @@ const PocketSizeCards = () => {
         </Carousel>
 
         <ProductDetails
-          product={productData}
+          product={Products[0]}
           states={{ name, job, color, image, currentCard }}
           setStates={{ setName, setJob, setColor, setImage }}
-          colorsOptions={colorsData}
-          unitsOptions={unitsData}
+          colorsOptions={colors}
+          unitsOptions={units}
         ></ProductDetails>
       </section>
 

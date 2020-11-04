@@ -14,24 +14,13 @@ import Card3 from 'components/Cards/BigPlastic/Card3'
 import Card4 from 'components/Cards/BigPlastic/Card4'
 import { useState } from 'react'
 
-const colorsData = [
-  '#59C398',
-  '#59A5E5',
-  '#CF5289',
-  '#FCCA4C',
-  '#D55EFF',
-  '#313131'
-]
+import Products from 'data/Products'
 
-const unitsData = [100, 500, 1000, 1500]
-
-const productData = {
-  title: 'Big Plastic TipJar',
-  description:
-    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,'
-}
+export const Cards = [Card1, Card2, Card3, Card4]
 
 const BigPlasticCards = () => {
+  const { colors, units } = Products[2]
+
   const [name, setName] = useState('Your name')
   const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
@@ -58,11 +47,11 @@ const BigPlasticCards = () => {
         </Carousel>
 
         <ProductDetails
-          product={productData}
+          product={Products[2]}
           states={{ name, job, color, image, currentCard }}
           setStates={{ setName, setJob, setColor, setImage }}
-          colorsOptions={colorsData}
-          unitsOptions={unitsData}
+          colorsOptions={colors}
+          unitsOptions={units}
         ></ProductDetails>
       </section>
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { GiHamburgerMenu } from 'react-icons/gi'
 
 interface IProps {
   toLeft: boolean
@@ -28,6 +27,7 @@ export const Wrapper = styled.header`
     img {
       width: 180px;
       margin-right: 40px;
+      cursor: pointer;
     }
 
     @media (max-width: 1100px) {
@@ -89,14 +89,63 @@ export const MenuList = styled.ul<IProps>`
   }
 `
 
-export const Icon = styled(GiHamburgerMenu)`
-  float: right;
-  margin-right: 40px;
-  cursor: pointer;
+export const MenuBtn = styled.div`
   display: none;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  float: right;
+
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  margin-right: 20px;
+  border-radius: 50%;
+
+  .menu-btn_burger {
+    width: 30px;
+    height: 5px;
+    background: #003d59;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+
+    ::before,
+    ::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 5px;
+      background: #003d59;
+      border-radius: 5px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    ::before {
+      transform: translateY(-11px);
+    }
+
+    ::after {
+      transform: translateY(11px);
+    }
+  }
+
+  &.open .menu-btn_burger {
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  &.open .menu-btn_burger::before {
+    transform: rotate(45deg) translate(35px, -35px);
+  }
+
+  &.open .menu-btn_burger::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+  }
 
   @media (max-width: 1100px) {
-    display: block;
+    display: flex;
   }
 `
 

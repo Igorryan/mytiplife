@@ -1,12 +1,8 @@
 import * as S from './styles'
 
-interface IProps {
-  color: string
-  name: string
-  job: string
-}
+import { ICardProps } from 'DTOS/ICardProducts'
 
-const Card1 = ({ color, name, job }: IProps) => (
+const Card1 = ({ color, name, job }: ICardProps) => (
   <S.CardOption style={{ background: color }} className="card">
     <h2>{name}</h2>
     <p>{job}</p>

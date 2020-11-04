@@ -15,6 +15,7 @@ export const Wrapper = styled.div<ICarouselProps>`
   .slider {
     overflow: hidden;
   }
+
   .slider .thumbs {
     display: flex;
     align-items: center;

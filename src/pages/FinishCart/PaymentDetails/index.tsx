@@ -1,6 +1,5 @@
 import * as S from './styles'
 import { useCart } from 'hooks/cart'
-import getFractionalNumber from 'utils/getFractionalNumber'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { FiArrowLeft } from 'react-icons/fi'
 import { useCallback, useEffect, useState } from 'react'
@@ -10,9 +9,11 @@ import compareIsEqualsJSONObject from 'utils/compareIsEqualsJSONObject'
 import InputMask from 'react-input-mask'
 import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
+import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 
 interface IProps {
-  handleSetStage(stage: number): void
+  setPaymentAccept(state: boolean): void
+  handleSetStage(state: number): void
 }
 
 interface ICreditCard {
@@ -21,7 +22,10 @@ interface ICreditCard {
   number: string
 }
 
-const PaymentDetails: React.FC<IProps> = ({ handleSetStage }) => {
+const PaymentDetails: React.FC<IProps> = ({
+  setPaymentAccept,
+  handleSetStage
+}) => {
   const { isAuthenticated } = useAuth()
   const { addToast } = useToast()
 
@@ -109,9 +113,10 @@ const PaymentDetails: React.FC<IProps> = ({ handleSetStage }) => {
   }, [])
 
   useEffect(() => {
-    if (!isAuthenticated()) window.location.href = '/Sign'
-    else {
-      recoveryCreditCard()
+    if (isAuthenticated()) {
+      setTimeout(() => {
+        recoveryCreditCard()
+      }, 1000)
     }
   }, [isAuthenticated, recoveryCreditCard])
 
@@ -150,16 +155,16 @@ const PaymentDetails: React.FC<IProps> = ({ handleSetStage }) => {
         await saveCreditCard(creditCard)
       }
 
-      handleSetStage(3)
+      setPaymentAccept(true)
     },
     [
+      validations,
       cardName,
       cardValidUntil,
       cardNumber,
       checkboxSaveCreditCard,
       creditCardSavedByUser,
-      validations,
-      handleSetStage,
+      setPaymentAccept,
       saveCreditCard
     ]
   )
@@ -186,7 +191,7 @@ const PaymentDetails: React.FC<IProps> = ({ handleSetStage }) => {
           {products &&
             products.map(({ id, product, total, quantity }, i) => (
               <li key={i}>
-                <img src="/img/example_productCardImage.png" alt="" />
+                <img src={product.productImage} alt="" />
                 <div className="description">
                   <header>
                     <h1>{product.title}</h1>
@@ -199,8 +204,10 @@ const PaymentDetails: React.FC<IProps> = ({ handleSetStage }) => {
                   <div>
                     <strong>
                       <span>$</span>
-                      {Math.trunc(total)}
-                      <span>.{getFractionalNumber(total)}</span>
+                      {getIntegerAndFractionalValues(total).integerPart}
+                      <span>
+                        .{getIntegerAndFractionalValues(total).fractionalPart}
+                      </span>
                     </strong>
                     <button onClick={() => removeProduct(id)}>
                       TO REMOVE
@@ -283,7 +290,9 @@ const PaymentDetails: React.FC<IProps> = ({ handleSetStage }) => {
           </a>
 
           <button>
-            PAY <strong>${totalCartValue.toFixed(2)}</strong>
+            <strong>
+              $ {getIntegerAndFractionalValues(totalCartValue).fullValue}
+            </strong>
           </button>
         </div>
       </S.PaymentDetails>

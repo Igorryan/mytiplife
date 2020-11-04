@@ -4,9 +4,10 @@ import { useState, useCallback, useEffect } from 'react'
 import { handleOpenCart } from 'hooks/cart'
 
 import debounce from 'utils/debounce.js'
+import Redirect from 'utils/Redirect'
 
 const Header = () => {
-  const [menuToggle, setMenuToggle] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [headerToggle, setHeaderToggle] = useState(true)
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
 
@@ -22,9 +23,9 @@ const Header = () => {
     window.addEventListener('scroll', debounceScrollFunction)
   })
 
-  const handleChangeMenuToggle = useCallback(() => {
-    setMenuToggle(!menuToggle)
-  }, [menuToggle])
+  const handleChangeMenuOpen = useCallback(() => {
+    setMenuOpen(!menuOpen)
+  }, [menuOpen])
 
   const handleInputSearchFocus = useCallback(() => {
     setInputSearchFocus(true)
@@ -37,12 +38,12 @@ const Header = () => {
   return (
     <S.Wrapper
       style={{
-        top: (!menuToggle && headerToggle) || menuToggle ? 0 : '-120px'
+        top: (!menuOpen && headerToggle) || menuOpen ? 0 : '-120px'
       }}
     >
       <nav>
-        <img src="/img/logo.svg" alt="logo" />
-        <S.MenuList toLeft={menuToggle}>
+        <img onClick={() => Redirect('Home')} src="/img/logo.svg" alt="logo" />
+        <S.MenuList toLeft={menuOpen}>
           <li>
             <a href="#">Home</a>
           </li>
@@ -63,7 +64,7 @@ const Header = () => {
               href="#"
               onClick={() => {
                 handleOpenCart()
-                handleChangeMenuToggle()
+                handleChangeMenuOpen()
               }}
             >
               Cart
@@ -82,6 +83,7 @@ const Header = () => {
             }}
             size={20}
           />
+
           <input
             type="text"
             onFocus={handleInputSearchFocus}
@@ -89,7 +91,14 @@ const Header = () => {
             placeholder="Search"
           />
         </S.SearchBar>
-        <S.Icon onClick={handleChangeMenuToggle} size={40} color="#003d59" />
+
+        <S.MenuBtn
+          onClick={() => setMenuOpen(!menuOpen)}
+          className={menuOpen ? 'open' : ''}
+        >
+          <div className="menu-btn_burger"></div>
+        </S.MenuBtn>
+        {/* <S.Icon onClick={handleChangeMenuOpen} size={40} color="#003d59" /> */}
       </nav>
     </S.Wrapper>
   )

@@ -1,45 +1,49 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef } from 'react'
 import * as S from './styles'
 import * as Yup from 'yup'
 import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
 import { useCart } from 'hooks/cart'
 import Redirect from 'utils/Redirect'
+import { FormHandles } from '@unform/core'
+import getValidationErrors from 'utils/getValidationErrors'
+
+import { FiMail, FiLock } from 'react-icons/fi'
+
+import Input from 'components/Input'
+import Button from 'components/Button'
+
+interface IDataProps {
+  email: string
+  password: string
+}
 
 const FormSignIn = () => {
+  const formRef = useRef<FormHandles>(null)
+
   const { signIn } = useAuth()
   const { products } = useCart()
   const { addToast } = useToast()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const displayErrors = useCallback((err: Yup.ValidationError) => {
-    console.log(err.errors)
-  }, [])
-
-  const handleSignIn = useCallback(
-    async (e) => {
-      e.preventDefault()
-
-      const credentials = {
-        email,
-        password
-      }
-
+  const handleSubmit = useCallback(
+    async (data: IDataProps) => {
       try {
+        formRef.current?.setErrors({})
+
         const schema = Yup.object().shape({
-          email: Yup.string().email().required(),
-          password: Yup.string().required()
+          email: Yup.string()
+            .email('Enter a valid email address')
+            .required('E-mail required'),
+          password: Yup.string().min(6, 'At least 6 digits')
         })
 
-        await schema.validate(credentials, {
+        await schema.validate(data, {
           abortEarly: false
         })
 
         //SignIn
-        if (credentials.password && credentials.email) {
-          await signIn(credentials)
+        if (data.password && data.email) {
+          await signIn(data)
         }
 
         if (products.length > 0) {
@@ -48,8 +52,9 @@ const FormSignIn = () => {
           Redirect('')
         }
       } catch (err) {
+        const errors = getValidationErrors(err)
         if (err instanceof Yup.ValidationError) {
-          displayErrors(err)
+          formRef.current?.setErrors(errors)
         } else {
           addToast({
             type: 'error',
@@ -59,20 +64,20 @@ const FormSignIn = () => {
         }
       }
     },
-    [displayErrors, email, password, signIn, addToast, products]
+    [addToast, products.length, signIn]
   )
 
   return (
-    <S.Wrapper onSubmit={(e) => handleSignIn(e)}>
+    <S.Wrapper ref={formRef} onSubmit={(e) => handleSubmit(e)}>
       <h1>Sign-in</h1>
 
-      <label htmlFor="email">Email (phone for mobile accounts)</label>
-      <input type="email" onChange={(e) => setEmail(e.currentTarget.value)} />
+      <Input icon={FiMail} placeholder="Email" name="email" type="text" />
 
-      <label htmlFor="password">Password</label>
-      <input
+      <Input
+        icon={FiLock}
+        placeholder="Password"
+        name="password"
         type="password"
-        onChange={(e) => setPassword(e.currentTarget.value)}
       />
 
       <a className="terms" href="#">
@@ -81,7 +86,7 @@ const FormSignIn = () => {
         and <span>Privacy Notice</span>
       </a>
 
-      <button>Continue</button>
+      <Button>Continue</Button>
       <a className="forgotPassword" href="#">
         Forgot your password?
       </a>
