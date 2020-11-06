@@ -1,43 +1,20 @@
 import styled, { css } from 'styled-components'
 
-interface ICarouselProps {
-  cardFocusWidth: number
-  cardFocusHeight: number
+interface IElementWrapper {
+  isFocused: boolean
 }
 
-export const Wrapper = styled.div<ICarouselProps>`
+interface IElements {
+  position: number
+}
+
+export const Wrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s;
-
-  .slider {
-    overflow: hidden;
-  }
-
-  .slider .thumbs {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 580px;
-    width: max-content;
-    transition: transform 1s;
-  }
-
-  .slider .thumbs div.cardContainer {
-    float: left;
-    transition: opacity 1s;
-    margin-bottom: 10px;
-
-    &.active .card {
-      ${({ cardFocusHeight, cardFocusWidth }) =>
-        css`
-          width: ${cardFocusWidth}px;
-          height: ${cardFocusHeight}px;
-        `};
-    }
-  }
+  overflow: hidden;
 
   @media (max-width: 1092px) {
     transform: scale(1.1);
@@ -56,4 +33,39 @@ export const Wrapper = styled.div<ICarouselProps>`
     margin-top: -150px;
     margin-bottom: -80px;
   }
+`
+
+export const Elements = styled.div<IElements>`
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 580px;
+  transition: transform 1s;
+  left: 0;
+
+  ${({ position }) =>
+    css`
+      transform: translateX(${position}px);
+    `}
+`
+
+export const ElementWrapper = styled.div<IElementWrapper>`
+  float: left;
+  transition: opacity 1s;
+  margin: 10px;
+
+  > div {
+    transform: scale(0.9);
+    opacity: 0.6;
+    transition: all 1s;
+  }
+
+  ${(props) =>
+    props.isFocused &&
+    css`
+      > div {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    `}
 `

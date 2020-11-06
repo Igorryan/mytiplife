@@ -1,7 +1,7 @@
 import * as S from './styles'
 
 import { useCart } from 'hooks/cart'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { Cards as BigPlastic } from 'pages/Products/BigPlastic'
 import { Cards as SmallAcrilic } from 'pages/Products/SmallAcrilic'
@@ -14,25 +14,34 @@ interface IProps {
 const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
   const { products } = useCart()
 
-  useEffect(() => {
-    products &&
-      products.forEach((product, i) => {
-        const Element = document.getElementById(`Card_${i}`)
-        Element && downloadComponentInPDF(Element)
-      })
+  const [sendingElement, setSendingElement] = useState(0)
 
-    setTimeout(() => {
+  const ProcessOrder = useCallback(async (order: number) => {
+    const Element = document.getElementById(`Card_${order}`)
+    Element && (await downloadComponentInPDF(Element))
+  }, [])
+
+  useEffect(() => {
+    const ordersLength = products.length
+
+    if (sendingElement >= ordersLength) {
       handleSetStage(4)
-    }, 4000)
-  }, [handleSetStage, products])
+      return
+    }
+
+    setTimeout(async () => {
+      await ProcessOrder(sendingElement)
+      setSendingElement(sendingElement + 1)
+    }, 3000)
+  }, [ProcessOrder, handleSetStage, products.length, sendingElement])
 
   const getCard = useCallback((title: string, cardNumber: number) => {
     if (title === 'Pocket Size') {
-      return { Card: PocketSize[cardNumber], cardName: 'pocket' }
+      return PocketSize[cardNumber]
     } else if (title === 'Small Acrilic') {
-      return { Card: SmallAcrilic[cardNumber], cardName: 'small' }
+      return SmallAcrilic[cardNumber]
     } else if (title === 'Big Plastic') {
-      return { Card: BigPlastic[cardNumber], cardName: 'big' }
+      return BigPlastic[cardNumber]
     }
   }, [])
 
@@ -40,19 +49,13 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
     <S.Wrapper>
       {products &&
         products.map((product, i) => {
-          console.log(product.product.title)
-
-          const { Card, cardName } = getCard(
-            product.product.title,
-            product.currentCard - 1
-          )
+          const Card = getCard(product.product.title, product.currentCard)
 
           if (Card) {
             return (
               <S.CardWrapper
-                cardName={cardName}
+                sending={sendingElement === i}
                 key={i}
-                className="active"
                 id={`Card_${i}`}
               >
                 <Card

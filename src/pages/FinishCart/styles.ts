@@ -166,7 +166,7 @@ export const ProgressBar = styled.div<IStageProps>`
             }
           }
         `
-      else if (progress === 2) {
+      else if (progress === 2 || progress === 3) {
         return css`
           li:nth-of-type(1),
           li:nth-of-type(2) {
@@ -186,7 +186,7 @@ export const ProgressBar = styled.div<IStageProps>`
             }
           }
         `
-      } else if (progress === 3) {
+      } else if (progress === 4) {
         return css`
           li {
             color: #ffce00;

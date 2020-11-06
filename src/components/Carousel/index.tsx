@@ -1,92 +1,56 @@
 import * as S from './styles'
-import $ from 'jquery'
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import React from 'react'
 
 interface ICarouselProps {
-  width: number
   sliderWidth: number
-  cardFocusWidth?: number
-  cardFocusHeight?: number
-  currentCard: number
-  setCurrentCard: (currentCard: number) => void
+  positions: number[]
+  current: number
+  setCurrent(current: number): void
 }
 
 const Carousel: React.FC<ICarouselProps> = ({
   children,
-  width,
   sliderWidth,
-  cardFocusWidth = 400,
-  cardFocusHeight = 565,
-  currentCard,
-  setCurrentCard
+  positions,
+  current,
+  setCurrent
 }) => {
-  //Transformando children em array
   const childrenArray = React.Children.toArray(children)
 
-  const handleChangeComponent = useCallback(
-    (currentIndex: number) => {
-      const move = (index: number): number => {
-        const _91percentComponentWidth = (91 * width) / 100
+  const [elementFocused, setElementFocused] = useState(current)
 
-        if (index === 1) {
-          return _91percentComponentWidth
-        }
+  const handleChangeElementFocused = useCallback(
+    (element: number) => {
+      if (element === elementFocused && element === childrenArray.length - 1) {
+        setElementFocused(0)
+        setCurrent(0)
 
-        if (index === 0 || index > childrenArray.length - 1) {
-          return 0
-        }
-
-        return _91percentComponentWidth + (index - 1) * width
-      }
-
-      if (currentIndex === currentCard) {
-        $('.thumbs').css('transform', `translateX(-${move(currentCard + 1)}px)`)
-        const newCurrent =
-          currentCard === childrenArray.length - 1 ? 0 : currentCard + 1
-        setCurrentCard(newCurrent)
         return
       }
 
-      if (currentIndex < currentCard) {
-        $('.thumbs').css('transform', `translateX(-${move(currentIndex)}px)`)
-      }
-
-      if (currentIndex > currentCard) {
-        $('.thumbs').css('transform', `translateX(-${move(currentIndex)}px)`)
-      }
-
-      setCurrentCard(currentIndex)
+      setElementFocused(element)
+      setCurrent(element)
     },
-    [currentCard, childrenArray, width, setCurrentCard]
+    [childrenArray.length, elementFocused, setCurrent]
   )
 
   return (
-    <S.Wrapper
-      cardFocusHeight={cardFocusHeight}
-      cardFocusWidth={cardFocusWidth}
-      style={{ width: sliderWidth }}
-    >
-      <div style={{ width: sliderWidth }} className="slider">
-        <div className="thumbs">
-          {childrenArray.map((element, i) => {
-            return (
-              <div
-                key={i}
-                className={`cardContainer ${
-                  currentCard === i ? 'active' : 'disabled'
-                }`}
-                onClick={() => {
-                  handleChangeComponent(i)
-                }}
-              >
-                {element}
-              </div>
-            )
-          })}
-        </div>
-      </div>
+    <S.Wrapper style={{ width: sliderWidth }}>
+      <S.Elements position={positions[elementFocused]}>
+        {childrenArray.map((element, i) => {
+          return (
+            <S.ElementWrapper
+              key={i}
+              onClick={() => handleChangeElementFocused(i)}
+              isFocused={elementFocused === i}
+            >
+              {element}
+            </S.ElementWrapper>
+          )
+        })}
+      </S.Elements>
     </S.Wrapper>
   )
 }

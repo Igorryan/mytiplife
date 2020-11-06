@@ -2,19 +2,19 @@ import * as S from './styles'
 
 //Components
 import Header from 'components/Header'
-import ProductDetails from 'components/ProductDetails'
-import RelatedProducts from 'components/RelatedProducts'
+import ProductDetails from 'pages/Products/_ProductDetails'
+import RelatedProducts from 'pages/Products/_RelatedProducts'
 import Footer from 'components/Footer'
-import HowToUse from 'components/HowToUse'
+import HowToUse from 'pages/Products/_HowToUse'
 import Carousel from 'components/Carousel'
 
-import Card1 from 'components/Cards/SmallAcrilic/Card1'
-import Card2 from 'components/Cards/SmallAcrilic/Card2'
-import Card3 from 'components/Cards/SmallAcrilic/Card3'
-import Card4 from 'components/Cards/SmallAcrilic/Card4'
-import Card5 from 'components/Cards/SmallAcrilic/Card5'
-import Card6 from 'components/Cards/SmallAcrilic/Card6'
-import Card7 from 'components/Cards/SmallAcrilic/Card7'
+import Card1 from './Card1'
+import Card2 from './Card2'
+import Card3 from './Card3'
+import Card4 from './Card4'
+import Card5 from './Card5'
+import Card6 from './Card6'
+import Card7 from './Card7'
 
 export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
 
@@ -37,12 +37,10 @@ const SmallAcrilic = () => {
 
       <section>
         <Carousel
-          width={520}
+          positions={[1550, 1040, 520, 0, -520, -1040, -1550]}
           sliderWidth={650}
-          cardFocusWidth={540}
-          cardFocusHeight={450}
-          currentCard={currentCard}
-          setCurrentCard={setCurrentCard}
+          current={currentCard}
+          setCurrent={setCurrentCard}
         >
           <Card1 image={image} color={color} name={name} job={job} />
           <Card2 image={image} color={color} name={name} job={job} />

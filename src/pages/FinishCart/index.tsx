@@ -37,15 +37,15 @@ const FinishCart = () => {
 
   const handleSetStage = useCallback(
     (toStage: number) => {
-      if (toStage !== 3) {
-        if (toStage >= stage) {
-          animated('fadeOutLeft', 'fadeInRight', toStage, 1000)
-        } else if (toStage < stage) {
-          animated('fadeOutRight', 'fadeInLeft', toStage, 1000)
-        }
-      } else {
+      if (toStage >= 3) {
         animated('fadeOutLeft', '', toStage, 1000)
+        return
       }
+
+      const outEffect = toStage >= stage ? 'fadeOutLeft' : 'fadeOutRight'
+      const inEffect = toStage < stage ? 'fadeInLeft' : 'fadeInRight'
+
+      animated(outEffect, inEffect, toStage, 1000)
     },
     [stage]
   )

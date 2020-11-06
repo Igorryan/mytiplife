@@ -2,16 +2,16 @@ import * as S from './styles'
 
 //Components
 import Header from 'components/Header'
-import ProductDetails from 'components/ProductDetails'
-import RelatedProducts from 'components/RelatedProducts'
+import ProductDetails from 'pages/Products/_ProductDetails'
+import RelatedProducts from 'pages/Products/_RelatedProducts'
 import Footer from 'components/Footer'
-import HowToUse from 'components/HowToUse'
+import HowToUse from 'pages/Products/_HowToUse'
 import Carousel from 'components/Carousel'
 
-import Card1 from 'components/Cards/BigPlastic/Card1'
-import Card2 from 'components/Cards/BigPlastic/Card2'
-import Card3 from 'components/Cards/BigPlastic/Card3'
-import Card4 from 'components/Cards/BigPlastic/Card4'
+import Card1 from './Card1'
+import Card2 from './Card2'
+import Card3 from './Card3'
+import Card4 from './Card4'
 import { useState } from 'react'
 
 import Products from 'data/Products'
@@ -33,12 +33,10 @@ const BigPlasticCards = () => {
 
       <section>
         <Carousel
-          width={520}
+          current={currentCard}
+          setCurrent={setCurrentCard}
+          positions={[750, 260, -260, -750]}
           sliderWidth={665}
-          cardFocusHeight={550}
-          cardFocusWidth={550}
-          currentCard={currentCard}
-          setCurrentCard={setCurrentCard}
         >
           <Card1 color={color} name={name} job={job} />
           <Card2 image={image} color={color} name={name} job={job} />

@@ -2,19 +2,19 @@ import * as S from './styles'
 
 //Components
 import Header from 'components/Header'
-import ProductDetails from 'components/ProductDetails'
-import RelatedProducts from 'components/RelatedProducts'
+import ProductDetails from 'pages/Products/_ProductDetails'
+import RelatedProducts from 'pages/Products/_RelatedProducts'
 import Footer from 'components/Footer'
-import HowToUse from 'components/HowToUse'
+import HowToUse from 'pages/Products/_HowToUse'
 import Carousel from 'components/Carousel'
 
-import Card1 from 'components/Cards/PocketSize/Card1'
-import Card2 from 'components/Cards/PocketSize/Card2'
-import Card3 from 'components/Cards/PocketSize/Card3'
-import Card4 from 'components/Cards/PocketSize/Card4'
-import Card5 from 'components/Cards/PocketSize/Card5'
-import Card6 from 'components/Cards/PocketSize/Card6'
-import Card7 from 'components/Cards/PocketSize/Card7'
+import Card1 from './Card1'
+import Card2 from './Card2'
+import Card3 from './Card3'
+import Card4 from './Card4'
+import Card5 from './Card5'
+import Card6 from './Card6'
+import Card7 from './Card7'
 
 export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
 
@@ -37,10 +37,10 @@ const PocketSizeCards = () => {
 
       <section>
         <Carousel
-          width={420}
-          sliderWidth={500}
-          currentCard={currentCard}
-          setCurrentCard={setCurrentCard}
+          sliderWidth={560}
+          positions={[1240, 840, 420, 0, -420, -840, -1240]}
+          current={currentCard}
+          setCurrent={setCurrentCard}
         >
           <Card1 image={image} color={color} name={name} job={job} />
           <Card2 color={color} name={name} job={job} />

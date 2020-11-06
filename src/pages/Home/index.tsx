@@ -57,7 +57,9 @@ const Home = () => (
                 <p>
                   $<strong>{price.toFixed(2)}</strong>
                 </p>
-                <button onClick={() => Redirect(toProductPageURL)}>
+                <button
+                  onClick={() => Redirect(`Products/${toProductPageURL}`)}
+                >
                   Personalize
                 </button>
               </div>

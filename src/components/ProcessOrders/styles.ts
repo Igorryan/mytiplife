@@ -1,22 +1,7 @@
 import styled, { css } from 'styled-components'
 
-const cardSize = {
-  pocket: css`
-    width: 400px;
-    height: 565px;
-  `,
-  small: css`
-    width: 560px;
-    height: 470px;
-  `,
-  big: css`
-    width: 570px;
-    height: 570px;
-  `
-}
-
-interface CardWrapperProps {
-  cardName: 'pocket' | 'small' | 'big'
+interface ICardWrapper {
+  sending: boolean
 }
 
 export const Wrapper = styled.div`
@@ -25,8 +10,12 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 `
-export const CardWrapper = styled.div<CardWrapperProps>`
-  &.active .card {
-    ${(props) => cardSize[props.cardName]}
-  }
+export const CardWrapper = styled.div<ICardWrapper>`
+  display: none;
+
+  ${(props) =>
+    props.sending &&
+    css`
+      display: flex;
+    `}
 `
