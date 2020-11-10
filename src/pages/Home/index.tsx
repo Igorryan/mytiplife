@@ -7,7 +7,7 @@ import Products from 'data/Products'
 
 import Tilt from 'react-parallax-tilt'
 
-const Home = () => (
+const Home: React.FC = () => (
   <S.Wrapper>
     <Header />
     <section>

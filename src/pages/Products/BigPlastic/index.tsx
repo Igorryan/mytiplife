@@ -18,7 +18,7 @@ import Products from 'data/Products'
 
 export const Cards = [Card1, Card2, Card3, Card4]
 
-const BigPlasticCards = () => {
+const BigPlasticCards: React.FC = () => {
   const { colors, units } = Products[2]
 
   const [name, setName] = useState('Your name')

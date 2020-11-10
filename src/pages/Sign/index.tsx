@@ -4,7 +4,7 @@ import SignIn from 'components/SignIn'
 import SignUp from 'components/SignUp'
 import SimpleHeader from 'components/SimpleHeader'
 
-const Sign = () => (
+const Sign: React.FC = () => (
   <S.Wrapper>
     <SimpleHeader />
 

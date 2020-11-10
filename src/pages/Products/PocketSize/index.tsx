@@ -22,7 +22,7 @@ import { useState } from 'react'
 
 import Products from 'data/Products'
 
-const PocketSizeCards = () => {
+const PocketSizeCards: React.FC = () => {
   const { colors, units } = Products[0]
 
   const [name, setName] = useState('Your name')

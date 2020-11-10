@@ -20,7 +20,7 @@ export interface IOrderData {
   cartTotal: number
 }
 
-const FinishCart = () => {
+const FinishCart: React.FC = () => {
   const { addToast } = useToast()
   const { isAuthenticated, username } = useAuth()
   const { totalCartValue, products } = useCart()

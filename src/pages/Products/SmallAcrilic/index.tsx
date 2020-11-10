@@ -22,7 +22,7 @@ import { useState } from 'react'
 
 import Products from 'data/Products'
 
-const SmallAcrilic = () => {
+const SmallAcrilic: React.FC = () => {
   const { colors, units } = Products[1]
 
   const [name, setName] = useState('Your name')
