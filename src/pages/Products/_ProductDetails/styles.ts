@@ -8,6 +8,11 @@ interface ButtonProps {
 interface ColorOptionProps {
   selected?: boolean
 }
+
+interface IColorsWrapper {
+  colorSelected: string
+}
+
 export const Wrapper = styled.div`
   width: 400px;
   margin-left: 40px;
@@ -164,30 +169,53 @@ export const CustomizationsWrapper = styled.div`
   margin-top: 30px;
 `
 
-export const BackgoundColorsWrapper = styled.div`
-  padding: 24px;
-  padding-right: 14px;
-  border-radius: 12px;
+export const ColorsWrapper = styled.ul<IColorsWrapper>`
   background: #f6f6f6;
+  font-size: 18px;
+  color: #153d57;
+
   width: 48%;
   height: 200px;
   min-width: 150px;
+  border-radius: 12px;
+  list-style: none;
+  position: relative;
+  padding: 24px;
 
   h3 {
     font-size: 18px;
     color: #153d57;
   }
+
+  div {
+    display: flex;
+    overflow-x: scroll;
+    margin-top: 30px;
+    height: 72px;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent; /* color of the tracking area */
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 100px;
+
+      ${(props) =>
+        props.colorSelected &&
+        css`
+          background-color: ${props.colorSelected};
+        `}
+    }
+  }
 `
 
-export const ColorsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 15px;
-`
-
-export const ColorOption = styled.div<ColorOptionProps>`
+export const ColorOption = styled.li<ColorOptionProps>`
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 4px;
   margin-right: 5px;
   margin-bottom: 5px;

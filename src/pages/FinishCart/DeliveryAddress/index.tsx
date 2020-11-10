@@ -3,7 +3,6 @@ import * as S from './styles'
 import api from 'services/api'
 import compareIsEqualsJSONObject from 'utils/compareIsEqualsJSONObject'
 import { useToast } from 'hooks/toast'
-import Redirect from 'utils/Redirect'
 
 export interface ILocationData {
   type: string
@@ -55,63 +54,64 @@ const DeliveryAddress: React.FC<IProps> = ({
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Unauthorized Authentication',
-        description: 'Redirecting to sign',
-        timer: true
+        title: 'Error in retrieving addresses'
       })
-
-      setTimeout(() => {
-        Redirect('Sign')
-      }, 3500)
     }
   }, [addToast])
 
   const handleSubmit = useCallback(
     async (e) => {
-      e.preventDefault()
+      try {
+        e.preventDefault()
 
-      if (!location) {
-        alert('Preencha a sua localização')
-        return false
-      }
-
-      if (!completeAddress) {
-        alert('Complete o seu endereço')
-        return false
-      }
-
-      if (tagLocationSelected) {
-        const tagLocationSelectedData: ILocationData = {
-          type: tagLocationSelected,
-          location,
-          completeAddress,
-          floor: floor || '',
-          howToReach: howToReach || ''
+        if (!location) {
+          alert('Preencha a sua localização')
+          return false
         }
 
-        const newLocations: ILocationData[] = []
+        if (!completeAddress) {
+          alert('Complete o seu endereço')
+          return false
+        }
 
-        locations &&
-          locations.forEach((l) => {
-            if (l.type !== tagLocationSelected) {
-              newLocations.push(l)
-            }
-          })
+        if (tagLocationSelected) {
+          const tagLocationSelectedData: ILocationData = {
+            type: tagLocationSelected,
+            location,
+            completeAddress,
+            floor: floor || '',
+            howToReach: howToReach || ''
+          }
 
-        newLocations.push(tagLocationSelectedData)
+          const newLocations: ILocationData[] = []
 
-        if (!compareIsEqualsJSONObject(newLocations, locations)) {
-          const token = localStorage.getItem('@MyTipLife:token')
-
-          if (token) {
-            await api.post('/address', newLocations, {
-              headers: {
-                Authorization: `Bearer ${token}`
+          locations &&
+            locations.forEach((l) => {
+              if (l.type !== tagLocationSelected) {
+                newLocations.push(l)
               }
             })
+
+          newLocations.push(tagLocationSelectedData)
+
+          if (!compareIsEqualsJSONObject(newLocations, locations)) {
+            const token = localStorage.getItem('@MyTipLife:token')
+
+            if (token) {
+              await api.post('/address', newLocations, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              })
+            }
           }
+          setDeliveryAddress(tagLocationSelectedData)
         }
-        setDeliveryAddress(tagLocationSelectedData)
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Error in trying to save address'
+        })
       }
 
       handleSetStage(2)
@@ -120,11 +120,12 @@ const DeliveryAddress: React.FC<IProps> = ({
       location,
       completeAddress,
       tagLocationSelected,
+      handleSetStage,
       floor,
       howToReach,
       locations,
-      handleSetStage,
-      setDeliveryAddress
+      setDeliveryAddress,
+      addToast
     ]
   )
 

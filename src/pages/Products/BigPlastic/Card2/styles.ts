@@ -52,9 +52,9 @@ export const CardOption = styled.div`
       max-height: 32px;
 
       background-color: #ffe066;
-      padding: 8px 0;
+      line-height: 30px;
+
       overflow: hidden;
-      line-height: 16px;
     }
 
     .qrCode {

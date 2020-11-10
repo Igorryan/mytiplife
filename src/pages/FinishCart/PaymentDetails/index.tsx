@@ -72,7 +72,10 @@ const PaymentDetails: React.FC<IProps> = ({
         }
       }
     } catch (err) {
-      alert('erro ao recuperar cartao de credito')
+      addToast({
+        type: 'error',
+        title: 'Error in retrieving card credit'
+      })
     }
   }, [addToast])
 
@@ -136,26 +139,33 @@ const PaymentDetails: React.FC<IProps> = ({
 
   const handleSubmit = useCallback(
     async (e) => {
-      e.preventDefault()
+      try {
+        e.preventDefault()
 
-      if (!validations()) {
-        return false
+        if (!validations()) {
+          return false
+        }
+
+        const creditCard: ICreditCard = {
+          name: cardName,
+          expiration_date: cardValidUntil,
+          number: cardNumber
+        }
+
+        if (
+          checkboxSaveCreditCard &&
+          !compareIsEqualsJSONObject(creditCard, creditCardSavedByUser)
+        ) {
+          await saveCreditCard(creditCard)
+        }
+
+        setPaymentAccept(true)
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Error in trying to save credit card'
+        })
       }
-
-      const creditCard: ICreditCard = {
-        name: cardName,
-        expiration_date: cardValidUntil,
-        number: cardNumber
-      }
-
-      if (
-        checkboxSaveCreditCard &&
-        !compareIsEqualsJSONObject(creditCard, creditCardSavedByUser)
-      ) {
-        await saveCreditCard(creditCard)
-      }
-
-      setPaymentAccept(true)
     },
     [
       validations,
@@ -165,7 +175,8 @@ const PaymentDetails: React.FC<IProps> = ({
       checkboxSaveCreditCard,
       creditCardSavedByUser,
       setPaymentAccept,
-      saveCreditCard
+      saveCreditCard,
+      addToast
     ]
   )
 

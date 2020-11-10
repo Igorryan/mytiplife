@@ -50,9 +50,10 @@ export const CardOption = styled.div`
       margin-top: -20px;
       background-color: #ffe066;
       padding: 8px;
+      padding-top: 4px;
       height: 38px;
       overflow: hidden;
-      text-align: center;
+      line-height: 30px;
     }
 
     .qrCode {

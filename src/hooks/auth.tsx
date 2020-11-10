@@ -9,16 +9,16 @@ import api from 'services/api'
 
 interface AuthState {
   token: string
-  name: string
+  username: string
 }
 
-interface SignInCredentials {
-  email: string
+export interface SignInCredentials {
+  username: string
   password: string
 }
 
 interface AuthContextData {
-  name: string
+  username: string
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
   isAuthenticated(): boolean
@@ -31,33 +31,31 @@ const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('@MyTipLife:token')
-    const name = localStorage.getItem('@MyTipLife:name')
+    const username = localStorage.getItem('@MyTipLife:username')
 
-    if (token && name) {
+    if (token && username) {
       setData({
         token,
-        name
+        username
       })
     }
   }, [])
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ username, password }) => {
     const response = await api.post('login', {
-      email,
+      username,
       password
     })
 
-    const { name, token } = response.data.data
+    localStorage.setItem('@MyTipLife:token', response.data.data.token)
+    localStorage.setItem('@MyTipLife:username', username)
 
-    localStorage.setItem('@MyTipLife:token', token)
-    localStorage.setItem('@MyTipLife:name', name)
-
-    setData({ token, name })
+    setData(response.data.data)
   }, [])
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@MyTipLife:token')
-    localStorage.removeItem('@MyTipLife:name')
+    localStorage.removeItem('@MyTipLife:username')
 
     setData({} as AuthState)
   }, [])
@@ -74,7 +72,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ name: data.name, signIn, signOut, isAuthenticated }}
+      value={{ username: data.username, signIn, signOut, isAuthenticated }}
     >
       {children}
     </AuthContext.Provider>

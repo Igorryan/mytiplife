@@ -10,12 +10,12 @@ import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 
 const Cart: React.FC = () => {
   const { products, removeProduct, totalCartValue } = useCart()
-  const { name } = useAuth()
+  const { username } = useAuth()
 
   const handleFinishCart = useCallback(() => {
-    const toRoute = name ? 'FinishCart' : 'Sign'
+    const toRoute = username ? 'FinishCart' : 'Sign'
     Redirect(toRoute)
-  }, [name])
+  }, [username])
 
   return (
     <S.Wrapper id="cart">

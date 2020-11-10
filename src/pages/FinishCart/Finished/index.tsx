@@ -16,8 +16,8 @@ const Finished: React.FC<IFinishedProps> = ({ orderData }) => {
         <S.OrderDetail>
           <img width={24} src="/img/user_icon.svg" alt="" />
           <div>
-            <span>Name</span>
-            <p>{orderData.name}</p>
+            <span>Username</span>
+            <p>{orderData.username}</p>
           </div>
         </S.OrderDetail>
 

@@ -1,22 +1,17 @@
 import { useCallback, useRef } from 'react'
 import * as S from './styles'
 import * as Yup from 'yup'
-import { useAuth } from 'hooks/auth'
+import { SignInCredentials, useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
 import { useCart } from 'hooks/cart'
 import Redirect from 'utils/Redirect'
 import { FormHandles } from '@unform/core'
 import getValidationErrors from 'utils/getValidationErrors'
 
-import { FiMail, FiLock } from 'react-icons/fi'
+import { FiUser, FiLock } from 'react-icons/fi'
 
 import Input from 'components/Input'
 import Button from 'components/Button'
-
-interface IDataProps {
-  email: string
-  password: string
-}
 
 const FormSignIn = () => {
   const formRef = useRef<FormHandles>(null)
@@ -26,14 +21,12 @@ const FormSignIn = () => {
   const { addToast } = useToast()
 
   const handleSubmit = useCallback(
-    async (data: IDataProps) => {
+    async (data: SignInCredentials) => {
       try {
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .email('Enter a valid email address')
-            .required('E-mail required'),
+          username: Yup.string().required('Username required'),
           password: Yup.string().min(6, 'At least 6 digits')
         })
 
@@ -42,7 +35,7 @@ const FormSignIn = () => {
         })
 
         //SignIn
-        if (data.password && data.email) {
+        if (data.password && data.username) {
           await signIn(data)
         }
 
@@ -71,7 +64,7 @@ const FormSignIn = () => {
     <S.Wrapper ref={formRef} onSubmit={(e) => handleSubmit(e)}>
       <h1>Sign-in</h1>
 
-      <Input icon={FiMail} placeholder="Email" name="email" type="text" />
+      <Input icon={FiUser} placeholder="Username" name="username" type="text" />
 
       <Input
         icon={FiLock}

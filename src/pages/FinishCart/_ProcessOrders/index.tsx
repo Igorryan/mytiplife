@@ -8,17 +8,20 @@ import { Cards as SmallAcrilic } from 'pages/Products/SmallAcrilic'
 import { Cards as PocketSize } from 'pages/Products/PocketSize'
 
 import downloadComponentInPDF from 'utils/downloadComponentInPDF'
+import { useAuth } from 'hooks/auth'
 interface IProps {
   handleSetStage(state: number): void
 }
 const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
   const { products } = useCart()
+  const { username } = useAuth()
 
   const [sendingElement, setSendingElement] = useState(0)
+  const [exitElement, setExitElement] = useState<number>()
 
-  const ProcessOrder = useCallback(async (order: number) => {
+  const ProcessOrder = useCallback(async (order: number, pdfName: string) => {
     const Element = document.getElementById(`Card_${order}`)
-    Element && (await downloadComponentInPDF(Element))
+    Element && (await downloadComponentInPDF(Element, pdfName))
   }, [])
 
   useEffect(() => {
@@ -30,10 +33,16 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
     }
 
     setTimeout(async () => {
-      await ProcessOrder(sendingElement)
-      setSendingElement(sendingElement + 1)
-    }, 3000)
-  }, [ProcessOrder, handleSetStage, products.length, sendingElement])
+      await ProcessOrder(
+        sendingElement,
+        `order_${sendingElement}_${username}.pdf`
+      )
+      setExitElement(sendingElement)
+      setTimeout(() => {
+        setSendingElement(sendingElement + 1)
+      }, 2000)
+    }, 1)
+  }, [ProcessOrder, handleSetStage, products.length, sendingElement, username])
 
   const getCard = useCallback((title: string, cardNumber: number) => {
     if (title === 'Pocket Size') {
@@ -53,8 +62,9 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
 
           if (Card) {
             return (
-              <S.CardWrapper
+              <S.WrapperCard
                 sending={sendingElement === i}
+                exit={exitElement === i}
                 key={i}
                 id={`Card_${i}`}
               >
@@ -64,10 +74,14 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
                   job={product.job}
                   name={product.name}
                 />
-              </S.CardWrapper>
+              </S.WrapperCard>
             )
           }
         })}
+
+      <h1>
+        {sendingElement + 1}/{products.length} - Sending production orders
+      </h1>
     </S.Wrapper>
   )
 }

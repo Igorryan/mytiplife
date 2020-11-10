@@ -10,11 +10,11 @@ import Footer from 'components/Footer'
 import { useToast } from 'hooks/toast'
 import { useAuth } from 'hooks/auth'
 import { useCart } from 'hooks/cart'
-import ProcessOrders from 'components/ProcessOrders'
+import ProcessOrders from 'pages/FinishCart/_ProcessOrders'
 
 export interface IOrderData {
   deliveryAddress: ILocationData
-  name: string
+  username: string
   deliveryData: string
   requestNumber: string
   cartTotal: number
@@ -22,7 +22,7 @@ export interface IOrderData {
 
 const FinishCart = () => {
   const { addToast } = useToast()
-  const { isAuthenticated, name } = useAuth()
+  const { isAuthenticated, username } = useAuth()
   const { totalCartValue, products } = useCart()
 
   const [deliveryAddress, setDeliveryAddress] = useState<ILocationData>(
@@ -38,7 +38,7 @@ const FinishCart = () => {
   const handleSetStage = useCallback(
     (toStage: number) => {
       if (toStage >= 3) {
-        animated('fadeOutLeft', '', toStage, 1000)
+        animated('', '', toStage, 1000)
         return
       }
 
@@ -59,7 +59,7 @@ const FinishCart = () => {
 
       const response = {
         deliveryAddress,
-        name,
+        username,
         deliveryData: 'Your order will arrive by day X',
         requestNumber: 'MKJ2345HQ',
         cartTotal: totalCartValue
@@ -70,7 +70,7 @@ const FinishCart = () => {
       //limpar carrinho
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deliveryAddress, name, paymentAccept, totalCartValue])
+  }, [deliveryAddress, username, paymentAccept, totalCartValue])
 
   useEffect(() => {
     if (!isAuthenticated()) {

@@ -12,12 +12,9 @@ import { RiLockPasswordLine, RiLockPasswordFill } from 'react-icons/ri'
 
 import Input from 'components/Input'
 import Button from 'components/Button'
-import { useCart } from 'hooks/cart'
-import { useAuth } from 'hooks/auth'
-import Redirect from 'utils/Redirect'
 
 interface IDataProps {
-  name: string
+  username: string
   email: string
   password: string
   confirmPassword: string
@@ -26,9 +23,7 @@ interface IDataProps {
 const FormSignUp = () => {
   const formRef = useRef<FormHandles>(null)
 
-  const { signIn } = useAuth()
   const { addToast } = useToast()
-  const { products } = useCart()
 
   const handleSignUp = useCallback(
     async (data: IDataProps) => {
@@ -36,7 +31,7 @@ const FormSignUp = () => {
 
       try {
         const schema = Yup.object().shape({
-          name: Yup.string().required(),
+          username: Yup.string().required(),
           email: Yup.string()
             .email('Enter a valid email address')
             .required('E-mail required'),
@@ -52,36 +47,21 @@ const FormSignUp = () => {
 
         //SignIn
         const response = await api.post('/register', {
-          name: data.name,
+          username: data.username,
           email: data.email,
-          password: data.password
+          password: data.password,
+          confirm_password: data.confirmPassword
         })
 
         if (!response.data.status) {
           throw new Error(response.data.message)
         }
 
-        console.log(response.data)
-
         addToast({
           type: 'success',
-          title: `Welcome ${data.name.toUpperCase()}`,
-          description: 'Signing in with your account',
-          timer: true
+          title: `Welcome ${data.username}`,
+          description: response.data.message
         })
-
-        await signIn({
-          email: data.email,
-          password: data.password
-        })
-
-        setTimeout(() => {
-          if (products.length > 0) {
-            Redirect('FinishCart')
-          } else {
-            Redirect('')
-          }
-        }, 3200)
       } catch (err) {
         const errors = getValidationErrors(err)
         if (err instanceof Yup.ValidationError) {
@@ -89,19 +69,24 @@ const FormSignUp = () => {
         } else {
           addToast({
             type: 'error',
-            title: err.message
+            title: 'User or email already exists'
           })
         }
       }
     },
-    [addToast, products.length, signIn]
+    [addToast]
   )
 
   return (
     <S.Wrapper ref={formRef} onSubmit={(e) => handleSignUp(e)}>
       <h1>New to My tip life?</h1>
 
-      <Input icon={FiUser} placeholder="Your name" name="name" type="text" />
+      <Input
+        icon={FiUser}
+        placeholder="Create your user name"
+        name="username"
+        type="text"
+      />
 
       <Input
         icon={FiMail}

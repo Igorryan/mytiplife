@@ -1,7 +1,10 @@
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
-export default async function downloadComponentInPDF(Component: HTMLElement) {
+export default async function downloadComponentInPDF(
+  Component: HTMLElement,
+  pdfName: string
+) {
   await html2canvas(Component).then((canvas) => {
     const componentWidth = Component.offsetWidth
     const componentHeight = Component.offsetHeight
@@ -10,11 +13,14 @@ export default async function downloadComponentInPDF(Component: HTMLElement) {
 
     const imgData = canvas.toDataURL('image/png')
     const pdf = new jsPDF({
-      unit: 'px',
       orientation,
-      format: [componentHeight / 1.78, componentWidth / 1.78]
+      unit: 'px'
     })
-    pdf.addImage(imgData, 'PNG', 0, 0, 0, 0)
-    pdf.save('downlddoad.pdf')
+
+    pdf.internal.pageSize.width = componentWidth
+    pdf.internal.pageSize.height = componentHeight
+
+    pdf.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight)
+    pdf.save(pdfName)
   })
 }

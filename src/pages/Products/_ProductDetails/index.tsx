@@ -140,19 +140,20 @@ const ProductDetails: React.FC<IProps> = ({
       <p>{description}</p>
 
       <S.CustomizationsWrapper>
-        <S.BackgoundColorsWrapper>
+        <S.ColorsWrapper colorSelected={color}>
           <h3>Custom background</h3>
-          <S.ColorsWrapper>
+
+          <div>
             {colorsOptions.map((c, i) => (
               <S.ColorOption
                 key={i}
+                selected={color === c}
                 onClick={() => handleColorSelected(c)}
-                selected={color === c ? true : false}
-                style={{ background: c }}
-              />
+                style={{ backgroundColor: c }}
+              ></S.ColorOption>
             ))}
-          </S.ColorsWrapper>
-        </S.BackgoundColorsWrapper>
+          </div>
+        </S.ColorsWrapper>
 
         <S.UploadInfosWrapper>
           <div>
