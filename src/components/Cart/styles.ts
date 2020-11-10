@@ -173,6 +173,7 @@ export const Wrapper = styled.div`
     bottom: 0;
     height: 150px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    background: #fff;
 
     div {
       width: 90%;
@@ -180,6 +181,7 @@ export const Wrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       strong {
         font-family: 'Roboto', sans-serif;
         font-size: 36px;
@@ -215,5 +217,34 @@ export const Wrapper = styled.div`
     bottom: 0;
 
     border-radius: 75px 75px 0 0;
+
+    ul {
+      li {
+        width: 100%;
+
+        img {
+          height: 80px;
+        }
+
+        .description {
+          margin-top: 0;
+
+          div {
+            margin-top: 20px;
+
+            strong {
+              font-size: 22px;
+              span {
+                font-size: 16px;
+              }
+            }
+
+            button {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
   }
 `
