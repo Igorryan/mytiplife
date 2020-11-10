@@ -1,4 +1,4 @@
-import * as S from './styles'
+import * as S from 'styles/Home/styles'
 
 import Header from 'components/Header'
 import Footer from 'components/Footer'

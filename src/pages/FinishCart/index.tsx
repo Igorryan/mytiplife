@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import * as S from './styles'
+import * as S from 'styles/FinishCart/styles'
 
 import SimpleHeader from 'components/SimpleHeader'
 import DeliveryAddress, { ILocationData } from 'components/DeliveryAddress'

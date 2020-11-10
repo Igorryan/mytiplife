@@ -1,4 +1,4 @@
-import * as S from './styles'
+import * as S from 'styles/Sign/styles'
 import Footer from 'components/Footer'
 import SignIn from 'components/SignIn'
 import SignUp from 'components/SignUp'

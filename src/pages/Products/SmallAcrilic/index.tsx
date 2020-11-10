@@ -1,4 +1,4 @@
-import * as S from './styles'
+import * as S from 'styles/Products/SmallAcrilic/styles'
 
 //Components
 import Header from 'components/Header'
