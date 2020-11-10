@@ -1,6 +1,6 @@
 import * as S from './styles'
 import { FiArrowLeft } from 'react-icons/fi'
-import { IOrderData } from '..'
+import { IOrderData } from 'pages/FinishCart'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 
 interface IFinishedProps {
