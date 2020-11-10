@@ -8,13 +8,13 @@ import Footer from 'components/Footer'
 import HowToUse from 'pages/Products/_HowToUse'
 import Carousel from 'components/Carousel'
 
-import Card1 from './Card1'
-import Card2 from './Card2'
-import Card3 from './Card3'
-import Card4 from './Card4'
-import Card5 from './Card5'
-import Card6 from './Card6'
-import Card7 from './Card7'
+import Card1 from './_Card1'
+import Card2 from './_Card2'
+import Card3 from './_Card3'
+import Card4 from './_Card4'
+import Card5 from './_Card5'
+import Card6 from './_Card6'
+import Card7 from './_Card7'
 
 export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
 

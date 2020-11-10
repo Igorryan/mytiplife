@@ -1,7 +1,7 @@
 import * as S from './styles'
 import Footer from '../../components/Footer'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import SignIn from './_SignIn'
+import SignUp from './_SignUp'
 import SimpleHeader from 'components/SimpleHeader'
 
 const Sign = () => (
