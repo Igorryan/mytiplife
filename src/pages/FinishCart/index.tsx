@@ -3,14 +3,14 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import * as S from './styles'
 
 import SimpleHeader from 'components/SimpleHeader'
-import DeliveryAddress, { ILocationData } from './_DeliveryAddress'
-import PaymentDetails from './_PaymentDetails'
-import Finished from './_Finished'
+import DeliveryAddress, { ILocationData } from 'components/DeliveryAddress'
+import PaymentDetails from 'components/PaymentDetails'
+import Finished from 'components/Finished'
 import Footer from 'components/Footer'
 import { useToast } from 'hooks/toast'
 import { useAuth } from 'hooks/auth'
 import { useCart } from 'hooks/cart'
-import ProcessOrders from 'pages/FinishCart/_ProcessOrders'
+import ProcessOrders from 'components/ProcessOrders'
 
 export interface IOrderData {
   deliveryAddress: ILocationData

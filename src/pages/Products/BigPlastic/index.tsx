@@ -2,16 +2,16 @@ import * as S from './styles'
 
 //Components
 import Header from 'components/Header'
-import ProductDetails from 'pages/Products/_ProductDetails'
-import RelatedProducts from 'pages/Products/_RelatedProducts'
+import ProductDetails from 'components/ProductDetails'
+import RelatedProducts from 'components/RelatedProducts'
 import Footer from 'components/Footer'
-import HowToUse from 'pages/Products/_HowToUse'
+import HowToUse from 'components/HowToUse'
 import Carousel from 'components/Carousel'
 
-import Card1 from './_Card1'
-import Card2 from './_Card2'
-import Card3 from './_Card3'
-import Card4 from './_Card4'
+import Card1 from 'components/Cards/BigPlastic/Card1'
+import Card2 from 'components/Cards/BigPlastic/Card2'
+import Card3 from 'components/Cards/BigPlastic/Card3'
+import Card4 from 'components/Cards/BigPlastic/Card4'
 import { useState } from 'react'
 
 import Products from 'data/Products'

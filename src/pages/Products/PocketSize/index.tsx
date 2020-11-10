@@ -2,19 +2,19 @@ import * as S from './styles'
 
 //Components
 import Header from 'components/Header'
-import ProductDetails from 'pages/Products/_ProductDetails'
-import RelatedProducts from 'pages/Products/_RelatedProducts'
+import ProductDetails from 'components/ProductDetails'
+import RelatedProducts from 'components/RelatedProducts'
 import Footer from 'components/Footer'
-import HowToUse from 'pages/Products/_HowToUse'
+import HowToUse from 'components/HowToUse'
 import Carousel from 'components/Carousel'
 
-import Card1 from './_Card1'
-import Card2 from './_Card2'
-import Card3 from './_Card3'
-import Card4 from './_Card4'
-import Card5 from './_Card5'
-import Card6 from './_Card6'
-import Card7 from './_Card7'
+import Card1 from 'components/Cards/PocketSize/Card1'
+import Card2 from 'components/Cards/PocketSize/Card2'
+import Card3 from 'components/Cards/PocketSize/Card3'
+import Card4 from 'components/Cards/PocketSize/Card4'
+import Card5 from 'components/Cards/PocketSize/Card5'
+import Card6 from 'components/Cards/PocketSize/Card6'
+import Card7 from 'components/Cards/PocketSize/Card7'
 
 export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
 
