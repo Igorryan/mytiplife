@@ -31,7 +31,7 @@ const FormSignUp = () => {
 
       try {
         const schema = Yup.object().shape({
-          username: Yup.string().required(),
+          username: Yup.string().required('Username required'),
           email: Yup.string()
             .email('Enter a valid email address')
             .required('E-mail required'),
@@ -83,6 +83,7 @@ const FormSignUp = () => {
 
       <Input
         icon={FiUser}
+        tyle={{ textTransform: 'lowercase' }}
         placeholder="Create your user name"
         name="username"
         type="text"

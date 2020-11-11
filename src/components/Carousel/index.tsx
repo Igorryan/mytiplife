@@ -30,6 +30,11 @@ const Carousel: React.FC<ICarouselProps> = ({
         return
       }
 
+      if (element === elementFocused) {
+        handleChangeElementFocused(element + 1)
+        return
+      }
+
       setElementFocused(element)
       setCurrent(element)
     },

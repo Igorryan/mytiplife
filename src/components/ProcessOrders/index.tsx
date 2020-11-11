@@ -56,6 +56,13 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
 
   return (
     <S.Wrapper>
+      <h1>
+        {sendingElement < products.length
+          ? `${sendingElement + 1}/${
+              products.length
+            } - Sending production orders`
+          : `Done!`}
+      </h1>
       {products &&
         products.map((product, i) => {
           const Card = getCard(product.product.title, product.currentCard)
@@ -78,10 +85,6 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
             )
           }
         })}
-
-      <h1>
-        {sendingElement + 1}/{products.length} - Sending production orders
-      </h1>
     </S.Wrapper>
   )
 }

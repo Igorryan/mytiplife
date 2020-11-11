@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { IoIosHelpCircleOutline } from 'react-icons/io'
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 interface ButtonProps {
   disabled: boolean
@@ -42,64 +43,6 @@ export const UnitsWrapper = styled.div`
   border: 1px solid #e8e8e8;
   border-radius: 12px;
 
-  ul {
-    display: flex;
-    border-bottom: 1px solid #e8e8e8;
-    padding: 20px 0;
-    overflow-x: scroll;
-
-    li {
-      list-style: none;
-      margin: 0 16px;
-
-      :first-of-type {
-        margin-left: 40px;
-      }
-    }
-
-    input {
-      cursor: pointer;
-      display: none;
-    }
-
-    input[type='radio']:checked + label {
-      font-weight: 500;
-      color: #153d57;
-    }
-
-    input[type='radio']:checked + label:before {
-      border: 1px solid #153d57;
-      background: #153d57;
-    }
-
-    label {
-      font-size: 20px;
-      font-family: 'Rubik', sans-serif;
-      font-weight: 400;
-      color: #bfbfbf;
-      cursor: pointer;
-      position: relative;
-      margin-right: 10px;
-
-      ::after {
-        content: 'UN';
-        font-size: 14px;
-      }
-
-      ::before {
-        content: ' ';
-        position: absolute;
-        border-radius: 50%;
-        border: 1px solid #bfbfbf;
-        width: 8px;
-        height: 8px;
-        font-size: 14px;
-        margin-left: -16px;
-        margin-top: 6.1px;
-      }
-    }
-  }
-
   div {
     display: flex;
     padding: 20px 15px;
@@ -138,6 +81,64 @@ export const UnitsWrapper = styled.div`
           font-size: 20px;
         }
       }
+    }
+  }
+`
+
+export const UnitScrollWrapper = styled(ScrollContainer)`
+  display: flex;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 20px 0;
+  overflow-x: scroll;
+
+  li {
+    list-style: none;
+    margin: 0 16px;
+
+    :first-of-type {
+      margin-left: 40px;
+    }
+  }
+
+  input {
+    cursor: pointer;
+    display: none;
+  }
+
+  input[type='radio']:checked + label {
+    font-weight: 500;
+    color: #153d57;
+  }
+
+  input[type='radio']:checked + label:before {
+    border: 1px solid #153d57;
+    background: #153d57;
+  }
+
+  label {
+    font-size: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    color: #bfbfbf;
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+
+    ::after {
+      content: 'UN';
+      font-size: 14px;
+    }
+
+    ::before {
+      content: ' ';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid #bfbfbf;
+      width: 8px;
+      height: 8px;
+      font-size: 14px;
+      margin-left: -16px;
+      margin-top: 6.1px;
     }
   }
 `
@@ -190,7 +191,7 @@ export const ColorsWrapper = styled.ul<IColorsWrapper>`
   div {
     display: flex;
     overflow-x: scroll;
-    margin-top: 30px;
+    margin-top: 35px;
     height: 72px;
 
     &::-webkit-scrollbar {

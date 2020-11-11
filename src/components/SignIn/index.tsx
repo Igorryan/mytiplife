@@ -64,7 +64,13 @@ const FormSignIn = () => {
     <S.Wrapper ref={formRef} onSubmit={(e) => handleSubmit(e)}>
       <h1>Sign-in</h1>
 
-      <Input icon={FiUser} placeholder="Username" name="username" type="text" />
+      <Input
+        style={{ textTransform: 'lowercase' }}
+        icon={FiUser}
+        placeholder="Username"
+        name="username"
+        type="text"
+      />
 
       <Input
         icon={FiLock}

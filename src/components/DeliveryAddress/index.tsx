@@ -110,7 +110,7 @@ const DeliveryAddress: React.FC<IProps> = ({
       } catch (err) {
         addToast({
           type: 'error',
-          title: 'Error in trying to save address'
+          title: 'Error saving address'
         })
       }
 

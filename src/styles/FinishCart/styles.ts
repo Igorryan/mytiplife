@@ -70,7 +70,6 @@ export const StagesFinishCartWrapper = styled.section`
   min-height: calc(100vh - 292px);
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
 `
 

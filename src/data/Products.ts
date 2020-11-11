@@ -20,7 +20,7 @@ export default [
     price: 12.65,
     productImage: '/img/pocketsize.png',
     toProductPageURL: 'PocketSize',
-    units: [100, 500, 1000, 1500],
+    units: [100, 500, 1000, 1500, 1872, 1273, 1209],
     colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131']
   },
   {
@@ -32,7 +32,7 @@ export default [
     price: 23.8,
     productImage: '/img/smallacrilic.png',
     toProductPageURL: 'SmallAcrilic',
-    units: [100, 500, 1000, 1500],
+    units: [100, 500, 1000, 1500, 1872, 1273, 1209],
     colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131']
   },
   {
@@ -44,7 +44,7 @@ export default [
     price: 31.95,
     productImage: '/img/bigplastic.png',
     toProductPageURL: 'BigPlastic',
-    units: [100, 500, 1000, 1500],
+    units: [100, 500, 1000, 1500, 1872, 1273, 1209],
     colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131']
   }
 ] as IProductsProps[]

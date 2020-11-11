@@ -5,6 +5,7 @@ import { useCart, handleOpenCart } from 'hooks/cart'
 import { v4 } from 'uuid'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 import { IProductsProps } from 'data/Products'
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 interface IProps {
   colorsOptions: string[]
@@ -143,7 +144,7 @@ const ProductDetails: React.FC<IProps> = ({
         <S.ColorsWrapper colorSelected={color}>
           <h3>Custom background</h3>
 
-          <div>
+          <ScrollContainer>
             {colorsOptions.map((c, i) => (
               <S.ColorOption
                 key={i}
@@ -152,7 +153,7 @@ const ProductDetails: React.FC<IProps> = ({
                 style={{ backgroundColor: c }}
               ></S.ColorOption>
             ))}
-          </div>
+          </ScrollContainer>
         </S.ColorsWrapper>
 
         <S.UploadInfosWrapper>
@@ -193,7 +194,7 @@ const ProductDetails: React.FC<IProps> = ({
       </S.UploadPhoto>
 
       <S.UnitsWrapper>
-        <ul>
+        <S.UnitScrollWrapper>
           {unitsOptions.map((units, i) => {
             const idName = `id_${units}`
             return (
@@ -209,7 +210,7 @@ const ProductDetails: React.FC<IProps> = ({
               </li>
             )
           })}
-        </ul>
+        </S.UnitScrollWrapper>
         <div>
           <label>
             <h2>
