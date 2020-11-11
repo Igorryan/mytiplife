@@ -83,7 +83,7 @@ const FormSignUp = () => {
 
       <Input
         icon={FiUser}
-        tyle={{ textTransform: 'lowercase' }}
+        style={{ textTransform: 'lowercase' }}
         placeholder="Create your user name"
         name="username"
         type="text"
