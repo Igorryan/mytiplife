@@ -34,6 +34,9 @@ const GlobalStyles = createGlobalStyle`
       cursor:pointer;
  }
 
+main  {
+  transition: opacity 0.6s;
+}
 
 
  .customScrollBar {

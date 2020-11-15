@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from 'react'
 import CreditCardType from 'credit-card-type'
 import api from 'services/api'
 import compareIsEqualsJSONObject from 'utils/compareIsEqualsJSONObject'
-import InputMask from 'react-input-mask'
 import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
@@ -29,6 +28,7 @@ const PaymentDetails: React.FC<IProps> = ({
   const { isAuthenticated } = useAuth()
   const { addToast } = useToast()
 
+  const [errorFields, setErrorFields] = useState('')
   const [cardNumber, setCardNumber] = useState('')
   const [cardName, setCardName] = useState('')
   const [cardValidUntil, setCardValidUntil] = useState('')
@@ -79,30 +79,6 @@ const PaymentDetails: React.FC<IProps> = ({
     }
   }, [addToast])
 
-  const validations = useCallback(() => {
-    if (!cardName) {
-      alert('Preencha o card holder')
-      return false
-    }
-
-    if (!cardNumber) {
-      alert('Preencha o card number')
-      return false
-    }
-
-    if (!cardValidUntil) {
-      alert('Preencha a valid until')
-      return false
-    }
-
-    if (!cardCVV) {
-      alert('Informe o CVV')
-      return false
-    }
-
-    return true
-  }, [cardName, cardNumber, cardValidUntil, cardCVV])
-
   const saveCreditCard = useCallback(async (creditCard: ICreditCard) => {
     const token = localStorage.getItem('@MyTipLife:token')
 
@@ -137,12 +113,78 @@ const PaymentDetails: React.FC<IProps> = ({
     }
   }, [cardNumber, creditCardFlag])
 
+  const formIsValid = useCallback(() => {
+    function alertError(
+      inputName: string,
+      message: string,
+      description?: string
+    ) {
+      setErrorFields(inputName)
+
+      addToast({
+        type: 'error',
+        title: message,
+        description: description
+      })
+    }
+
+    if (!cardName) {
+      alertError('cardName', 'Cardholder name is required')
+      return false
+    }
+
+    if (!cardNumber) {
+      alertError('cardNumber', 'Card number is required')
+      return false
+    }
+
+    if (cardNumber.replaceAll('_', '').replaceAll(' ', '').length < 16) {
+      alertError('cardNumber', 'Card number is incomplete')
+      return false
+    }
+
+    if (!cardValidUntil) {
+      alertError('cardValidUntil', 'Valid Until is required')
+      return false
+    }
+
+    if (cardValidUntil.replaceAll('_', '').replace('/', '').length < 6) {
+      alertError('cardValidUntil', 'Valid Until is incomplete')
+      return false
+    }
+
+    const [month, year] = cardValidUntil.split('/')
+
+    if (Number(month) > 12) {
+      alertError('cardValidUntil', 'Date in invalid format')
+      return false
+    }
+
+    const date = new Date(Number(year), Number(month) - 1)
+
+    if (date < new Date()) {
+      alertError(
+        'cardValidUntil',
+        'Card expired',
+        'You can insert another card'
+      )
+      return false
+    }
+
+    if (!cardCVV) {
+      alertError('cardCVV', 'CVV is required')
+      return false
+    }
+
+    return true
+  }, [addToast, cardCVV, cardName, cardNumber, cardValidUntil])
+
   const handleSubmit = useCallback(
     async (e) => {
       try {
         e.preventDefault()
 
-        if (!validations()) {
+        if (!formIsValid()) {
           return false
         }
 
@@ -168,7 +210,7 @@ const PaymentDetails: React.FC<IProps> = ({
       }
     },
     [
-      validations,
+      formIsValid,
       cardName,
       cardValidUntil,
       cardNumber,
@@ -240,20 +282,22 @@ const PaymentDetails: React.FC<IProps> = ({
 
         <div>
           <p>Cardholder name</p>
-          <input
+          <S.Input
             value={cardName}
             onChange={(e) => handleSetName(e)}
             type="text"
+            error={errorFields === 'cardName' ? 1 : 0}
           />
         </div>
 
         <div>
           <p>Card number</p>
-          <InputMask
+          <S.InputWithMask
             mask="9999 9999 9999 9999"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.currentTarget.value)}
             type="text"
+            error={errorFields === 'cardNumber' ? 1 : 0}
           />
           <img
             width="50"
@@ -266,20 +310,22 @@ const PaymentDetails: React.FC<IProps> = ({
         <div className="inputGroup">
           <div>
             <p>Valid Until</p>
-            <InputMask
+            <S.InputWithMask
               mask="99/9999"
               value={cardValidUntil}
               onChange={(e) => setCardValidUntil(e.currentTarget.value)}
               type="text"
+              error={errorFields === 'cardValidUntil' ? 1 : 0}
             />
           </div>
 
           <div>
             <p>CVV</p>
-            <input
+            <S.Input
               value={cardCVV}
               onChange={(e) => handleSetCVV(e)}
               type="text"
+              error={errorFields === 'cardCVV' ? 1 : 0}
             />
           </div>
         </div>
@@ -300,11 +346,11 @@ const PaymentDetails: React.FC<IProps> = ({
             <FiArrowLeft size={22} color="#11cea2" />
           </a>
 
-          <button>
+          <S.Button>
             <strong>
               $ {getIntegerAndFractionalValues(totalCartValue).fullValue}
             </strong>
-          </button>
+          </S.Button>
         </div>
       </S.PaymentDetails>
     </S.Wrapper>

@@ -53,8 +53,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
+  width: 100%;
+  height: 100%;
+  margin-bottom: 40px;
+  width: 100vw;
   h1 {
     margin-top: 50px;
     margin-bottom: 40px;
@@ -70,7 +72,7 @@ export const Wrapper = styled.div`
 `
 export const WrapperCard = styled.div<ICardWrapper>`
   display: none;
-
+  overflow: hidden;
   ${(props) =>
     props.sending &&
     css`
@@ -92,4 +94,38 @@ export const WrapperCard = styled.div<ICardWrapper>`
         animation: ${exitCenterToRightMobile} 2s forwards;
       `}
   }
+`
+
+export const InfoWrapper = styled.div`
+  margin: 50px 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    margin-top: 18px;
+    font-weight: 400;
+    opacity: 0.8;
+    text-align: center;
+  }
+
+  span {
+    background: #ffce00;
+    font-size: 14px;
+    padding: 4px 20px;
+    border-radius: 30px;
+    font-weight: 500;
+    margin-right: 5px;
+    text-align: center;
+    width: 80px;
+    transition: background-color color 0.6s;
+  }
+`
+
+export const AnimationWrapperValidated = styled.div`
+  width: 500px;
+  margin-top: -80px;
 `

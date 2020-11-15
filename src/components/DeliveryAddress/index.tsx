@@ -1,8 +1,12 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import * as S from './styles'
+import * as Yup from 'yup'
 import api from 'services/api'
 import compareIsEqualsJSONObject from 'utils/compareIsEqualsJSONObject'
 import { useToast } from 'hooks/toast'
+import { FormHandles } from '@unform/core'
+import Input from 'components/InputAddress'
+import getValidationErrors from 'utils/getValidationErrors'
 
 export interface ILocationData {
   type: string
@@ -23,13 +27,9 @@ const DeliveryAddress: React.FC<IProps> = ({
 }) => {
   const [tagLocationSelected, setTagLocationSelected] = useState('')
   const [locations, setLocations] = useState<ILocationData[]>([])
+  const formRef = useRef<FormHandles>(null)
 
   const { addToast } = useToast()
-
-  const [location, setLocation] = useState('')
-  const [completeAddress, setCompleteAddress] = useState('')
-  const [floor, setFloor] = useState('')
-  const [howToReach, setHowToReach] = useState('')
 
   useMemo(async () => {
     try {
@@ -60,27 +60,28 @@ const DeliveryAddress: React.FC<IProps> = ({
   }, [addToast])
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async (data: Omit<ILocationData, 'type'>) => {
       try {
-        e.preventDefault()
+        formRef.current?.setErrors({})
 
-        if (!location) {
-          alert('Preencha a sua localização')
-          return false
-        }
+        const schema = Yup.object().shape({
+          location: Yup.string().required('Location is required'),
+          completeAddress: Yup.string().required('Address is required'),
+          floor: Yup.string(),
+          howToReach: Yup.string()
+        })
 
-        if (!completeAddress) {
-          alert('Complete o seu endereço')
-          return false
-        }
+        await schema.validate(data, {
+          abortEarly: false
+        })
 
         if (tagLocationSelected) {
           const tagLocationSelectedData: ILocationData = {
             type: tagLocationSelected,
-            location,
-            completeAddress,
-            floor: floor || '',
-            howToReach: howToReach || ''
+            location: data.location,
+            completeAddress: data.completeAddress,
+            floor: data.floor || '',
+            howToReach: data.howToReach || ''
           }
 
           const newLocations: ILocationData[] = []
@@ -107,22 +108,29 @@ const DeliveryAddress: React.FC<IProps> = ({
           }
           setDeliveryAddress(tagLocationSelectedData)
         }
+        handleSetStage(2)
       } catch (err) {
-        addToast({
-          type: 'error',
-          title: 'Error saving address'
-        })
-      }
+        const errors = getValidationErrors(err)
+        if (err instanceof Yup.ValidationError) {
+          formRef.current?.setErrors(errors)
 
-      handleSetStage(2)
+          Object.values(errors).forEach((er) => {
+            addToast({
+              type: 'error',
+              title: er
+            })
+          })
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Error saving address'
+          })
+        }
+      }
     },
     [
-      location,
-      completeAddress,
       tagLocationSelected,
       handleSetStage,
-      floor,
-      howToReach,
       locations,
       setDeliveryAddress,
       addToast
@@ -156,16 +164,18 @@ const DeliveryAddress: React.FC<IProps> = ({
         return false
       }
 
-      setLocation(addressSelected.location)
-      setCompleteAddress(addressSelected.completeAddress)
-      setFloor(addressSelected.floor || '')
-      setHowToReach(addressSelected.howToReach || '')
+      formRef.current?.setData({
+        location: addressSelected.location,
+        completeAddress: addressSelected.completeAddress,
+        floor: addressSelected.floor || '',
+        howToReach: addressSelected.howToReach || ''
+      })
     },
     [locations]
   )
 
   return (
-    <S.Wrapper onSubmit={(e) => handleSubmit(e)}>
+    <S.Wrapper ref={formRef} onSubmit={(e) => handleSubmit(e)}>
       <h1>DeliveryAddress</h1>
 
       <div>
@@ -204,46 +214,22 @@ const DeliveryAddress: React.FC<IProps> = ({
 
       <div>
         <p>Your location*</p>
-        <input
-          value={location}
-          onChange={(e) => {
-            setLocation(e.currentTarget.value)
-          }}
-          type="text"
-        />
+        <Input name="location" type="text" />
       </div>
 
       <div>
         <p>Complete address*</p>
-        <input
-          value={completeAddress}
-          onChange={(e) => {
-            setCompleteAddress(e.currentTarget.value)
-          }}
-          type="text"
-        />
+        <Input name="completeAddress" type="text" />
       </div>
 
       <div>
         <p>Floor (optional)</p>
-        <input
-          value={floor}
-          onChange={(e) => {
-            setFloor(e.currentTarget.value)
-          }}
-          type="text"
-        />
+        <Input name="floor" type="text" />
       </div>
 
       <div>
         <p>How to reach (optional)</p>
-        <input
-          value={howToReach}
-          onChange={(e) => {
-            setHowToReach(e.currentTarget.value)
-          }}
-          type="text"
-        />
+        <Input name="howToReach" type="text" />
       </div>
 
       <button>Continue</button>

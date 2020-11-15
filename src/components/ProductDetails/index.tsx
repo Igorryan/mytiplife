@@ -1,11 +1,13 @@
 import * as S from './styles'
 import { motion } from 'framer-motion'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
-import { useCart, handleOpenCart } from 'hooks/cart'
+import { useCart } from 'hooks/cart'
 import { v4 } from 'uuid'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 import { IProductsProps } from 'data/Products'
 import ScrollContainer from 'react-indiana-drag-scroll'
+import imageCompression from 'browser-image-compression'
+import { useToast } from 'hooks/toast'
 
 interface IProps {
   colorsOptions: string[]
@@ -33,57 +35,95 @@ const ProductDetails: React.FC<IProps> = ({
   setStates,
   states
 }) => {
-  const { addProduct } = useCart()
-  const { title, description } = product
+  const { addProduct, openCart } = useCart()
+  const { addToast } = useToast()
+
+  const { title, description, cardsImageRequired } = product
   const { name, job, color, image, currentCard } = states
   const { setName, setJob, setColor, setImage } = setStates
 
   const inputNameRef = useRef<HTMLInputElement>(null)
   const inputJobRef = useRef<HTMLInputElement>(null)
   const inputSendFileRef = useRef<HTMLInputElement>(null)
-
-  const cardPrice = 12.211
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
   const [formCompleted, setFormCompleted] = useState(false)
   const [imageSubmited, setImageSubmited] = useState<FormData>()
 
   useEffect(() => {
-    setTotal(quantity * cardPrice)
-  }, [quantity, cardPrice])
+    setTotal(quantity * product.price)
+  }, [product.price, quantity])
 
   useEffect(() => {
-    if (name !== 'Your name' && job !== 'Your Job' && total && imageSubmited)
-      setFormCompleted(true)
-    else setFormCompleted(false)
-  }, [name, job, total, imageSubmited])
+    if (name !== 'Your name' && job !== 'Your Job' && total) {
+      if (cardsImageRequired) {
+        const imageRequitedForCurrentCard = cardsImageRequired.find(
+          (c) => c - 1 === currentCard
+        )
 
-  const handleSendImage = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
-        //Salvando imagem em estado
-        const data = new FormData()
-        data.append('avatar', e.target.files[0])
-        setImageSubmited(data)
-
-        //Exibindo imagem nos cards
-        const file = new FileReader()
-        file.onload = function (event) {
-          const result = event.target?.result
-          if (typeof result === 'string') setImage(result)
+        if (imageRequitedForCurrentCard && !imageSubmited) {
+          setFormCompleted(false)
+          return
         }
 
-        if (e.target.files[0]) {
-          file.readAsDataURL(e.target.files[0])
+        setFormCompleted(true)
+      }
+    } else {
+      setFormCompleted(false)
+    }
+  }, [name, job, total, imageSubmited, cardsImageRequired, currentCard])
+
+  const handleSendImage = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        const imageFile = e.target.files[0]
+
+        const options = {
+          maxSizeMB: 0.5,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true
+        }
+
+        try {
+          const compressedFile = await imageCompression(imageFile, options)
+
+          //Salvando imagem em estado
+          const data = new FormData()
+          data.append('avatar', compressedFile)
+          setImageSubmited(data)
+
+          //Exibindo imagem nos cards
+          const file = new FileReader()
+          file.onload = function (event) {
+            const result = event.target?.result
+            if (typeof result === 'string') setImage(result)
+          }
+
+          if (compressedFile) {
+            file.readAsDataURL(compressedFile)
+            console.log(file)
+          }
+        } catch (error) {
+          addToast({
+            type: 'error',
+            title: 'Error loading image'
+          })
         }
       }
     },
-    [setImage]
+    [addToast, setImage]
   )
 
-  const handleChangeSelectedQuantity = useCallback((quantitySelected) => {
-    setQuantity(quantitySelected)
-  }, [])
+  const handleChangeSelectedQuantity = useCallback(
+    (quantitySelected, position: number) => {
+      setQuantity(quantitySelected)
+      document.getElementsByClassName('unitsScrollContainer')[0].scrollTo({
+        left: position * 90 - 20,
+        behavior: 'smooth'
+      })
+    },
+    []
+  )
 
   const handleInsertName = useCallback(() => {
     if (inputNameRef.current) {
@@ -100,8 +140,12 @@ const ProductDetails: React.FC<IProps> = ({
   }, [setJob])
 
   const handleColorSelected = useCallback(
-    (colorSelected) => {
+    (colorSelected, position: number) => {
       setColor(colorSelected)
+      document.getElementsByClassName('colorScrollContainer')[0].scrollTo({
+        left: position * 44 - 20,
+        behavior: 'smooth'
+      })
     },
     [setColor]
   )
@@ -119,10 +163,8 @@ const ProductDetails: React.FC<IProps> = ({
       currentCard: currentCard
     }
 
-    console.log(image)
-
     addProduct(order)
-    handleOpenCart()
+    openCart()
   }, [
     addProduct,
     color,
@@ -130,6 +172,7 @@ const ProductDetails: React.FC<IProps> = ({
     image,
     job,
     name,
+    openCart,
     product,
     quantity,
     total
@@ -144,12 +187,12 @@ const ProductDetails: React.FC<IProps> = ({
         <S.ColorsWrapper colorSelected={color}>
           <h3>Custom background</h3>
 
-          <ScrollContainer>
+          <ScrollContainer className="colorScrollContainer">
             {colorsOptions.map((c, i) => (
               <S.ColorOption
                 key={i}
                 selected={color === c}
-                onClick={() => handleColorSelected(c)}
+                onClick={() => handleColorSelected(c, i)}
                 style={{ backgroundColor: c }}
               ></S.ColorOption>
             ))}
@@ -181,6 +224,7 @@ const ProductDetails: React.FC<IProps> = ({
           onChange={handleSendImage}
           id="pictureUploader"
           type="file"
+          accept="image/*"
         ></input>
         <label htmlFor="pictureUploader">
           <img
@@ -194,13 +238,13 @@ const ProductDetails: React.FC<IProps> = ({
       </S.UploadPhoto>
 
       <S.UnitsWrapper>
-        <S.UnitScrollWrapper>
+        <S.UnitScrollWrapper className="unitsScrollContainer">
           {unitsOptions.map((units, i) => {
             const idName = `id_${units}`
             return (
               <li key={i}>
                 <input
-                  onClick={() => handleChangeSelectedQuantity(units)}
+                  onClick={() => handleChangeSelectedQuantity(units, i)}
                   type="radio"
                   id={idName}
                   name="quantityCard"

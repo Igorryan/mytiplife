@@ -1,18 +1,54 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 const mobile = 620
 
-export const Wrapper = styled.div`
+interface ICartProps {
+  isOpen: number
+}
+
+const slideInRight = keyframes`
+  from {
+    right: -1200px
+  }
+
+  to {
+    right: 0px;
+  }
+`
+
+const slideOutRight = keyframes`
+  from {
+    right: 0px;
+  }
+
+  to {
+    right: -1200px
+  }
+`
+
+export const Wrapper = styled.div<ICartProps>`
   position: fixed;
+  display: block;
+  z-index: 13;
+
   width: 520px;
   height: 100vh;
   right: -1200px;
-  z-index: 13;
-  display: block;
 
   background: #fff;
-  transition: all 0.4s;
   filter: drop-shadow(-3px 38px 59px rgba(0, 0, 0, 0.1));
+
+  ${(props) =>
+    props.isOpen === 1
+      ? css`
+          animation: ${slideInRight} 0.6s ease-in-out;
+        `
+      : props.isOpen === 0 &&
+        css`
+          animation: ${slideOutRight} 0.4s ease-out;
+        `}
+
+  animation-fill-mode: forwards;
 
   > header {
     display: flex;
@@ -181,6 +217,7 @@ export const Wrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: #153d57;
 
       strong {
         font-family: 'Roboto', sans-serif;
@@ -199,15 +236,16 @@ export const Wrapper = styled.div`
       }
     }
 
-    button {
-      border-radius: 6px;
-      background: #11cea2;
-      text-transform: uppercase;
-      color: #fff;
-      width: 90%;
-      height: 57px;
-      font-size: 16px;
-      font-weight: 900;
+    @media (max-width: ${mobile}px) {
+      div {
+        strong {
+          font-size: 28px;
+
+          span {
+            font-size: 18px;
+          }
+        }
+      }
     }
   }
 
@@ -247,4 +285,64 @@ export const Wrapper = styled.div`
       }
     }
   }
+`
+export const AnimationWrapper = styled.div`
+  width: 500px;
+  height: 300px;
+  margin-top: 40px;
+
+  @media (max-width: ${mobile}px) {
+    display: none;
+  }
+`
+
+export const EmptyCart = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    margin-top: 40px;
+    opacity: 0.5;
+  }
+
+  p {
+    width: 70%;
+    text-align: center;
+    margin-top: 20px;
+    opacity: 0.4;
+  }
+
+  @media (max-width: ${mobile}px) {
+    margin-top: 20px;
+
+    h1 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+`
+
+export const BtnFinishCart = styled.button`
+  border-radius: 6px;
+  background: #11cea2;
+  text-transform: uppercase;
+  color: #fff;
+  width: 90%;
+  height: 57px;
+  font-size: 16px;
+  font-weight: 900;
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: rgba(0, 0, 0, 0.3);
+      cursor: auto;
+    `}
 `

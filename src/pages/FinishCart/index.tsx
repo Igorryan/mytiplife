@@ -37,15 +37,20 @@ const FinishCart: React.FC = () => {
 
   const handleSetStage = useCallback(
     (toStage: number) => {
-      if (toStage >= 3) {
-        animated('', '', toStage, 1000)
+      if (toStage === 3) {
+        animated('', '', toStage, 700)
+        return
+      }
+
+      if (toStage > 3) {
+        animated('swingOutTopBck', 'flipInHorBottom', toStage, 700)
         return
       }
 
       const outEffect = toStage >= stage ? 'fadeOutLeft' : 'fadeOutRight'
       const inEffect = toStage < stage ? 'fadeInLeft' : 'fadeInRight'
 
-      animated(outEffect, inEffect, toStage, 1000)
+      animated(outEffect, inEffect, toStage, 700)
     },
     [stage]
   )

@@ -189,14 +189,14 @@ export const Wrapper = styled.main`
     }
 
     @media (max-width: 1315px) {
-      width: 620px;
+      width: 630px;
 
       > div {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
       }
     }
 
-    @media (max-width: 630px) {
+    @media (max-width: 720px) {
       width: 300px;
       margin-bottom: 60px;
 

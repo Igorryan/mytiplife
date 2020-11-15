@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components'
+import { Form } from '@unform/web'
 
 interface ILocationTagProps {
   selected?: boolean
   available?: boolean
 }
 
-export const Wrapper = styled.form`
+export const Wrapper = styled(Form)`
   margin: 80px 0;
   display: flex;
   flex-direction: column;
@@ -24,24 +25,6 @@ export const Wrapper = styled.form`
       color: #a9a9a9;
       margin-left: 30px;
     }
-
-    input {
-      width: 100%;
-      border: none;
-      border-bottom: 1px solid #c6c6c6;
-      margin-bottom: 15px;
-      font-size: 14px;
-      color: #153d57;
-      padding: 6px 10px 6px 30px;
-      background: transparent;
-
-      &:focus {
-        border: none;
-        outline: none;
-        border-bottom: 1px solid #11cea2;
-        font-weight: 700;
-      }
-    }
   }
 
   button {
@@ -53,27 +36,6 @@ export const Wrapper = styled.form`
     font-weight: 900;
     margin-top: 20px;
     width: 100%;
-  }
-
-  @media (max-width: 400px) {
-    h1 {
-      font-size: 36px;
-    }
-
-    div {
-      width: 92%;
-
-      p {
-        margin-left: 10px;
-      }
-
-      input {
-        padding-left: 10px;
-      }
-    }
-    button {
-      width: 92%;
-    }
   }
 `
 

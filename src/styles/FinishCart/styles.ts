@@ -1,60 +1,39 @@
-import styled, { css, keyframes } from 'styled-components'
+import styled, { css } from 'styled-components'
+import {
+  IAnimations,
+  flipInHorBottom,
+  swingOutTopBck,
+  fadeOutLeft,
+  fadeInRight,
+  fadeOutRight,
+  fadeInLeft
+} from 'styles/keyframes'
 
 interface IStageProps {
   progress: number
 }
 
-interface IWrapperForAnimationProps {
-  animation: string
+const keyframesColection = {
+  flipInHorBottom: css`
+    animation: ${flipInHorBottom} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  `,
+  swingOutTopBck: css`
+    animation: ${swingOutTopBck} 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045)
+      both;
+  `,
+  fadeOutLeft: css`
+    animation: ${fadeOutLeft} 0.8s;
+  `,
+  fadeInRight: css`
+    animation: ${fadeInRight} 0.8s;
+  `,
+  fadeOutRight: css`
+    animation: ${fadeOutRight} 0.8s;
+  `,
+  fadeInLeft: css`
+    animation: ${fadeInLeft} 0.8s;
+  `
 }
-
-const fadeOutLeft = keyframes`
-  0% {
-    margin-left: 0;
-    opacity: 1;
-  }
-
-  100% {
-    margin-left: -600px;
-    opacity: 0;
-  }
-`
-
-const fadeInRight = keyframes`
-  0% {
-    margin-right: -600px;
-    opacity: 0;
-  }
-
-  100% {
-    margin-right: 0px;
-    opacity: 1;
-  }
-`
-
-const fadeOutRight = keyframes`
-  0% {
-    margin-right: 0;
-    opacity: 1;
-  }
-
-  100% {
-    margin-right: -600px;
-    opacity: 0;
-  }
-`
-
-const fadeInLeft = keyframes`
-  0% {
-    margin-left: -600px;
-    opacity: 0;
-  }
-
-  100% {
-    margin-left: 0px;
-    opacity: 1;
-  }
-`
 
 export const Wrapper = styled.main`
   display: flex;
@@ -73,25 +52,10 @@ export const StagesFinishCartWrapper = styled.section`
   justify-content: center;
 `
 
-export const WrapperForAnimation = styled.div<IWrapperForAnimationProps>`
+export const WrapperForAnimation = styled.div<IAnimations>`
   animation-fill-mode: forwards;
 
-  ${({ animation }) => {
-    const animationSelected =
-      animation === 'fadeOutLeft'
-        ? fadeOutLeft
-        : animation === 'fadeOutRight'
-        ? fadeOutRight
-        : animation === 'fadeInLeft'
-        ? fadeInLeft
-        : animation === 'fadeInRight'
-        ? fadeInRight
-        : ''
-
-    return css`
-      animation: ${animationSelected} 1.2s;
-    `
-  }}
+  ${({ animation }) => keyframesColection[animation]}
 `
 
 export const ProgressBar = styled.div<IStageProps>`

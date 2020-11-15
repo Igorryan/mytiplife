@@ -1,4 +1,9 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import InputMask from 'react-input-mask'
+
+interface IInputProps {
+  error?: number
+}
 
 export const Wrapper = styled.div`
   display: flex;
@@ -138,10 +143,10 @@ export const PaymentDetails = styled.form`
   }
 
   div {
-    margin-top: 15px;
     position: relative;
 
     p {
+      margin-top: 15px;
       font-size: 12px;
       color: #a9a9a9;
       margin-left: 30px;
@@ -199,20 +204,6 @@ export const PaymentDetails = styled.form`
     }
   }
 
-  button {
-    border-radius: 8px;
-    background: #11cea2;
-    color: #fff;
-    height: 45px;
-    font-size: 16px;
-    font-weight: 400;
-    width: 100%;
-
-    strong {
-      font-weight: 700;
-    }
-  }
-
   div.links {
     display: flex;
 
@@ -237,6 +228,7 @@ export const PaymentDetails = styled.form`
 `
 
 export const RememberMyCardWrapper = styled.div`
+  margin: 15px 0;
   input {
     display: none;
   }
@@ -266,5 +258,42 @@ export const RememberMyCardWrapper = styled.div`
 
   [type='checkbox']:not(:checked) + label:before {
     border: 3px solid #e0821b;
+  }
+`
+
+export const Input = styled.input<IInputProps>`
+  ${({ error }) =>
+    error &&
+    css`
+      border-color: #c53030 !important;
+    `}
+`
+
+export const InputWithMask = styled(InputMask)<IInputProps>`
+  ${({ error }) =>
+    error &&
+    css`
+      border-color: #c53030 !important;
+    `}
+`
+
+export const Button = styled.button`
+  border-radius: 8px;
+  background: #11cea2;
+  color: #fff;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: rgba(0, 0, 0, 0.3);
+      cursor: auto;
+    `}
+
+  strong {
+    font-weight: 700;
   }
 `

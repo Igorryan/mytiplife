@@ -1,12 +1,14 @@
 import * as S from './styles'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useState, useCallback, useEffect } from 'react'
-import { handleOpenCart } from 'hooks/cart'
+import { useCart } from 'hooks/cart'
 
 import debounce from 'utils/debounce.js'
 import Redirect from 'utils/Redirect'
 
 const Header = () => {
+  const { openCart } = useCart()
+
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerToggle, setHeaderToggle] = useState(true)
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
@@ -63,7 +65,7 @@ const Header = () => {
             <a
               href="#"
               onClick={() => {
-                handleOpenCart()
+                openCart()
                 handleChangeMenuOpen()
               }}
             >

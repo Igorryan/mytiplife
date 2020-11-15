@@ -1,16 +1,36 @@
 import * as S from './styles'
+import lottie from 'lottie-web'
+
 import { VscArrowLeft } from 'react-icons/vsc'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import { useCart, handleCloseCart } from '../../hooks/cart'
+import { useCart } from '../../hooks/cart'
 import { useAuth } from 'hooks/auth'
 import { motion } from 'framer-motion'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import Redirect from 'utils/Redirect'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
+import AnimationData from '../../../public/animations/coin-jump.json'
 
 const Cart: React.FC = () => {
-  const { products, removeProduct, totalCartValue } = useCart()
+  const {
+    products,
+    totalCartValue,
+    isOpen,
+    removeProduct,
+    closeCart
+  } = useCart()
   const { username } = useAuth()
+
+  const animationContainerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (animationContainerRef.current) {
+      lottie.loadAnimation({
+        container: animationContainerRef.current,
+        animationData: AnimationData
+      })
+    }
+  }, [])
 
   const handleFinishCart = useCallback(() => {
     const toRoute = username ? 'FinishCart' : 'Sign'
@@ -18,16 +38,27 @@ const Cart: React.FC = () => {
   }, [username])
 
   return (
-    <S.Wrapper id="cart">
+    <S.Wrapper isOpen={isOpen} id="cart">
       <header>
         <div>
-          <button onClick={handleCloseCart}>
+          <button onClick={closeCart}>
             <VscArrowLeft size={25} color="#fff" />
           </button>
           <h1>Your cart</h1>
         </div>
         <img src="/img/cartHeaderIllustration.svg" alt="" />
       </header>
+
+      <S.EmptyCart
+        style={{ display: `${products.length === 0 ? 'flex' : 'none'}` }}
+      >
+        <S.AnimationWrapper ref={animationContainerRef}></S.AnimationWrapper>
+        <h1>Your cart is empty :(</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+        </p>
+      </S.EmptyCart>
 
       <ul>
         {products &&
@@ -88,9 +119,13 @@ const Cart: React.FC = () => {
             justifyContent: 'center',
             margin: '20px 0'
           }}
-          onClick={handleFinishCart}
         >
-          <button>FINISH CART</button>
+          <S.BtnFinishCart
+            onClick={handleFinishCart}
+            disabled={products.length === 0 ? true : false}
+          >
+            FINISH CART
+          </S.BtnFinishCart>
         </motion.div>
       </footer>
     </S.Wrapper>

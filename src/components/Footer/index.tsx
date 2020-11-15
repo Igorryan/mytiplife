@@ -2,8 +2,14 @@ import * as S from './styles'
 
 const Footer = () => (
   <S.Wrapper>
-    <img src="/img/illustration_footer.svg" alt="Musicians Illustration" />
-    <img src="/img/logo.svg" alt="Logo MyTipLife" />
+    <div className="illustrationsWrapper">
+      <img
+        className="illustration"
+        src="/img/illustration_footer.svg"
+        alt="Musicians Illustration"
+      />
+      <img className="logo" src="/img/logo.svg" alt="Logo MyTipLife" />
+    </div>
 
     <nav>
       <li>
@@ -23,7 +29,9 @@ const Footer = () => (
       </li>
     </nav>
 
-    <div>Copyright © 2019 Mytiplife. All rights reserved.</div>
+    <div className="copyright">
+      Copyright © 2019 Mytiplife. All rights reserved.
+    </div>
   </S.Wrapper>
 )
 

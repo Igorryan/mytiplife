@@ -8,6 +8,7 @@ export interface IProductsProps {
   toProductPageURL: string
   units: number[]
   colors: string[]
+  cardsImageRequired: number[]
 }
 
 export default [
@@ -21,7 +22,8 @@ export default [
     productImage: '/img/pocketsize.png',
     toProductPageURL: 'PocketSize',
     units: [100, 500, 1000, 1500, 1872, 1273, 1209],
-    colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131']
+    colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131'],
+    cardsImageRequired: [1, 3, 4, 5]
   },
   {
     id: 2,
@@ -33,7 +35,8 @@ export default [
     productImage: '/img/smallacrilic.png',
     toProductPageURL: 'SmallAcrilic',
     units: [100, 500, 1000, 1500, 1872, 1273, 1209],
-    colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131']
+    colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131'],
+    cardsImageRequired: [1, 2, 3, 4, 5, 6, 7]
   },
   {
     id: 3,
@@ -45,6 +48,7 @@ export default [
     productImage: '/img/bigplastic.png',
     toProductPageURL: 'BigPlastic',
     units: [100, 500, 1000, 1500, 1872, 1273, 1209],
-    colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131']
+    colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131'],
+    cardsImageRequired: [2, 3, 4]
   }
 ] as IProductsProps[]
