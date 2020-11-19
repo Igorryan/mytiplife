@@ -55,7 +55,7 @@ export const Wrapper = styled.header`
 
 export const MenuList = styled.ul<IProps>`
   float: right;
-  margin-right: 20px;
+  margin-right: 40px;
 
   li {
     display: inline-block;
@@ -77,6 +77,10 @@ export const MenuList = styled.ul<IProps>`
       :hover {
         border-bottom: 1px solid #003d59;
       }
+    }
+
+    :last-of-type {
+      margin-left: 20px;
     }
   }
   @media (max-width: 1100px) {
@@ -105,39 +109,42 @@ export const MenuList = styled.ul<IProps>`
 `
 
 export const IconCart = styled.div`
-  position: relative;
-  width: 80px;
-  height: 60px;
+  position: absolute;
+  background: url(/img/cartIcon.svg) center;
+  background-size: cover;
 
-  > div {
-    background: url(/img/cartIcon.svg) center;
-    background-size: cover;
-    width: 50px;
-    height: 50px;
+  width: 44px;
+  height: 44px;
+
+  top: -28px;
+  margin-left: -5px;
+  cursor: pointer;
+
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 26px;
-    position: absolute;
-    margin-left: 27px;
-    cursor: pointer;
+    margin-left: 24px;
 
-    div {
-      display: flex;
-      flex-direction: center;
-      align-items: center;
+    background: #ff7300;
+    color: #fff;
+    font-size: 12px;
 
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #ff7300;
-      bottom: -2px;
-      right: -2px;
+    min-width: 20px;
+    width: max-content;
+    height: 20px;
+    padding: 5px;
 
-      strong {
-        margin-left: 7.2px;
-        margin-top: 2.2px;
-        color: #fff;
-        font-weight: 700;
-      }
+    border-radius: 100px;
+  }
+
+  &.iconInMobileHeader {
+    top: 29px;
+    right: 90px;
+
+    @media (min-width: 1100px) {
+      display: none;
     }
   }
 `

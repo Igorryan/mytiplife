@@ -1,5 +1,4 @@
 import * as S from './styles'
-import { motion } from 'framer-motion'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { useCart } from 'hooks/cart'
 import { v4 } from 'uuid'
@@ -8,6 +7,7 @@ import { IProductsProps } from 'data/Products'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import imageCompression from 'browser-image-compression'
 import { useToast } from 'hooks/toast'
+import Button from 'components/Button'
 
 interface IProps {
   colorsOptions: string[]
@@ -214,7 +214,7 @@ const ProductDetails: React.FC<IProps> = ({
               placeholder="Your job"
               onChange={handleInsertJob}
               type="text"
-              defaultValue={job !== 'Your job' ? job : ''}
+              defaultValue={job !== 'Your Job' ? job : ''}
             />
           </div>
         </S.UploadInfosWrapper>
@@ -257,7 +257,7 @@ const ProductDetails: React.FC<IProps> = ({
             )
           })}
         </S.UnitScrollWrapper>
-        <div>
+        <S.OrderPriceWrapper>
           <label>
             <h2>
               <span>$</span>
@@ -268,28 +268,10 @@ const ProductDetails: React.FC<IProps> = ({
             </h2>
           </label>
 
-          <motion.div
-            whileHover={formCompleted ? { scale: 1.1 } : {}}
-            whileTap={
-              formCompleted
-                ? {
-                    scale: 0.96
-                  }
-                : {}
-            }
-            style={{
-              position: 'relative',
-              width: 150
-            }}
-          >
-            <S.AddToCartButton
-              disabled={!formCompleted}
-              onClick={handleAddProductToCart}
-            >
-              Add to cart
-            </S.AddToCartButton>
-          </motion.div>
-        </div>
+          <Button disabled={!formCompleted} onClick={handleAddProductToCart}>
+            Add to cart
+          </Button>
+        </S.OrderPriceWrapper>
       </S.UnitsWrapper>
     </S.Wrapper>
   )

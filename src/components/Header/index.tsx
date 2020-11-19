@@ -62,22 +62,17 @@ const Header = () => {
             <a href="#">Categories</a>
           </li>
           <li>
-            <S.IconCart>
-              <div
-                onClick={() => {
-                  openCart()
-                  handleChangeMenuOpen()
-                }}
-              >
-                {products.length > 0 && (
-                  <div>
-                    <strong>{products.length}</strong>
-                  </div>
-                )}
-              </div>
+            <S.IconCart
+              onClick={() => {
+                openCart()
+                handleChangeMenuOpen()
+              }}
+            >
+              {products.length > 0 && <strong>{products.length}</strong>}
             </S.IconCart>
           </li>
         </S.MenuList>
+
         <S.SearchBar
           style={{
             borderColor: inputSearchFocus ? '#FF7300' : '#bdbdbd'
@@ -99,21 +94,13 @@ const Header = () => {
           />
         </S.SearchBar>
 
-        <S.IconCart className="cardIconNav">
-          <div
-            style={{ top: '-24px', width: 40, height: 40 }}
-            onClick={() => {
-              openCart()
-            }}
-          >
-            {products.length > 0 && (
-              <div style={{ width: 20, height: 20 }}>
-                <strong style={{ fontSize: '12px', marginLeft: '6.4px' }}>
-                  {products.length}
-                </strong>
-              </div>
-            )}
-          </div>
+        <S.IconCart
+          className="iconInMobileHeader"
+          onClick={() => {
+            openCart()
+          }}
+        >
+          {products.length > 0 && <strong>{products.length}</strong>}
         </S.IconCart>
 
         <S.MenuBtn

@@ -40,7 +40,7 @@ const Cart: React.FC = () => {
 
   return (
     <S.Wrapper isOpen={isOpen} id="cart">
-      <header>
+      <S.Header isOpen={isOpen}>
         <div>
           <button onClick={closeCart}>
             <VscArrowLeft size={25} color="#fff" />
@@ -48,7 +48,7 @@ const Cart: React.FC = () => {
           <h1>Your cart</h1>
         </div>
         <img src="/img/cartHeaderIllustration.svg" alt="" />
-      </header>
+      </S.Header>
 
       <S.EmptyCart
         style={{ display: `${products.length === 0 ? 'flex' : 'none'}` }}
@@ -61,10 +61,10 @@ const Cart: React.FC = () => {
         </p>
       </S.EmptyCart>
 
-      <ul>
+      <S.ProductList>
         {products &&
           products.map(({ id, product, total, quantity }, i) => (
-            <li key={i}>
+            <S.Product key={i}>
               <img src={product.productImage} alt="" />
               <div className="description">
                 <header>
@@ -94,11 +94,11 @@ const Cart: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </li>
+            </S.Product>
           ))}
-      </ul>
+      </S.ProductList>
 
-      <footer>
+      <S.OrderDetails>
         <div>
           <span>CART TOTAL:</span>
           <strong className="">
@@ -117,7 +117,7 @@ const Cart: React.FC = () => {
         >
           FINISH CART
         </Button>
-      </footer>
+      </S.OrderDetails>
     </S.Wrapper>
   )
 }

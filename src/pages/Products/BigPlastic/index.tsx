@@ -28,15 +28,16 @@ const BigPlasticCards: React.FC = () => {
   const [currentCard, setCurrentCard] = useState(0)
 
   useEffect(() => {
-    const yourInformationsCache = localStorage.getItem('@MyTipLife:infos')
+    const yourInformationsCache = localStorage.getItem('@MyTipLife:infosCache')
 
     if (yourInformationsCache) {
-      const { name: nameCache, job: jobCache } = JSON.parse(
+      const { name: nameCache, job: jobCache, image: imageCache } = JSON.parse(
         yourInformationsCache
       )
 
       setJob(jobCache)
       setName(nameCache)
+      setImage(imageCache)
     }
   }, [])
 

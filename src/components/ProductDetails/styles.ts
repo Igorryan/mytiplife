@@ -42,47 +42,6 @@ export const UnitsWrapper = styled.div`
   margin-top: 15px;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
-
-  div {
-    display: flex;
-    padding: 20px 15px;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-
-    label {
-      width: 60%;
-    }
-
-    h2 {
-      text-align: center;
-      font-size: 36px;
-      font-family: 'roboto', sans-serif;
-      font-weight: 700;
-      color: #153d57;
-
-      span {
-        font-size: 25px;
-
-        :first-child {
-          margin-right: 5px;
-          font-weight: 400;
-        }
-      }
-    }
-
-    @media (max-width: 530px) {
-      padding: 20px 15px 20px 0;
-
-      h2 {
-        font-size: 28px;
-
-        span {
-          font-size: 20px;
-        }
-      }
-    }
-  }
 `
 
 export const UnitScrollWrapper = styled(ScrollContainer)`
@@ -139,6 +98,54 @@ export const UnitScrollWrapper = styled(ScrollContainer)`
       font-size: 14px;
       margin-left: -16px;
       margin-top: 6.1px;
+    }
+  }
+`
+
+export const OrderPriceWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+
+  label {
+    width: 80%;
+    margin: 0 5% 0 calc(5% - 20px);
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 36px;
+    font-family: 'roboto', sans-serif;
+    font-weight: 700;
+    color: #153d57;
+
+    span {
+      font-size: 25px;
+
+      :first-child {
+        margin-right: 5px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  button {
+    height: 57px;
+    width: 100%;
+    margin: 0;
+  }
+
+  @media (max-width: 530px) {
+    padding: 20px 15px 20px 0;
+
+    h2 {
+      font-size: 28px;
+
+      span {
+        font-size: 20px;
+      }
     }
   }
 `

@@ -66,10 +66,11 @@ const CartProvider: React.FC = ({ children }) => {
     const cartInStorage = localStorage.getItem('@MyTipLife:cart')
 
     localStorage.setItem(
-      '@MyTipLife:infos',
+      '@MyTipLife:infosCache',
       JSON.stringify({
         name: product.name,
-        job: product.job
+        job: product.job,
+        image: product.image
       })
     )
 
