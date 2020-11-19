@@ -65,6 +65,14 @@ const CartProvider: React.FC = ({ children }) => {
   const addProduct = useCallback((product: IProductToCart) => {
     const cartInStorage = localStorage.getItem('@MyTipLife:cart')
 
+    localStorage.setItem(
+      '@MyTipLife:infos',
+      JSON.stringify({
+        name: product.name,
+        job: product.job
+      })
+    )
+
     if (cartInStorage) {
       const cartInStorageFormatted: IProductToCart[] = JSON.parse(cartInStorage)
       cartInStorageFormatted.push(product)

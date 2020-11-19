@@ -12,7 +12,7 @@ import Card1 from 'components/Cards/BigPlastic/Card1'
 import Card2 from 'components/Cards/BigPlastic/Card2'
 import Card3 from 'components/Cards/BigPlastic/Card3'
 import Card4 from 'components/Cards/BigPlastic/Card4'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Products from 'data/Products'
 
@@ -21,11 +21,24 @@ export const Cards = [Card1, Card2, Card3, Card4]
 const BigPlasticCards: React.FC = () => {
   const { colors, units } = Products[2]
 
-  const [name, setName] = useState('Your name')
-  const [job, setJob] = useState('Your Job')
+  const [name, setName] = useState('')
+  const [job, setJob] = useState('')
   const [color, setColor] = useState('#59C398')
   const [image, setImage] = useState('')
   const [currentCard, setCurrentCard] = useState(0)
+
+  useEffect(() => {
+    const yourInformationsCache = localStorage.getItem('@MyTipLife:infos')
+
+    if (yourInformationsCache) {
+      const { name: nameCache, job: jobCache } = JSON.parse(
+        yourInformationsCache
+      )
+
+      setJob(jobCache)
+      setName(nameCache)
+    }
+  }, [])
 
   return (
     <S.Wrapper>

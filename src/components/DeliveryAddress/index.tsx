@@ -7,6 +7,7 @@ import { useToast } from 'hooks/toast'
 import { FormHandles } from '@unform/core'
 import Input from 'components/InputAddress'
 import getValidationErrors from 'utils/getValidationErrors'
+import Button from 'components/Button'
 
 export interface ILocationData {
   type: string
@@ -232,7 +233,7 @@ const DeliveryAddress: React.FC<IProps> = ({
         <Input name="howToReach" type="text" />
       </div>
 
-      <button>Continue</button>
+      <Button>Continue</Button>
     </S.Wrapper>
   )
 }

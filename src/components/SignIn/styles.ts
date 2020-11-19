@@ -20,7 +20,7 @@ export const Wrapper = styled(Form)`
     text-align: center;
 
     width: 80%;
-    margin: 30px auto 0px;
+    margin: 30px auto 20px;
 
     span {
       font-weight: 600;
@@ -31,7 +31,7 @@ export const Wrapper = styled(Form)`
   a.forgotPassword {
     font-size: 12px;
     text-align: right;
-    margin-right: 30px;
+    margin: 20px 30px 0 0;
     color: #153d57;
   }
 `

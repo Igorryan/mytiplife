@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin: 10rem 0;
-  height: 80vh;
+  height: 800px;
 
   h1 {
     color: #fcca4c;

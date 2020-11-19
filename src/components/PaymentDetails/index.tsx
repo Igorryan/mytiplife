@@ -9,6 +9,7 @@ import compareIsEqualsJSONObject from 'utils/compareIsEqualsJSONObject'
 import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
+import Button from 'components/Button'
 
 interface IProps {
   setPaymentAccept(state: boolean): void
@@ -25,6 +26,8 @@ const PaymentDetails: React.FC<IProps> = ({
   setPaymentAccept,
   handleSetStage
 }) => {
+  const [loading, setLoading] = useState(false)
+
   const { isAuthenticated } = useAuth()
   const { addToast } = useToast()
 
@@ -182,6 +185,8 @@ const PaymentDetails: React.FC<IProps> = ({
   const handleSubmit = useCallback(
     async (e) => {
       try {
+        setLoading(true)
+
         e.preventDefault()
 
         if (!formIsValid()) {
@@ -203,6 +208,7 @@ const PaymentDetails: React.FC<IProps> = ({
 
         setPaymentAccept(true)
       } catch (err) {
+        setLoading(false)
         addToast({
           type: 'error',
           title: 'Error in trying to save credit card'
@@ -346,11 +352,11 @@ const PaymentDetails: React.FC<IProps> = ({
             <FiArrowLeft size={22} color="#11cea2" />
           </a>
 
-          <S.Button>
+          <Button loading={loading}>
             <strong>
               $ {getIntegerAndFractionalValues(totalCartValue).fullValue}
             </strong>
-          </S.Button>
+          </Button>
         </div>
       </S.PaymentDetails>
     </S.Wrapper>

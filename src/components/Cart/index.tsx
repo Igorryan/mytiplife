@@ -5,11 +5,11 @@ import { VscArrowLeft } from 'react-icons/vsc'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { useCart } from '../../hooks/cart'
 import { useAuth } from 'hooks/auth'
-import { motion } from 'framer-motion'
 import { useCallback, useEffect, useRef } from 'react'
 import Redirect from 'utils/Redirect'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
-import AnimationData from '../../../public/animations/coin-jump.json'
+import AnimationData from '../../../public/animations/empty-box.json'
+import Button from 'components/Button'
 
 const Cart: React.FC = () => {
   const {
@@ -19,6 +19,7 @@ const Cart: React.FC = () => {
     removeProduct,
     closeCart
   } = useCart()
+
   const { username } = useAuth()
 
   const animationContainerRef = useRef<HTMLDivElement>(null)
@@ -108,25 +109,14 @@ const Cart: React.FC = () => {
             </span>
           </strong>
         </div>
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-          style={{
-            position: 'relative',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '20px 0'
-          }}
+
+        <Button
+          style={{ height: '57px' }}
+          onClick={handleFinishCart}
+          disabled={products.length === 0 ? true : false}
         >
-          <S.BtnFinishCart
-            onClick={handleFinishCart}
-            disabled={products.length === 0 ? true : false}
-          >
-            FINISH CART
-          </S.BtnFinishCart>
-        </motion.div>
+          FINISH CART
+        </Button>
       </footer>
     </S.Wrapper>
   )

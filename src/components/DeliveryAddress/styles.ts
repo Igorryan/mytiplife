@@ -28,14 +28,7 @@ export const Wrapper = styled(Form)`
   }
 
   button {
-    border-radius: 8px;
-    background: #11cea2;
-    color: #fff;
-    height: 45px;
-    font-size: 16px;
-    font-weight: 900;
     margin-top: 20px;
-    width: 100%;
   }
 `
 

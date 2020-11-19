@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import {
   IAnimations,
-  flipInHorBottom,
+  flipInHorBottomPrimary,
   swingOutTopBck,
   fadeOutLeft,
   fadeInRight,
@@ -14,8 +14,9 @@ interface IStageProps {
 }
 
 const keyframesColection = {
-  flipInHorBottom: css`
-    animation: ${flipInHorBottom} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  flipInHorBottomPrimary: css`
+    animation: ${flipInHorBottomPrimary} 0.5s
+      cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   `,
   swingOutTopBck: css`
     animation: ${swingOutTopBck} 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045)

@@ -1,4 +1,12 @@
 import styled from 'styled-components'
+import {
+  slideInBlurredRightAnimation,
+  slideInBlurredLeftAnimation,
+  scaleInAnimation,
+  flipInHorBottomAnimation,
+  slideOutBlurredLeftAnimation,
+  slideOutBlurredRightAnimation
+} from 'styles/keyframes'
 
 export const Wrapper = styled.main`
   width: 100vw;
@@ -27,7 +35,7 @@ export const Wrapper = styled.main`
 
       p {
         width: 350px;
-        margin: 30px 0;
+        margin: 30px 0 10px;
 
         font-size: 20px;
         text-align: center;
@@ -36,12 +44,7 @@ export const Wrapper = styled.main`
       button {
         width: 180px;
         height: 50px;
-        border-radius: 8px;
-        background: #11cea2;
-
-        font-size: 14px;
-        font-weight: 600;
-        color: #fff;
+        margin-top: 20px;
       }
     }
 
@@ -60,6 +63,7 @@ export const Wrapper = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 70px;
 
     img {
       width: 300px;
@@ -148,46 +152,6 @@ export const Wrapper = styled.main`
     width: 1300px;
     margin-bottom: 120px;
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-
-      width: 300px;
-      height: 388px;
-      border-radius: 8px;
-      box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.5s;
-      will-change: transform;
-
-      &:hover {
-        box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
-      }
-
-      img {
-        margin-top: 40px;
-      }
-
-      .descriptionCard {
-        position: absolute;
-        top: 230px;
-        color: #fff;
-        text-align: center;
-        width: 65%;
-
-        h2 {
-          font-size: 18px;
-          margin-bottom: 14px;
-        }
-
-        p {
-          font-size: 14px;
-          line-height: 20px;
-        }
-      }
-    }
-
     @media (max-width: 1315px) {
       width: 630px;
 
@@ -202,6 +166,40 @@ export const Wrapper = styled.main`
 
       > div {
         margin-bottom: 40px;
+      }
+    }
+  }
+
+  [data-anime] {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  [data-anime='flip'] {
+    &.animate {
+      ${flipInHorBottomAnimation}
+    }
+  }
+  [data-anime='center'] {
+    &.animate {
+      opacity: 1;
+
+      > div {
+        ${scaleInAnimation}
+        &:nth-child(1) {
+        }
+
+        &:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+
+        &:nth-child(4) {
+          animation-delay: 0.6s;
+        }
       }
     }
   }
@@ -299,14 +297,8 @@ export const Products = styled.div`
         button {
           width: 135px;
           height: 45px;
-          background: #11cea2;
-
-          font-size: 12px;
-          font-weight: 700;
-          border-radius: 8px;
-          color: #fff;
-
-          cursor: pointer;
+          font-size: 14px;
+          margin-top: -60px;
         }
       }
     }
@@ -380,6 +372,73 @@ export const Products = styled.div`
             margin-right: 16px;
           }
         }
+      }
+    }
+  }
+
+  //Animação
+
+  [data-anime] {
+    opacity: 0;
+  }
+
+  [data-anime='left'] {
+    &.animate {
+      ${slideInBlurredRightAnimation}
+    }
+
+    &.animateOut {
+      ${slideOutBlurredRightAnimation}
+    }
+  }
+
+  [data-anime='right'] {
+    &.animate {
+      ${slideInBlurredLeftAnimation}
+    }
+    &.animateOut {
+      ${slideOutBlurredLeftAnimation}
+    }
+  }
+`
+
+export const Card = styled.div`
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    width: 300px;
+    height: 388px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.5s;
+    will-change: transform;
+
+    &:hover {
+      box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    img {
+      margin-top: 40px;
+    }
+
+    .descriptionCard {
+      position: absolute;
+      top: 230px;
+      color: #fff;
+      text-align: center;
+      width: 65%;
+
+      h2 {
+        font-size: 18px;
+        margin-bottom: 14px;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 20px;
       }
     }
   }

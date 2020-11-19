@@ -174,7 +174,7 @@ export const PaymentDetails = styled.form`
       }
     }
 
-    img {
+    > img {
       position: absolute;
       right: 17px;
       margin-top: 13.5px;
@@ -206,6 +206,7 @@ export const PaymentDetails = styled.form`
 
   div.links {
     display: flex;
+    flex: 1;
 
     a {
       display: flex;
@@ -275,25 +276,4 @@ export const InputWithMask = styled(InputMask)<IInputProps>`
     css`
       border-color: #c53030 !important;
     `}
-`
-
-export const Button = styled.button`
-  border-radius: 8px;
-  background: #11cea2;
-  color: #fff;
-  height: 45px;
-  font-size: 16px;
-  font-weight: 400;
-  width: 100%;
-
-  ${(props) =>
-    props.disabled &&
-    css`
-      background: rgba(0, 0, 0, 0.3);
-      cursor: auto;
-    `}
-
-  strong {
-    font-weight: 700;
-  }
 `

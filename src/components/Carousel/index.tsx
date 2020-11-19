@@ -1,6 +1,7 @@
 import * as S from './styles'
 
 import { useCallback, useState } from 'react'
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import React from 'react'
 
 interface ICarouselProps {
@@ -23,6 +24,10 @@ const Carousel: React.FC<ICarouselProps> = ({
 
   const handleChangeElementFocused = useCallback(
     (element: number) => {
+      if (element > childrenArray.length - 1) element = 0
+
+      if (element < 0) element = childrenArray.length - 1
+
       if (element === elementFocused && element === childrenArray.length - 1) {
         setElementFocused(0)
         setCurrent(0)
@@ -56,6 +61,16 @@ const Carousel: React.FC<ICarouselProps> = ({
           )
         })}
       </S.Elements>
+      <S.ArrowsWrapper>
+        <IoIosArrowBack
+          onClick={() => handleChangeElementFocused(current - 1)}
+          className="icon"
+        />
+        <IoIosArrowForward
+          onClick={() => handleChangeElementFocused(current + 1)}
+          className="icon"
+        />
+      </S.ArrowsWrapper>
     </S.Wrapper>
   )
 }

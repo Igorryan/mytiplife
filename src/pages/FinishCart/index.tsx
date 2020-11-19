@@ -43,7 +43,7 @@ const FinishCart: React.FC = () => {
       }
 
       if (toStage > 3) {
-        animated('swingOutTopBck', 'flipInHorBottom', toStage, 700)
+        animated('swingOutTopBck', 'flipInHorBottomPrimary', toStage, 700)
         return
       }
 

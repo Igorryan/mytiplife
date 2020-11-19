@@ -24,6 +24,16 @@ export const Wrapper = styled.header`
     align-items: center;
     justify-content: center;
 
+    .cardIconNav {
+      right: 80px;
+      top: 30px;
+      position: absolute;
+
+      @media (min-width: 1100px) {
+        display: none;
+      }
+    }
+
     img {
       width: 180px;
       margin-right: 40px;
@@ -50,6 +60,7 @@ export const MenuList = styled.ul<IProps>`
   li {
     display: inline-block;
     line-height: 90px;
+    position: relative;
 
     a {
       color: #003d59;
@@ -82,8 +93,50 @@ export const MenuList = styled.ul<IProps>`
       z-index: 11;
       line-height: 70px;
 
+      &:last-of-type {
+        display: none;
+      }
+
       a {
         font-size: 20px;
+      }
+    }
+  }
+`
+
+export const IconCart = styled.div`
+  position: relative;
+  width: 80px;
+  height: 60px;
+
+  > div {
+    background: url(/img/cartIcon.svg) center;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    margin-top: 26px;
+    position: absolute;
+    margin-left: 27px;
+    cursor: pointer;
+
+    div {
+      display: flex;
+      flex-direction: center;
+      align-items: center;
+
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ff7300;
+      bottom: -2px;
+      right: -2px;
+
+      strong {
+        margin-left: 7.2px;
+        margin-top: 2.2px;
+        color: #fff;
+        font-weight: 700;
       }
     }
   }

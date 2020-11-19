@@ -69,3 +69,19 @@ export const ElementWrapper = styled.div<IElementWrapper>`
       }
     `}
 `
+
+export const ArrowsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+
+  width: 116%;
+  padding: 0 50px;
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #f9f9f9;
+  }
+`

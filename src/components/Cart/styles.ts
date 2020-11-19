@@ -1,4 +1,8 @@
 import styled, { css, keyframes } from 'styled-components'
+import {
+  scaleInAnimation,
+  slideInBlurredRightAnimation
+} from 'styles/keyframes'
 
 const mobile = 620
 
@@ -59,6 +63,18 @@ export const Wrapper = styled.div<ICartProps>`
 
     background: #ffa340;
 
+    img {
+      ${(props) =>
+        props.isOpen === 1 &&
+        css`
+          ${slideInBlurredRightAnimation}
+          animation-delay: 0.6s;
+          animation-duration: 1s;
+        `}
+
+      margin-top: -1px;
+    }
+
     div {
       display: flex;
       align-items: center;
@@ -90,6 +106,14 @@ export const Wrapper = styled.div<ICartProps>`
       background-size: contain;
       top: 24px;
       left: -74px;
+
+      ${(props) =>
+        props.isOpen === 1 &&
+        css`
+          ${scaleInAnimation}
+          animation-delay: 0.6s;
+          animation-duration: 0.5s;
+        `}
 
       @media (max-width: ${mobile}px) {
         display: none;
@@ -210,10 +234,11 @@ export const Wrapper = styled.div<ICartProps>`
     height: 150px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     background: #fff;
+    padding-bottom: 50px;
 
     div {
       width: 90%;
-      margin-top: 25px;
+      margin-top: 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -287,8 +312,7 @@ export const Wrapper = styled.div<ICartProps>`
   }
 `
 export const AnimationWrapper = styled.div`
-  width: 500px;
-  height: 300px;
+  width: 260px;
   margin-top: 40px;
 
   @media (max-width: ${mobile}px) {
@@ -304,7 +328,7 @@ export const EmptyCart = styled.div`
   justify-content: center;
 
   h1 {
-    margin-top: 40px;
+    margin-top: 30px;
     opacity: 0.5;
   }
 

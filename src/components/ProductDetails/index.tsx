@@ -207,12 +207,14 @@ const ProductDetails: React.FC<IProps> = ({
               placeholder="Your name"
               onChange={handleInsertName}
               type="text"
+              defaultValue={name !== 'Your name' ? name : ''}
             />
             <input
               ref={inputJobRef}
               placeholder="Your job"
               onChange={handleInsertJob}
               type="text"
+              defaultValue={job !== 'Your job' ? job : ''}
             />
           </div>
         </S.UploadInfosWrapper>

@@ -7,7 +7,7 @@ import debounce from 'utils/debounce.js'
 import Redirect from 'utils/Redirect'
 
 const Header = () => {
-  const { openCart } = useCart()
+  const { openCart, products } = useCart()
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerToggle, setHeaderToggle] = useState(true)
@@ -62,15 +62,20 @@ const Header = () => {
             <a href="#">Categories</a>
           </li>
           <li>
-            <a
-              href="#"
-              onClick={() => {
-                openCart()
-                handleChangeMenuOpen()
-              }}
-            >
-              Cart
-            </a>
+            <S.IconCart>
+              <div
+                onClick={() => {
+                  openCart()
+                  handleChangeMenuOpen()
+                }}
+              >
+                {products.length > 0 && (
+                  <div>
+                    <strong>{products.length}</strong>
+                  </div>
+                )}
+              </div>
+            </S.IconCart>
           </li>
         </S.MenuList>
         <S.SearchBar
@@ -93,6 +98,23 @@ const Header = () => {
             placeholder="Search"
           />
         </S.SearchBar>
+
+        <S.IconCart className="cardIconNav">
+          <div
+            style={{ top: '-24px', width: 40, height: 40 }}
+            onClick={() => {
+              openCart()
+            }}
+          >
+            {products.length > 0 && (
+              <div style={{ width: 20, height: 20 }}>
+                <strong style={{ fontSize: '12px', marginLeft: '6.4px' }}>
+                  {products.length}
+                </strong>
+              </div>
+            )}
+          </div>
+        </S.IconCart>
 
         <S.MenuBtn
           onClick={() => setMenuOpen(!menuOpen)}

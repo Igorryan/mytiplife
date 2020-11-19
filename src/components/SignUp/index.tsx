@@ -64,13 +64,22 @@ const FormSignUp = () => {
         })
       } catch (err) {
         const errors = getValidationErrors(err)
+
         if (err instanceof Yup.ValidationError) {
           formRef.current?.setErrors(errors)
         } else {
-          addToast({
-            type: 'error',
-            title: 'User or email already exists'
-          })
+          const errorMessage = err.response.data.message
+          errorMessage
+            ? addToast({
+                type: 'error',
+                title: `${errorMessage}`
+              })
+            : addToast({
+                type: 'error',
+                title: `Sorry for the inconvenience`,
+                description:
+                  'There was an error when trying to process your request :('
+              })
         }
       }
     },
@@ -110,7 +119,7 @@ const FormSignUp = () => {
         type="password"
       />
 
-      <Button>Create your Tip My Life account</Button>
+      <Button style={{ marginTop: 20 }}>Create your Tip My Life account</Button>
     </S.Wrapper>
   )
 }

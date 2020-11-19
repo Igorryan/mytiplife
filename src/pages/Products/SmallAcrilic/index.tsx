@@ -18,7 +18,7 @@ import Card7 from 'components/Cards/SmallAcrilic/Card7'
 
 export const Cards = [Card1, Card2, Card3, Card4, Card5, Card6, Card7]
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Products from 'data/Products'
 
@@ -30,6 +30,19 @@ const SmallAcrilic: React.FC = () => {
   const [color, setColor] = useState('#59C398')
   const [image, setImage] = useState('')
   const [currentCard, setCurrentCard] = useState(0)
+
+  useEffect(() => {
+    const yourInformationsCache = localStorage.getItem('@MyTipLife:infos')
+
+    if (yourInformationsCache) {
+      const { name: nameCache, job: jobCache } = JSON.parse(
+        yourInformationsCache
+      )
+
+      setJob(jobCache)
+      setName(nameCache)
+    }
+  }, [])
 
   return (
     <S.Wrapper>

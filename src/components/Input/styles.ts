@@ -49,6 +49,7 @@ export const Wrapper = styled.div<IWrapperProps>`
     background: transparent;
     border: 0;
     color: #153d57;
+    font-size: 12px;
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
