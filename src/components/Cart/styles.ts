@@ -266,17 +266,15 @@ export const OrderDetails = styled.footer`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: relative;
   width: 100%;
   bottom: 0;
   height: 150px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   background: #fff;
-  padding-bottom: 50px;
 
   div {
     width: 90%;
-    margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -299,6 +297,10 @@ export const OrderDetails = styled.footer`
     }
   }
 
+  button {
+    margin-top: 20px;
+  }
+
   @media (max-width: ${mobile}px) {
     div {
       strong {
@@ -310,24 +312,6 @@ export const OrderDetails = styled.footer`
       }
     }
   }
-`
-
-export const BtnFinishCart = styled.button`
-  border-radius: 6px;
-  background: #11cea2;
-  text-transform: uppercase;
-  color: #fff;
-  width: 90%;
-  height: 57px;
-  font-size: 16px;
-  font-weight: 900;
-
-  ${(props) =>
-    props.disabled &&
-    css`
-      background: rgba(0, 0, 0, 0.3);
-      cursor: auto;
-    `}
 `
 
 //Animations

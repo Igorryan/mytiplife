@@ -27,8 +27,6 @@ export const CardOption = styled.div`
 
   div.logoWrapper {
     width: 100%;
-    img {
-    }
   }
 
   div.infoWrapper {
@@ -36,9 +34,9 @@ export const CardOption = styled.div`
     text-align: right;
     position: relative;
 
-    img {
-      width: 18rem;
-      height: 18rem;
+    .qrCode {
+      width: 18rem !important;
+      height: 18rem !important;
     }
 
     div.infos {

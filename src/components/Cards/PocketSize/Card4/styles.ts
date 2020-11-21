@@ -31,9 +31,9 @@ export const CardOption = styled.div`
 
     border-top-right-radius: 3.5rem;
 
-    img {
-      width: 12.5rem;
-      height: 12.5rem;
+    .qrCode {
+      width: 12.5rem !important;
+      height: 12.5rem !important;
     }
   }
 

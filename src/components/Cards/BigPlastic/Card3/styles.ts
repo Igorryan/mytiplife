@@ -25,8 +25,8 @@ export const CardOption = styled.div`
   .qrCode {
     position: absolute;
 
-    width: 24rem;
-    height: 24rem;
+    width: 24rem !important;
+    height: 24rem !important;
     bottom: 20px;
     margin-top: -4rem;
     margin-left: 2rem;

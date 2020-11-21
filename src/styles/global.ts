@@ -52,6 +52,11 @@ main  {
   }
  }
 
+ .qrCode {
+  border: 10px solid #fff;
+      border-radius: 10px;
+ }
+
 
 
 

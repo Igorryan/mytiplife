@@ -21,8 +21,8 @@ export const Cards = [Card1, Card2, Card3, Card4]
 const BigPlasticCards: React.FC = () => {
   const { colors, units } = Products[2]
 
-  const [name, setName] = useState('')
-  const [job, setJob] = useState('')
+  const [name, setName] = useState('Your name')
+  const [job, setJob] = useState('Your Job')
   const [color, setColor] = useState('#59C398')
   const [image, setImage] = useState('')
   const [currentCard, setCurrentCard] = useState(0)

@@ -46,11 +46,11 @@ export const CardOption = styled.div`
       margin-left: -4rem;
     }
 
-    img.qrCode {
+    .qrCode {
       margin-top: 2rem;
       margin-bottom: 3rem;
-      width: 21rem;
-      height: 21rem;
+      width: 21rem !important;
+      height: 21rem !important;
       z-index: 1;
     }
   }

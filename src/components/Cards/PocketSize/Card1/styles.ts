@@ -97,9 +97,9 @@ export const CardOption = styled.div`
         margin-top: 0.5rem;
       }
 
-      img.qrCode {
-        width: 20rem;
-        height: 20rem;
+      .qrCode {
+        width: 20rem !important;
+        height: 20rem !important;
         margin-top: 2rem;
       }
 

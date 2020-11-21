@@ -1,6 +1,7 @@
 import * as S from './styles'
 
 import { ICardProps } from 'DTOS/ICardProducts'
+import QRCode from 'qrcode.react'
 
 const Card4 = ({ image, color, name, job }: ICardProps) => (
   <S.CardOption className="card">
@@ -16,10 +17,11 @@ const Card4 = ({ image, color, name, job }: ICardProps) => (
     <div className="color" style={{ backgroundColor: color }}>
       <p>{job}</p>
       <h2>{name}</h2>
-      <img
+      <QRCode
         className="qrCode"
-        src="/img/qrcode_example.png"
-        alt="QR Code Example"
+        value={
+          process.env.QRCODE_LINK_DEFAULT || 'https://www.mytiplife.com/home'
+        }
       />
       <img
         className="logoCard"

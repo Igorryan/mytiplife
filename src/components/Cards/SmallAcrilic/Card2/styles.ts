@@ -52,7 +52,9 @@ export const CardOption = styled.div`
   }
 
   .qrCode {
-    width: 18rem;
+    width: 18rem !important;
+    height: 18rem !important;
+
     margin: 2rem 0;
   }
 

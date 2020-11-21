@@ -29,9 +29,9 @@ export const CardOption = styled.div`
       bottom: 0;
       background: transparent;
 
-      img.qrCode {
-        width: 20rem;
-        height: 20rem;
+      .qrCode {
+        width: 20rem !important;
+        height: 20rem !important;
         background: transparent;
         margin-right: 1.5rem;
         margin-bottom: 1rem;

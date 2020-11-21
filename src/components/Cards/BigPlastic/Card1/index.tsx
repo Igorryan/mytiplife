@@ -8,13 +8,13 @@ const Card1 = ({ color, name, job }: ICardProps) => (
     <div>
       <h2>{name}</h2>
       <p>{job}</p>
-      <img
-        className="qrCode"
-        src="/img/qrcode_example.png"
-        alt="QR Code Example"
-      />
 
-      <QRCode className="qrCode" value="https://www.mytiplife.com/home" />
+      <QRCode
+        className="qrCode"
+        value={
+          process.env.QRCODE_LINK_DEFAULT || 'https://www.mytiplife.com/home'
+        }
+      />
       <img
         className="logoCard"
         src="/img/logo_v2_white.svg"

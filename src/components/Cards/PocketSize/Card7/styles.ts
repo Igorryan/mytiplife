@@ -55,12 +55,12 @@ export const CardOption = styled.div`
       z-index: 0;
     }
 
-    img.qrCode {
+    .qrCode {
       position: absolute;
       top: 118px;
       right: 34px;
-      width: 21rem;
-      height: 21rem;
+      width: 21rem !important;
+      height: 21rem !important;
       z-index: 0;
     }
   }

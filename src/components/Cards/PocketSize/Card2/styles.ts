@@ -63,9 +63,9 @@ export const CardOption = styled.div`
         background: url('/img/stars_right.svg') no-repeat center;
       }
 
-      img.qrCode {
-        width: 24rem;
-        height: 24rem;
+      .qrCode {
+        width: 24rem !important;
+        height: 24rem !important;
 
         margin-top: 3.3rem;
         margin-bottom: 3.4rem;
