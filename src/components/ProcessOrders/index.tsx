@@ -49,7 +49,10 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
       animation?.play()
       animation?.setSpeed(1.5)
 
-      refAnimationContainerValidated.current.style.display = 'flex'
+      if (refAnimationContainerValidated.current) {
+        refAnimationContainerValidated.current.style.display = 'flex'
+      }
+
       setTimeout(() => {
         handleSetStage(4)
       }, 3000)
