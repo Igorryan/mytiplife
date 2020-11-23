@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components'
 import {
-  IAnimations,
   flipInHorBottomPrimary,
   swingOutTopBck,
   fadeOutLeft,
@@ -11,29 +10,6 @@ import {
 
 interface IStageProps {
   progress: number
-}
-
-const keyframesColection = {
-  flipInHorBottomPrimary: css`
-    animation: ${flipInHorBottomPrimary} 0.5s
-      cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  `,
-  swingOutTopBck: css`
-    animation: ${swingOutTopBck} 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045)
-      both;
-  `,
-  fadeOutLeft: css`
-    animation: ${fadeOutLeft} 0.8s;
-  `,
-  fadeInRight: css`
-    animation: ${fadeInRight} 0.8s;
-  `,
-  fadeOutRight: css`
-    animation: ${fadeOutRight} 0.8s;
-  `,
-  fadeInLeft: css`
-    animation: ${fadeInLeft} 0.8s;
-  `
 }
 
 export const Wrapper = styled.main`
@@ -53,10 +29,30 @@ export const StagesFinishCartWrapper = styled.section`
   justify-content: center;
 `
 
-export const WrapperForAnimation = styled.div<IAnimations>`
+export const WrapperForAnimation = styled.div`
   animation-fill-mode: forwards;
 
-  ${({ animation }) => keyframesColection[animation]}
+  .flipInHorBottomPrimary {
+    animation: ${flipInHorBottomPrimary} 0.5s
+      cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .swingOutTopBck {
+    animation: ${swingOutTopBck} 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045)
+      both;
+  }
+  .fadeOutLeft {
+    animation: ${fadeOutLeft} 0.8s;
+  }
+  .fadeInRight {
+    animation: ${fadeInRight} 0.8s;
+  }
+  .fadeOutRight {
+    animation: ${fadeOutRight} 0.8s;
+  }
+  .fadeInLeft {
+    animation: ${fadeInLeft} 0.8s;
+  }
 `
 
 export const ProgressBar = styled.div<IStageProps>`

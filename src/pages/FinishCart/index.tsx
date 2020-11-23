@@ -123,7 +123,7 @@ const FinishCart: React.FC = () => {
       </S.ProgressBar>
 
       <S.StagesFinishCartWrapper>
-        <S.WrapperForAnimation animation={animation} ref={animationWrapperRef}>
+        <S.WrapperForAnimation className={animation} ref={animationWrapperRef}>
           {stage === 1 ? (
             <DeliveryAddress
               handleSetStage={handleSetStage}
