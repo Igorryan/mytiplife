@@ -1,4 +1,4 @@
-import * as S from './styles'
+import * as S from 'styles/ForgotPassword/styles'
 import SimpleHeader from 'components/SimpleHeader'
 import Footer from 'components/Footer'
 import Input from 'components/Input'

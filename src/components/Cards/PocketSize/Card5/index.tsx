@@ -1,5 +1,5 @@
 import * as S from './styles'
-import QRCode from 'qrcode.react'
+import QRCode from 'components/QRCode'
 
 import { ICardProps } from 'DTOS/ICardProducts'
 
@@ -20,12 +20,7 @@ const Card5 = ({ image, color, name, job }: ICardProps) => (
     </div>
 
     <div className="infoWrapper">
-      <QRCode
-        className="qrCode"
-        value={
-          process.env.QRCODE_LINK_DEFAULT || 'https://www.mytiplife.com/home'
-        }
-      />
+      <QRCode />
 
       <div className="infos">
         <h2>{name}</h2>

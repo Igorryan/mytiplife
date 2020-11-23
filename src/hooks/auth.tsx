@@ -61,10 +61,12 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const isAuthenticated = useCallback(() => {
-    const token = localStorage.getItem('@MyTipLife:token')
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('@MyTipLife:token')
 
-    if (!token) {
-      return false
+      if (!token) {
+        return false
+      }
     }
 
     return true

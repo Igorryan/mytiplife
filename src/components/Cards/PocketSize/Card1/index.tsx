@@ -1,5 +1,5 @@
 import { ICardProps } from 'DTOS/ICardProducts'
-import QRCode from 'qrcode.react'
+import QRCode from 'components/QRCode'
 
 import * as S from './styles'
 
