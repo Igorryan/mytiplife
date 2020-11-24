@@ -13,19 +13,16 @@ const Footer = () => (
 
     <nav>
       <li>
-        <a href="https://www.linkedin.com/in/igorryan/">Artstipjar Website</a>
+        <a href="#">Terms of use</a>
       </li>
       <li>
-        <a href="https://www.linkedin.com/in/igorryan/">Terms of use</a>
+        <a href="#">Privacy Policy</a>
       </li>
       <li>
-        <a href="https://www.linkedin.com/in/igorryan/">Privacy Policy</a>
+        <a href="#">About us</a>
       </li>
       <li>
-        <a href="https://www.linkedin.com/in/igorryan/">About us</a>
-      </li>
-      <li>
-        <a href="https://www.linkedin.com/in/igorryan/">Contact us</a>
+        <a href="#">Contact us</a>
       </li>
     </nav>
 

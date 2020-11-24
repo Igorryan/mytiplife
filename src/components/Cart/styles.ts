@@ -232,29 +232,27 @@ export const Product = styled.li`
   }
 
   @media (max-width: ${mobile}px) {
-    li {
-      width: 100%;
+    width: 100%;
 
-      img {
-        height: 80px;
-      }
+    img {
+      height: 60px;
+    }
 
-      .description {
-        margin-top: 0;
+    .description {
+      margin-top: 0;
 
-        div {
-          margin-top: 20px;
+      div {
+        margin-top: 20px;
 
-          strong {
-            font-size: 22px;
-            span {
-              font-size: 16px;
-            }
+        strong {
+          font-size: 22px;
+          span {
+            font-size: 16px;
           }
+        }
 
-          button {
-            font-size: 12px;
-          }
+        button {
+          font-size: 12px;
         }
       }
     }

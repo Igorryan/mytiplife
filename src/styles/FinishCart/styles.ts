@@ -32,25 +32,25 @@ export const StagesFinishCartWrapper = styled.section`
 export const WrapperForAnimation = styled.div`
   animation-fill-mode: forwards;
 
-  .flipInHorBottomPrimary {
+  &.flipInHorBottomPrimary {
     animation: ${flipInHorBottomPrimary} 0.5s
       cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
 
-  .swingOutTopBck {
+  &.swingOutTopBck {
     animation: ${swingOutTopBck} 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045)
       both;
   }
-  .fadeOutLeft {
+  &.fadeOutLeft {
     animation: ${fadeOutLeft} 0.8s;
   }
-  .fadeInRight {
+  &.fadeInRight {
     animation: ${fadeInRight} 0.8s;
   }
-  .fadeOutRight {
+  &.fadeOutRight {
     animation: ${fadeOutRight} 0.8s;
   }
-  .fadeInLeft {
+  &.fadeInLeft {
     animation: ${fadeInLeft} 0.8s;
   }
 `

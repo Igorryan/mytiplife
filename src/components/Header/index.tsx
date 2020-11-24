@@ -9,9 +9,18 @@ import Redirect from 'utils/Redirect'
 const Header = () => {
   const { openCart, products } = useCart()
 
+  const [anchor, setAnchor] = useState('#aNewWayToReceiveMoney')
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerToggle, setHeaderToggle] = useState(true)
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
+
+  useEffect(() => {
+    if (window.location.href.indexOf('Home') !== -1) {
+      setAnchor('#aNewWayToReceiveMoney')
+    } else {
+      setAnchor('/Home')
+    }
+  }, [])
 
   useEffect(() => {
     const debounceScrollFunction = debounce(() => {
@@ -47,19 +56,31 @@ const Header = () => {
         <img onClick={() => Redirect('Home')} src="/img/logo.svg" alt="logo" />
         <S.MenuList toLeft={menuOpen}>
           <li>
-            <a href="#">Home</a>
+            <a href="/Home">Home</a>
           </li>
           <li>
             <a href="#">My Account</a>
           </li>
           <li>
-            <a href="#">Funding</a>
+            <a
+              // eslint-disable-next-line react/jsx-no-target-blank
+              target="_blank"
+              href="https://www.mytiplife.com/site-pages/wetipyou"
+            >
+              Funding
+            </a>
           </li>
           <li>
-            <a href="#">Video</a>
+            <a
+              // eslint-disable-next-line react/jsx-no-target-blank
+              target="_blank"
+              href="https://www.mytiplife.com"
+            >
+              Video
+            </a>
           </li>
           <li>
-            <a href="#">Categories</a>
+            <a href={anchor}>Categories</a>
           </li>
           <li>
             <S.IconCart

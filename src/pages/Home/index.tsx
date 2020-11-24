@@ -17,7 +17,6 @@ const Home: React.FC = () => {
     const animationClass = 'animate'
 
     function animeScroll() {
-      console.log(`executei`)
       const windowTop = window.pageYOffset + (window.innerHeight * 3) / 4
       target.forEach((element) => {
         if (windowTop > element.offsetTop) {
@@ -48,14 +47,20 @@ const Home: React.FC = () => {
             Choose your product, customize it as you wish and start earning
             tips.
           </p>
-          <Button>Show me</Button>
+          <Button
+            onClick={() => {
+              window.location.href = '#aNewWayToReceiveMoney'
+            }}
+          >
+            Show me
+          </Button>
         </div>
         <img src="/img/banner-home.svg" alt="" />
       </section>
 
       <div data-anime="flip" className="title">
         <img src="/img/home_illustration_1.svg" alt="" />
-        <h1>A new way to receive money</h1>
+        <h1 id="aNewWayToReceiveMoney">A new way to receive money</h1>
       </div>
 
       <S.Products>
