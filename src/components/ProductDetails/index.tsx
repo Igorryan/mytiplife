@@ -38,7 +38,7 @@ const ProductDetails: React.FC<IProps> = ({
   const { addProduct, openCart } = useCart()
   const { addToast } = useToast()
 
-  const { title, description, cardsImageRequired } = product
+  const { title, description } = product
   const { name, job, color, image, currentCard } = states
   const { setName, setJob, setColor, setImage } = setStates
 
@@ -48,30 +48,21 @@ const ProductDetails: React.FC<IProps> = ({
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
   const [formCompleted, setFormCompleted] = useState(false)
-  const [imageSubmited, setImageSubmited] = useState<FormData>()
 
   useEffect(() => {
     setTotal(quantity * product.price)
   }, [product.price, quantity])
 
   useEffect(() => {
-    if (name !== 'Your name' && job !== 'Your Job' && total) {
-      if (cardsImageRequired) {
-        const imageRequitedForCurrentCard = cardsImageRequired.find(
-          (c) => c - 1 === currentCard
-        )
+    const buttonAddCardAvailable =
+      !!color &&
+      name !== 'Your name' &&
+      job !== 'Your Job' &&
+      !!image &&
+      !!quantity
 
-        if (imageRequitedForCurrentCard && !imageSubmited) {
-          setFormCompleted(false)
-          return
-        }
-
-        setFormCompleted(true)
-      }
-    } else {
-      setFormCompleted(false)
-    }
-  }, [name, job, total, imageSubmited, cardsImageRequired, currentCard])
+    setFormCompleted(buttonAddCardAvailable)
+  }, [color, image, job, name, quantity])
 
   const handleSendImage = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {

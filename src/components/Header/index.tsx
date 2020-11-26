@@ -3,24 +3,37 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { useState, useCallback, useEffect } from 'react'
 import { useCart } from 'hooks/cart'
 
+import Scroll from 'react-scroll'
+
 import debounce from 'utils/debounce.js'
 import Redirect from 'utils/Redirect'
 
 const Header = () => {
   const { openCart, products } = useCart()
 
-  const [anchor, setAnchor] = useState('#aNewWayToReceiveMoney')
+  const [anchor, setAnchor] = useState('aNewWayToReceiveMoney')
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerToggle, setHeaderToggle] = useState(true)
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
 
   useEffect(() => {
     if (window.location.href.indexOf('Home') !== -1) {
-      setAnchor('#aNewWayToReceiveMoney')
+      setAnchor('aNewWayToReceiveMoney')
     } else {
-      setAnchor('/Home')
+      setAnchor('/Home?anchor=aNewWayToReceiveMoney')
     }
-  }, [])
+
+    const params = new URLSearchParams(window.location.search)
+
+    if (params.get('anchor')) {
+      Scroll.scroller.scrollTo('aNewWayToReceiveMoney', {
+        duration: 1000,
+        delay: 200,
+        smooth: true,
+        offset: -220
+      })
+    }
+  }, [anchor])
 
   useEffect(() => {
     const debounceScrollFunction = debounce(() => {
@@ -80,7 +93,20 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a href={anchor}>Categories</a>
+            {anchor.indexOf('/') === -1 ? (
+              <S.LinkMenu
+                activeClass="active"
+                to={anchor}
+                spy={true}
+                smooth={true}
+                offset={-220}
+                duration={500}
+              >
+                Categories
+              </S.LinkMenu>
+            ) : (
+              <a href={anchor}>Categories</a>
+            )}
           </li>
           <li>
             <S.IconCart

@@ -10,6 +10,7 @@ import Button from 'components/Button'
 import Tilt from 'react-parallax-tilt'
 import { useEffect } from 'react'
 import debounce from 'utils/debounce'
+import { Link } from 'react-scroll'
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -47,13 +48,16 @@ const Home: React.FC = () => {
             Choose your product, customize it as you wish and start earning
             tips.
           </p>
-          <Button
-            onClick={() => {
-              window.location.href = '#aNewWayToReceiveMoney'
-            }}
+          <Link
+            activeClass="active"
+            to="aNewWayToReceiveMoney"
+            spy={true}
+            smooth={true}
+            offset={-220}
+            duration={500}
           >
-            Show me
-          </Button>
+            <Button>Show me</Button>
+          </Link>
         </div>
         <img src="/img/banner-home.svg" alt="" />
       </section>

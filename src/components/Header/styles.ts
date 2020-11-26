@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-scroll'
 
 interface IProps {
   toLeft: boolean
@@ -50,6 +51,24 @@ export const Wrapper = styled.header`
         font-size: 16px;
       }
     }
+  }
+`
+
+export const LinkMenu = styled(Link)`
+  color: #003d59;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 2rem;
+  border-bottom: 1px solid transparent;
+  transition: border 0.4s;
+  cursor: pointer;
+
+  :hover {
+    border-bottom: 1px solid #003d59;
   }
 `
 
