@@ -105,7 +105,9 @@ export const swingOutTopBck = keyframes`
     opacity: 0;
   }
 `
-//animation: swing-out-top-bck 0.45s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+export const swingOutTopBckAnimation = css`
+  animation: ${swingOutTopBck} 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045) both;
+`
 
 export const slitInHorizontal = {
   keyframe: keyframes`

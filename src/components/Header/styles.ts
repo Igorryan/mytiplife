@@ -76,7 +76,7 @@ export const MenuList = styled.ul<IProps>`
   float: right;
   margin-right: 40px;
 
-  li {
+  > li {
     display: inline-block;
     line-height: 90px;
     position: relative;
@@ -111,7 +111,7 @@ export const MenuList = styled.ul<IProps>`
     left: ${(props) => (props.toLeft ? 0 : '-100%')};
     text-align: center;
     transition: all 0.5s;
-    li {
+    > li {
       display: block;
       z-index: 11;
       line-height: 70px;

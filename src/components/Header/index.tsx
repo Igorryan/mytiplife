@@ -8,11 +8,14 @@ import Scroll from 'react-scroll'
 import debounce from 'utils/debounce.js'
 import Redirect from 'utils/Redirect'
 
+import MenuDropDown from 'components/MenuDropDown'
+
 const Header = () => {
   const { openCart, products } = useCart()
 
   const [anchor, setAnchor] = useState('aNewWayToReceiveMoney')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [myAccountMenuOpen, setMyAccountMenuOpen] = useState(false)
   const [headerToggle, setHeaderToggle] = useState(true)
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
 
@@ -71,8 +74,19 @@ const Header = () => {
           <li>
             <a href="/Home">Home</a>
           </li>
-          <li>
+          <li
+            onMouseEnter={() => setMyAccountMenuOpen(true)}
+            onMouseLeave={() => setMyAccountMenuOpen(false)}
+          >
             <a href="#">My Account</a>
+            <MenuDropDown
+              open={myAccountMenuOpen}
+              links={[
+                { link: 'OrderHistory', name: 'Order History' },
+                { link: '#', name: 'Address' },
+                { link: '#', name: 'Logout' }
+              ]}
+            />
           </li>
           <li>
             <a
