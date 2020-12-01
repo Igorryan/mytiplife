@@ -18,7 +18,7 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/img/favicon3.svg" />
         <link rel="manifest" href="/manifest.json" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@400;500;700;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@300;400;500;700;900&display=swap"
           rel="stylesheet"
         ></link>
       </Head>

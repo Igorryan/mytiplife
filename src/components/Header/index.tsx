@@ -75,7 +75,7 @@ const Header = () => {
             <a href="/Home">Home</a>
           </li>
           <li
-            onMouseEnter={() => setMyAccountMenuOpen(true)}
+            onMouseOver={() => setMyAccountMenuOpen(true)}
             onMouseLeave={() => setMyAccountMenuOpen(false)}
           >
             <a href="#">My Account</a>

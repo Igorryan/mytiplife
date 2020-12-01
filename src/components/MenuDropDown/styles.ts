@@ -15,6 +15,7 @@ export const Wrapper = styled.div<MenuProps>`
   justify-content: center;
   position: absolute;
   top: 70px;
+  opacity: 0;
 
   background: #003d59;
 
