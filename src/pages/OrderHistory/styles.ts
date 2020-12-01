@@ -4,6 +4,10 @@ interface FilterProps {
   selected?: boolean
 }
 
+interface OrderStatus {
+  status: 'Fulfilled' | 'In progress'
+}
+
 export const Wrapper = styled.main`
   display: flex;
   justify-content: space-between;
@@ -37,7 +41,7 @@ export const FiltersWrapper = styled.ul`
 `
 
 export const Filter = styled.li<FilterProps>`
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 30px;
   padding-bottom: 5px;
 
@@ -62,7 +66,7 @@ export const Order = styled.div`
   box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 12px;
 `
 
-export const OrderHeader = styled.header`
+export const OrderHeader = styled.header<OrderStatus>`
   margin-top: -50px;
 
   display: flex;
@@ -71,7 +75,14 @@ export const OrderHeader = styled.header`
   border-radius: 100px;
 
   color: #fff;
+
   background: linear-gradient(90deg, #ffb347 0.54%, #ffcc33 100%);
+
+  ${(props) =>
+    props.status === 'Fulfilled' &&
+    css`
+      background: linear-gradient(90deg, #56ab2f 0%, #a8e063 100%);
+    `}
 
   div {
     display: flex;
@@ -105,6 +116,7 @@ export const OrderHeader = styled.header`
       text-align: center;
       border-radius: 20px;
       padding: 2px;
+      cursor: pointer;
     }
   }
 `
@@ -113,7 +125,7 @@ export const OrderBodyWrapper = styled.div`
   display: flex;
 `
 
-export const PriceWrapper = styled.div`
+export const PriceWrapper = styled.div<OrderStatus>`
   width: 60%;
   margin-right: 20px;
 
@@ -153,6 +165,13 @@ export const PriceWrapper = styled.div`
 
     span {
       color: #ffb347;
+
+      ${(props) =>
+        props.status === 'Fulfilled' &&
+        css`
+          color: #56ab2f;
+        `}
+
       position: relative;
       padding-left: 20px;
 
@@ -165,6 +184,12 @@ export const PriceWrapper = styled.div`
         left: 0;
         border-radius: 50%;
         background: #ffb347;
+
+        ${(props) =>
+          props.status === 'Fulfilled' &&
+          css`
+            background: #56ab2f;
+          `}
       }
     }
 
@@ -190,33 +215,8 @@ export const AddressWrapper = styled.div`
       font-family: 'Rubik', sans-serif;
       color: #1b1b1b;
       font-weight: 300;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 30px;
-    }
-  }
-
-  a {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-
-    font-family: 'Rubik', sans-serif;
-    text-decoration: none;
-    font-size: 14px;
-    color: #9b9b9b;
-    font-weight: 300;
-    border-bottom: 1px solid transparent;
-    transition: all 0.4s;
-
-    :hover {
-      border-bottom: 1px solid #b9b9b9;
-    }
-
-    p {
-      margin-right: 6px;
-      margin-top: 2px;
     }
   }
 `

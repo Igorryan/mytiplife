@@ -1,4 +1,8 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+interface AddressProps {
+  addressExists: boolean
+}
 
 export const Wrapper = styled.main`
   display: flex;
@@ -31,7 +35,7 @@ export const Addresses = styled.ul`
   display: flex;
 `
 
-export const Address = styled.li`
+export const Address = styled.li<AddressProps>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -39,6 +43,25 @@ export const Address = styled.li`
   justify-content: space-between;
 
   margin: 10px;
+
+  width: 320px;
+  height: 220px;
+  padding: 30px 34px;
+  border-radius: 15px;
+
+  font-family: 'Rubik', sans-serif;
+  color: #1b1b1b;
+  font-weight: 300;
+  font-size: 14px;
+
+  border: 2px dashed #c7c7c7;
+
+  ${(props) =>
+    props.addressExists &&
+    css`
+      border: none;
+      background: #fff;
+    `}
 
   &:first-of-type {
     margin-left: 0;
@@ -59,22 +82,21 @@ export const Address = styled.li`
     text-align: center;
     font-weight: 600;
     font-size: 14px;
+    background: #f5f5f5;
+    color: #c7c7c7;
+    border: 2px dashed #c7c7c7;
+    display: none;
 
-    color: #ffb843;
-    background: #fff;
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    ${(props) =>
+      props.addressExists &&
+      css`
+        color: #003d59;
+        background: #fff;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+        display: flex;
+      `}
   }
-
-  background: #fff;
-  width: 320px;
-  height: 250px;
-  padding: 30px 34px;
-  border-radius: 15px;
-
-  font-family: 'Rubik', sans-serif;
-  color: #1b1b1b;
-  font-weight: 300;
-  font-size: 14px;
 
   .addressDescription {
     width: 100%;
@@ -93,22 +115,50 @@ export const Address = styled.li`
       font-size: 16px;
 
       :nth-of-type(1) {
-        background: #ffb843;
+        background: #11cea2;
         color: #fff;
+        opacity: 0.8;
 
         border-radius: 5px;
         letter-spacing: 3px;
         font-weight: 900;
-        transition: background 0.4s;
+        transition: opacity 0.4s;
 
         :hover {
-          background: #ffa200;
+          opacity: 1;
         }
       }
 
       :nth-of-type(2) {
         background: transparent;
         color: #8a8a8a;
+      }
+    }
+  }
+
+  .notFoundAddressWrapper {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 100%;
+    cursor: pointer;
+
+    img {
+      opacity: 0.5;
+    }
+
+    span {
+      margin-top: 20px;
+      font-size: 16px;
+      text-align: center;
+      color: #c7c7c7;
+      font-weight: 400;
+
+      strong {
+        font-weight: 700;
       }
     }
   }

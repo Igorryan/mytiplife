@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import {
   swingInTopFwdAnimation,
   swingOutTopBckAnimation
 } from 'styles/keyframes'
 
 interface MenuProps {
-  open: boolean
+  open: boolean | 'init'
 }
 
 export const Wrapper = styled.div<MenuProps>`
@@ -15,14 +15,21 @@ export const Wrapper = styled.div<MenuProps>`
   justify-content: center;
   position: absolute;
   top: 70px;
-  opacity: 0;
-
+  padding-bottom: 10px;
   background: #003d59;
 
-  ${(props) => (props.open ? swingInTopFwdAnimation : swingOutTopBckAnimation)}
+  ${(props) =>
+    props.open === 'init' &&
+    css`
+      opacity: 0;
+    `}
+
+  ${(props) => props.open === true && swingInTopFwdAnimation}
+
+  ${(props) =>
+    props.open === false && swingOutTopBckAnimation}
 
   width: 150px;
-  height: 129px;
   border-radius: 12px;
   left: -10px;
 
@@ -31,7 +38,8 @@ export const Wrapper = styled.div<MenuProps>`
     width: 0;
     height: 0;
     margin: 0 auto;
-    margin-top: -20px;
+    position: absolute;
+    top: -10px;
 
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;

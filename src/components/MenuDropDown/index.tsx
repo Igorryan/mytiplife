@@ -2,19 +2,21 @@ import * as S from './styles'
 
 interface ILinksProps {
   name: string
-  link: string
+  link?: string
+  action?: () => void
 }
 
 interface IProps {
   links: ILinksProps[]
-  open: boolean
+  open: boolean | 'init'
 }
 
 const MenuDropDown: React.FC<IProps> = ({ links, open }) => {
+  console.log(open)
   return (
     <S.Wrapper open={open}>
-      {links.map(({ link, name }) => (
-        <a key={name} href={link}>
+      {links.map(({ link, name, action }) => (
+        <a key={name} onClick={action} href={link || '#'}>
           {name}
         </a>
       ))}

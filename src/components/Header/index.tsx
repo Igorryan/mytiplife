@@ -2,6 +2,7 @@ import * as S from './styles'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useState, useCallback, useEffect } from 'react'
 import { useCart } from 'hooks/cart'
+import { useAuth } from 'hooks/auth'
 
 import Scroll from 'react-scroll'
 
@@ -12,10 +13,13 @@ import MenuDropDown from 'components/MenuDropDown'
 
 const Header = () => {
   const { openCart, products } = useCart()
+  const { signOut, isAuthenticated } = useAuth()
 
   const [anchor, setAnchor] = useState('aNewWayToReceiveMoney')
   const [menuOpen, setMenuOpen] = useState(false)
-  const [myAccountMenuOpen, setMyAccountMenuOpen] = useState(false)
+  const [myAccountMenuOpen, setMyAccountMenuOpen] = useState<boolean | 'init'>(
+    'init'
+  )
   const [headerToggle, setHeaderToggle] = useState(true)
   const [inputSearchFocus, setInputSearchFocus] = useState(false)
 
@@ -71,10 +75,10 @@ const Header = () => {
       <nav>
         <img onClick={() => Redirect('Home')} src="/img/logo.svg" alt="logo" />
         <S.MenuList toLeft={menuOpen}>
-          <li>
+          <S.Item>
             <a href="/Home">Home</a>
-          </li>
-          <li
+          </S.Item>
+          <S.Item
             onMouseOver={() => setMyAccountMenuOpen(true)}
             onMouseLeave={() => setMyAccountMenuOpen(false)}
           >
@@ -82,13 +86,23 @@ const Header = () => {
             <MenuDropDown
               open={myAccountMenuOpen}
               links={[
+                {
+                  name: isAuthenticated() ? 'Sign Out' : 'Sign In',
+                  action: isAuthenticated()
+                    ? () => {
+                        signOut()
+                        Redirect('Sign')
+                      }
+                    : () => {
+                        Redirect('Sign')
+                      }
+                },
                 { link: 'OrderHistory', name: 'Order History' },
-                { link: '#', name: 'Address' },
-                { link: '#', name: 'Logout' }
+                { link: 'Addresses', name: 'Addresses' }
               ]}
             />
-          </li>
-          <li>
+          </S.Item>
+          <S.Item>
             <a
               // eslint-disable-next-line react/jsx-no-target-blank
               target="_blank"
@@ -96,8 +110,8 @@ const Header = () => {
             >
               Funding
             </a>
-          </li>
-          <li>
+          </S.Item>
+          <S.Item>
             <a
               // eslint-disable-next-line react/jsx-no-target-blank
               target="_blank"
@@ -105,8 +119,8 @@ const Header = () => {
             >
               Video
             </a>
-          </li>
-          <li>
+          </S.Item>
+          <S.Item>
             {anchor.indexOf('/') === -1 ? (
               <S.LinkMenu
                 activeClass="active"
@@ -121,8 +135,8 @@ const Header = () => {
             ) : (
               <a href={anchor}>Categories</a>
             )}
-          </li>
-          <li>
+          </S.Item>
+          <S.Item>
             <S.IconCart
               onClick={() => {
                 openCart()
@@ -131,7 +145,7 @@ const Header = () => {
             >
               {products.length > 0 && <strong>{products.length}</strong>}
             </S.IconCart>
-          </li>
+          </S.Item>
         </S.MenuList>
 
         <S.SearchBar

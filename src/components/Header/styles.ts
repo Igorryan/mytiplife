@@ -46,10 +46,6 @@ export const Wrapper = styled.header`
       img {
         padding-left: 50px;
       }
-
-      ul li a {
-        font-size: 16px;
-      }
     }
   }
 `
@@ -76,32 +72,6 @@ export const MenuList = styled.ul<IProps>`
   float: right;
   margin-right: 40px;
 
-  > li {
-    display: inline-block;
-    line-height: 90px;
-    position: relative;
-
-    a {
-      color: #003d59;
-      font-size: 20px;
-      text-transform: uppercase;
-      text-decoration: none;
-
-      font-size: 14px;
-      font-weight: 500;
-      margin: 0 2rem;
-      border-bottom: 1px solid transparent;
-      transition: border 0.4s;
-
-      :hover {
-        border-bottom: 1px solid #003d59;
-      }
-    }
-
-    :last-of-type {
-      margin-left: 20px;
-    }
-  }
   @media (max-width: 1100px) {
     position: fixed;
     width: 100%;
@@ -111,18 +81,38 @@ export const MenuList = styled.ul<IProps>`
     left: ${(props) => (props.toLeft ? 0 : '-100%')};
     text-align: center;
     transition: all 0.5s;
-    > li {
-      display: block;
-      z-index: 11;
-      line-height: 70px;
+  }
+`
 
-      &:last-of-type {
-        display: none;
-      }
+export const Item = styled.li`
+  display: inline-block;
+  line-height: 90px;
+  position: relative;
 
-      a {
-        font-size: 20px;
-      }
+  a {
+    color: #003d59;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 2rem;
+    border-bottom: 1px solid transparent;
+    transition: border 0.4s;
+  }
+
+  @media (max-width: 1100px) {
+    display: block;
+    z-index: 11;
+    line-height: 70px;
+
+    &:last-of-type {
+      display: none;
+    }
+
+    a {
+      font-size: 16px;
     }
   }
 `
@@ -136,7 +126,7 @@ export const IconCart = styled.div`
   height: 44px;
 
   top: -28px;
-  margin-left: -5px;
+  margin-left: 4px;
   cursor: pointer;
 
   strong {
