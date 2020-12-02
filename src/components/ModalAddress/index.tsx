@@ -12,7 +12,7 @@ import api from 'services/api'
 
 interface AddressProps {
   editingAddress: ILocationData
-  setEditingAddress(value: ILocationData | null): void
+  setEditingAddress(value: ILocationData | undefined): void
   locations: ILocationData[]
   setLocations(value: ILocationData[]): void
 }
@@ -74,7 +74,7 @@ const ModalAddress: React.FC<AddressProps> = ({
         }
 
         setLocations(newLocations)
-        setEditingAddress(null)
+        setEditingAddress(undefined)
       } catch (err) {
         const errors = getValidationErrors(err)
         if (err instanceof Yup.ValidationError) {
@@ -99,7 +99,11 @@ const ModalAddress: React.FC<AddressProps> = ({
 
   return (
     <S.Wrapper>
-      <S.FormAddress ref={formRef} onSubmit={(e) => handleSubmit(e)}>
+      <S.FormAddress
+        show={editingAddress}
+        ref={formRef}
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <header>{editingAddress.type}</header>
         <div>
           <p>Your location*</p>
@@ -138,7 +142,7 @@ const ModalAddress: React.FC<AddressProps> = ({
         </div>
 
         <div className="buttonsWrapper">
-          <S.ButtonCancel onClick={() => setEditingAddress(null)}>
+          <S.ButtonCancel onClick={() => setEditingAddress(undefined)}>
             Cancel
           </S.ButtonCancel>
           <Button type="submit">Save</Button>

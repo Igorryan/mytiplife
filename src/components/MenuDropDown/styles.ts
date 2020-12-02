@@ -17,6 +17,10 @@ export const Wrapper = styled.div<MenuProps>`
   top: 70px;
   padding-bottom: 10px;
   background: #003d59;
+  width: 150px;
+  border-radius: 12px;
+  left: -10px;
+  z-index: 15;
 
   ${(props) =>
     props.open === 'init' &&
@@ -27,11 +31,14 @@ export const Wrapper = styled.div<MenuProps>`
   ${(props) => props.open === true && swingInTopFwdAnimation}
 
   ${(props) =>
-    props.open === false && swingOutTopBckAnimation}
+    props.open === false &&
+    swingOutTopBckAnimation}
 
-  width: 150px;
-  border-radius: 12px;
-  left: -10px;
+
+
+  @media (max-width: 1100px) {
+    left: auto;
+  }
 
   :before {
     content: '';

@@ -97,8 +97,8 @@ const Header = () => {
                         Redirect('Sign')
                       }
                 },
-                { link: 'OrderHistory', name: 'Order History' },
-                { link: 'Addresses', name: 'Addresses' }
+                { link: '/OrderHistory', name: 'Order History' },
+                { link: '/Addresses', name: 'Addresses' }
               ]}
             />
           </S.Item>

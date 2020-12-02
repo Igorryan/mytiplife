@@ -14,15 +14,23 @@ const Addresses = () => {
   const { isAuthenticated } = useAuth()
   const { products } = useCart()
 
-  const [editingAddress, setEditingAddress] = useState<ILocationData | null>(
-    null
-  )
-
+  const [editingAddress, setEditingAddress] = useState<
+    ILocationData | undefined
+  >()
   const [locations, setLocations] = useState<ILocationData[]>([])
+  const [iframeAnimated, setIFrameAnimated] = useState(false)
+  const [addressFocus, setAddressFocus] = useState<ILocationData>()
 
   const handleDeleteAddress = useCallback(async (address: string) => {
     alert(`Under construction: remove address action ${address}`)
   }, [])
+
+  useEffect(() => {
+    setIFrameAnimated(false)
+    setTimeout(() => {
+      setIFrameAnimated(true)
+    }, 1200)
+  }, [addressFocus])
 
   useMemo(async () => {
     try {
@@ -34,15 +42,21 @@ const Addresses = () => {
           }
         })
 
-        const address: ILocationData[] = response.data.data
+        const addresses: ILocationData[] = response.data.data
 
-        if (address.length !== 0) {
+        if (addresses.length !== 0) {
+          const addr = addresses.find((addr) => !!addr)
+
+          setTimeout(() => {
+            setAddressFocus(addr)
+          }, 2000)
+
           addToast({
-            title: `You have ${address.length} saved addresses`
+            title: `You have ${addresses.length} saved addresses`
           })
         }
 
-        setLocations(address)
+        setLocations(addresses)
       }
     } catch (err) {
       addToast({
@@ -67,20 +81,32 @@ const Addresses = () => {
     }
   }, [addToast, isAuthenticated, products.length])
 
-  const home = useMemo(() => {
-    return locations.find((l) => l.type === 'Home')
-  }, [locations])
+  const fixedAddresses = useMemo(() => {
+    const home = locations.find((l) => l.type === 'Home')
+    const work = locations.find((l) => l.type === 'Work')
+    const office = locations.find((l) => l.type === 'Office')
+    const other = locations.find((l) => l.type === 'Other')
 
-  const work = useMemo(() => {
-    return locations.find((l) => l.type === 'Work')
-  }, [locations])
+    const addresses = [
+      {
+        type: 'Home',
+        address: home
+      },
+      {
+        type: 'Work',
+        address: work
+      },
+      {
+        type: 'Office',
+        address: office
+      },
+      {
+        type: 'Other',
+        address: other
+      }
+    ]
 
-  const office = useMemo(() => {
-    return locations.find((l) => l.type === 'Office')
-  }, [locations])
-
-  const other = useMemo(() => {
-    return locations.find((l) => l.type === 'Other')
+    return addresses
   }, [locations])
 
   return (
@@ -97,171 +123,71 @@ const Addresses = () => {
       <Header />
       <S.Section>
         <S.SectionHeader>
-          <h1>My Account | Addresses</h1>
+          <h1>My Addresses</h1>
         </S.SectionHeader>
 
         <S.Addresses>
-          <S.Address addressExists={!!home}>
-            <header>Home</header>
+          {fixedAddresses.map(({ type, address }) => (
+            <S.Address
+              key={type}
+              onClick={() => setAddressFocus(address)}
+              addressExists={!!address}
+              addressFocus={!!addressFocus && addressFocus === address}
+            >
+              <header>{type}</header>
 
-            {home ? (
-              <>
-                <div className="addressDescription">
-                  <p>{home.location}</p>
+              {address ? (
+                <>
+                  <div className="addressDescription">
+                    <p>{address.location}</p>
 
-                  <p>{home.completeAddress}</p>
+                    <p>{address.completeAddress}</p>
 
-                  <p>{home?.floor}</p>
+                    <p>{address?.floor}</p>
 
-                  <p>{home?.howToReach}</p>
+                    <p>{address?.howToReach}</p>
+                  </div>
+
+                  <div className="buttonsWrapper">
+                    <button onClick={() => setEditingAddress(address)}>
+                      EDIT
+                    </button>
+                    <button onClick={() => handleDeleteAddress(type)}>
+                      Delete
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div
+                  onClick={() => {
+                    setEditingAddress({
+                      type: type
+                    } as ILocationData)
+                  }}
+                  className="notFoundAddressWrapper"
+                >
+                  <img src="/img/mapIcon.svg" alt="" />
+                  <span>
+                    ADD <strong>{type}</strong>
+                    <br /> ADDRESS
+                  </span>
                 </div>
-
-                <div className="buttonsWrapper">
-                  <button onClick={() => setEditingAddress(home)}>EDIT</button>
-                  <button onClick={() => handleDeleteAddress('Home')}>
-                    Delete
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div
-                onClick={() => {
-                  setEditingAddress({
-                    type: 'Home'
-                  } as ILocationData)
-                }}
-                className="notFoundAddressWrapper"
-              >
-                <img src="/img/mapIcon.svg" alt="" />
-                <span>
-                  ADD <strong>HOME</strong>
-                  <br /> ADDRESS
-                </span>
-              </div>
-            )}
-          </S.Address>
-
-          <S.Address addressExists={!!work}>
-            <header>Work</header>
-
-            {work ? (
-              <>
-                <div className="addressDescription">
-                  <p>{work.location}</p>
-
-                  <p>{work.completeAddress}</p>
-
-                  <p>{work?.floor}</p>
-
-                  <p>{work?.howToReach}</p>
-                </div>
-
-                <div className="buttonsWrapper">
-                  <button onClick={() => setEditingAddress(work)}>EDIT</button>
-                  <button onClick={() => handleDeleteAddress('Work')}>
-                    Delete
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div
-                onClick={() => {
-                  setEditingAddress({
-                    type: 'Work'
-                  } as ILocationData)
-                }}
-                className="notFoundAddressWrapper"
-              >
-                <img src="/img/mapIcon.svg" alt="" />
-                <span>
-                  ADD <strong>WORK</strong>
-                  <br /> ADDRESS
-                </span>
-              </div>
-            )}
-          </S.Address>
-          <S.Address addressExists={!!office}>
-            <header>Office</header>
-
-            {office ? (
-              <>
-                <div className="addressDescription">
-                  <p>{office.location}</p>
-
-                  <p>{office.completeAddress}</p>
-
-                  <p>{office?.floor}</p>
-
-                  <p>{office?.howToReach}</p>
-                </div>
-
-                <div className="buttonsWrapper">
-                  <button onClick={() => setEditingAddress(office)}>
-                    EDIT
-                  </button>
-                  <button onClick={() => handleDeleteAddress('Office')}>
-                    Delete
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div
-                onClick={() => {
-                  setEditingAddress({
-                    type: 'Office'
-                  } as ILocationData)
-                }}
-                className="notFoundAddressWrapper"
-              >
-                <img src="/img/mapIcon.svg" alt="" />
-                <span>
-                  ADD <strong>OFFICE</strong>
-                  <br /> ADDRESS
-                </span>
-              </div>
-            )}
-          </S.Address>
-          <S.Address addressExists={!!other}>
-            <header>Other</header>
-
-            {other ? (
-              <>
-                <div className="addressDescription">
-                  <p>{other.location}</p>
-
-                  <p>{other.completeAddress}</p>
-
-                  <p>{other?.floor}</p>
-
-                  <p>{other?.howToReach}</p>
-                </div>
-
-                <div className="buttonsWrapper">
-                  <button onClick={() => setEditingAddress(other)}>EDIT</button>
-                  <button onClick={() => handleDeleteAddress('Other')}>
-                    Delete
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div
-                onClick={() => {
-                  setEditingAddress({
-                    type: 'Other'
-                  } as ILocationData)
-                }}
-                className="notFoundAddressWrapper"
-              >
-                <img src="/img/mapIcon.svg" alt="" />
-                <span>
-                  ADD <strong>OTHER</strong>
-                  <br /> ADDRESS
-                </span>
-              </div>
-            )}
-          </S.Address>
+              )}
+            </S.Address>
+          ))}
         </S.Addresses>
       </S.Section>
+      {addressFocus && (
+        <S.IFrame
+          src={`https://www.google.com/maps?q=[${addressFocus.location} ${addressFocus.completeAddress}]&output=embed`}
+          width="100%"
+          height="450"
+          frameBorder="0"
+          style={{ border: 0 }}
+          aria-hidden="false"
+          animated={iframeAnimated}
+        ></S.IFrame>
+      )}
       <Footer />
     </S.Wrapper>
   )

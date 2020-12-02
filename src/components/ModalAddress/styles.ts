@@ -1,5 +1,14 @@
 import styled from 'styled-components'
 import { Form } from '@unform/web'
+import {
+  slideInBlurredTopAnimation,
+  slideOutBlurredRightAnimation
+} from 'styles/keyframes'
+import { ILocationData } from 'components/DeliveryAddress'
+
+interface IFormProps {
+  show: ILocationData | undefined
+}
 
 export const Wrapper = styled.main`
   display: flex;
@@ -14,13 +23,17 @@ export const Wrapper = styled.main`
   background: rgba(255, 255, 255, 0.88);
 `
 
-export const FormAddress = styled(Form)`
+export const FormAddress = styled(Form)<IFormProps>`
   width: 320px;
   background: #fff;
   padding: 40px 35px 30px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   border-radius: 15px;
   position: relative;
+
+  ${(props) =>
+    props.show ? slideInBlurredTopAnimation : slideOutBlurredRightAnimation}
+  animation-duration: 0.4s;
 
   header {
     display: flex;

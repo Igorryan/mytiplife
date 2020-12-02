@@ -109,13 +109,23 @@ const OrderHistory = () => {
     return ordersFromAPI
   }, [filter, ordersFromAPI])
 
+  const totalVales = useMemo(() => {
+    return orders.map((order) => {
+      let total = 0
+      order.products.forEach((p) => {
+        total += p.quantity * p.unitPrice
+      })
+      return total
+    })
+  }, [orders])
+
   return (
     <S.Wrapper>
       <Header />
 
       <S.Section>
         <S.SectionHeader>
-          <h1>My Account | Order History</h1>
+          <h1>Order History</h1>
 
           <S.FiltersWrapper>
             <S.Filter
@@ -142,8 +152,11 @@ const OrderHistory = () => {
           </S.FiltersWrapper>
         </S.SectionHeader>
 
-        {orders.map((order) => (
-          <S.Order key={order.orderNumber}>
+        {orders.map((order, i) => (
+          <S.Order
+            style={{ animationDelay: `${i / 5}s` }}
+            key={order.orderNumber}
+          >
             <S.OrderHeader status={order.status}>
               <div>
                 <h2>Order #{order.orderNumber}</h2>
@@ -211,31 +224,16 @@ const OrderHistory = () => {
                     )}
                   </span>
                   <p>
-                    Total:{' '}
-                    <strong>
-                      $
-                      {order.products.reduce(
-                        (acc, p) =>
-                          acc.quantity * acc.unitPrice +
-                          p.unitPrice * p.quantity
-                      )}
-                    </strong>{' '}
-                    USD
+                    Total: <strong>${totalVales[i]}</strong> USD
                   </p>
                 </div>
               </S.PriceWrapper>
               <S.AddressWrapper>
                 <div>
-                  <p>
-                    {order.address.location}
-                    <br />
-                    {order.address.completeAddress}
-                    <br />
-                    {order.address?.floor}
-
-                    <br />
-                    {order.address?.howToReach}
-                  </p>
+                  <p>{order.address.location}</p>
+                  <p>{order.address.completeAddress}</p>
+                  <p>{order.address?.floor}</p>
+                  <p>{order.address?.howToReach}</p>
                 </div>
               </S.AddressWrapper>
             </S.OrderBodyWrapper>

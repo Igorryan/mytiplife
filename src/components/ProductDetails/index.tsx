@@ -48,6 +48,8 @@ const ProductDetails: React.FC<IProps> = ({
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
   const [formCompleted, setFormCompleted] = useState(false)
+  const [imageSubmited, setImageSubmited] = useState<FormData>()
+  console.log(imageSubmited)
 
   useEffect(() => {
     setTotal(quantity * product.price)

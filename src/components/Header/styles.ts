@@ -103,8 +103,9 @@ export const Item = styled.li`
   }
 
   @media (max-width: 1100px) {
-    display: block;
-    z-index: 11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 70px;
 
     &:last-of-type {

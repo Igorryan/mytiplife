@@ -1,7 +1,16 @@
 import styled, { css } from 'styled-components'
+import {
+  slideInBlurredLeftAnimation,
+  slideOutBlurredRightAnimation
+} from 'styles/keyframes'
 
 interface AddressProps {
   addressExists: boolean
+  addressFocus: boolean
+}
+
+export interface IFrameProps {
+  animated: boolean
 }
 
 export const Wrapper = styled.main`
@@ -11,12 +20,20 @@ export const Wrapper = styled.main`
   min-height: 100vh;
 
   background: #f5f5f5;
+
+  overflow: hidden;
 `
 
 export const Section = styled.section`
   width: 1000px;
   margin: 0 auto;
   margin-top: 160px;
+
+  @media (max-width: 1100px) {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 `
 
 export const SectionHeader = styled.header`
@@ -29,10 +46,21 @@ export const SectionHeader = styled.header`
     color: #003d59;
     font-size: 24px;
   }
+
+  @media (max-width: 1100px) {
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 export const Addresses = styled.ul`
   display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1100px) {
+    flex-wrap: wrap;
+  }
 `
 
 export const Address = styled.li<AddressProps>`
@@ -45,7 +73,7 @@ export const Address = styled.li<AddressProps>`
   margin: 10px;
 
   width: 320px;
-  height: 220px;
+  min-height: 240px;
   padding: 30px 34px;
   border-radius: 15px;
 
@@ -55,12 +83,23 @@ export const Address = styled.li<AddressProps>`
   font-size: 14px;
 
   border: 2px dashed #c7c7c7;
+  transition: transform 0.4s;
+  opacity: 0.6;
 
   ${(props) =>
     props.addressExists &&
     css`
       border: none;
       background: #fff;
+    `}
+
+  ${(props) =>
+    props.addressFocus &&
+    css`
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+      transform: scale(1.04);
+      opacity: 1;
     `}
 
   &:first-of-type {
@@ -108,6 +147,7 @@ export const Address = styled.li<AddressProps>`
     width: 100%;
     bottom: 20px;
     margin: 0 auto;
+    margin-top: 20px;
 
     button {
       width: 50%;
@@ -159,7 +199,31 @@ export const Address = styled.li<AddressProps>`
 
       strong {
         font-weight: 700;
+        text-transform: uppercase;
       }
     }
+  }
+
+  @media (max-width: 1100px) {
+    margin-bottom: 30px;
+
+    ${(props) =>
+      props.addressFocus &&
+      css`
+        margin-bottom: 60px;
+      `}
+  }
+`
+
+export const IFrame = styled.iframe<IFrameProps>`
+  margin-top: 50px;
+
+  ${(props) =>
+    props.animated
+      ? slideInBlurredLeftAnimation
+      : slideOutBlurredRightAnimation}
+
+  @media (max-width: 1100px) {
+    margin-top: 20px;
   }
 `

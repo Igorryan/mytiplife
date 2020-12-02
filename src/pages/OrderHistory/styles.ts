@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { swingInTopFwdAnimation } from 'styles/keyframes'
 
 interface FilterProps {
   selected?: boolean
@@ -13,7 +14,6 @@ export const Wrapper = styled.main`
   justify-content: space-between;
   flex-direction: column;
   min-height: 100vh;
-
   background: #f5f5f5;
 `
 
@@ -21,6 +21,10 @@ export const Section = styled.section`
   width: 1000px;
   margin: 0 auto;
   margin-top: 160px;
+
+  @media (max-width: 1100px) {
+    width: 90%;
+  }
 `
 
 export const SectionHeader = styled.header`
@@ -33,6 +37,16 @@ export const SectionHeader = styled.header`
     color: #003d59;
     font-size: 24px;
   }
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+  }
 `
 
 export const FiltersWrapper = styled.ul`
@@ -42,7 +56,7 @@ export const FiltersWrapper = styled.ul`
 
 export const Filter = styled.li<FilterProps>`
   font-size: 14px;
-  margin-right: 30px;
+  margin: 0 15px;
   padding-bottom: 5px;
 
   cursor: pointer;
@@ -56,6 +70,10 @@ export const Filter = styled.li<FilterProps>`
     css`
       border-bottom: 1px solid ${props.color};
     `}
+
+  @media (max-width: 1100px) {
+    margin: 0 15px 30px;
+  }
 `
 
 export const Order = styled.div`
@@ -64,6 +82,14 @@ export const Order = styled.div`
   border-radius: 15px;
   margin-bottom: 60px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 12px;
+  height: auto;
+  ${swingInTopFwdAnimation}
+  animation-duration: 1.2s;
+
+  @media (max-width: 1100px) {
+    padding: 20px 30px 0;
+    margin-bottom: 90px;
+  }
 `
 
 export const OrderHeader = styled.header<OrderStatus>`
@@ -119,10 +145,41 @@ export const OrderHeader = styled.header<OrderStatus>`
       cursor: pointer;
     }
   }
+
+  @media (max-width: 1100px) {
+    margin-top: -60px;
+
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+
+    div {
+      flex-direction: column;
+      text-align: center;
+
+      &:nth-of-type(1) {
+        width: 100%;
+        margin-left: 0px;
+      }
+      &:nth-of-type(2) {
+        width: 100%;
+        display: none;
+      }
+
+      p {
+        font-size: 12px;
+        margin-top: 2px;
+      }
+    }
+  }
 `
 
 export const OrderBodyWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+  }
 `
 
 export const PriceWrapper = styled.div<OrderStatus>`
@@ -197,6 +254,30 @@ export const PriceWrapper = styled.div<OrderStatus>`
       font-size: 16px;
     }
   }
+
+  @media (max-width: 1100px) {
+    width: 100%;
+
+    div {
+      flex-direction: column;
+      align-items: flex-end;
+
+      span {
+        order: 2;
+        width: 100%;
+        text-align: right;
+        margin-bottom: 20px;
+        margin-top: 4px;
+
+        :before {
+          display: none;
+        }
+      }
+      p {
+        order: 1;
+      }
+    }
+  }
 `
 
 export const AddressWrapper = styled.div`
@@ -217,6 +298,31 @@ export const AddressWrapper = styled.div`
       font-weight: 300;
       font-size: 14px;
       line-height: 30px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 30px;
+    text-align: right;
+    position: relative;
+    padding-top: 20px;
+
+    div {
+      width: 100%;
+      padding-right: 20px;
+    }
+
+    :before {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 0.5px;
+      background: rgba(0, 0, 0, 0.14);
     }
   }
 `
