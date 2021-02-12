@@ -6,6 +6,7 @@ export default async function downloadComponentInPDF(
   pdfName: string
 ) {
   await html2canvas(Component).then((canvas) => {
+    window.scrollTo(0, 0)
     const componentWidth = Component.offsetWidth
     const componentHeight = Component.offsetHeight
 

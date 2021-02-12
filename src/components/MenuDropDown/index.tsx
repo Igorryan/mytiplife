@@ -12,7 +12,6 @@ interface IProps {
 }
 
 const MenuDropDown: React.FC<IProps> = ({ links, open }) => {
-  console.log(open)
   return (
     <S.Wrapper open={open}>
       {links.map(({ link, name, action }) => (

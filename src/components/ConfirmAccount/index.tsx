@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import * as S from './styles'
 import lottie from 'lottie-web'
 
@@ -7,12 +8,21 @@ import MotionVerified from '../../../public/animations/verified.json'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useCart } from 'hooks/cart'
 import { useToast } from 'hooks/toast'
-import { SignInCredentials, useAuth } from 'hooks/auth'
+import { useAuth } from 'hooks/auth'
 import Redirect from 'utils/Redirect'
 
-const ConfirmAccount: React.FC<SignInCredentials> = ({
+export interface ConfirmationAccountData {
+  email: string
+  resend_url: string
+  password: string
+  username: string
+}
+
+const ConfirmAccount: React.FC<ConfirmationAccountData> = ({
   username,
-  password
+  password,
+  email,
+  resend_url
 }) => {
   const [loading, setLoading] = useState(false)
 
@@ -61,6 +71,9 @@ const ConfirmAccount: React.FC<SignInCredentials> = ({
       setLoading(false)
       const errorMessage = err.response.data.message
 
+      console.log(err.response.data)
+      console.log(errorMessage)
+
       errorMessage
         ? addToast({
             type: 'error',
@@ -102,13 +115,20 @@ const ConfirmAccount: React.FC<SignInCredentials> = ({
         {!emailVerified && (
           <>
             <p>
-              We sent a confirmation email to <span>mail@mytiplife.com</span>
+              We sent a confirmation email to <span>{email}</span>
             </p>
 
-            <Button loading={loading} onClick={handleIConfirmedAccount}>
+            <Button
+              loading={loading}
+              onClick={() => {
+                handleIConfirmedAccount()
+              }}
+            >
               I confirmed
             </Button>
-            <a href="#">Resend Email</a>
+            <a target="_blank" href={resend_url}>
+              Resend Email
+            </a>
           </>
         )}
       </S.Section>

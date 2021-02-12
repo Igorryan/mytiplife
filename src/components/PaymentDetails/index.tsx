@@ -190,6 +190,7 @@ const PaymentDetails: React.FC<IProps> = ({
         e.preventDefault()
 
         if (!formIsValid()) {
+          setLoading(false)
           return false
         }
 

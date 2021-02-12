@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import * as Yup from 'yup'
 import * as S from './styles'
 import { useToast } from 'hooks/toast'
@@ -22,12 +22,14 @@ interface IDataProps {
 
 const FormSignUp = () => {
   const formRef = useRef<FormHandles>(null)
+  const [loading, setLoading] = useState(false)
 
   const { addToast } = useToast()
 
   const handleSignUp = useCallback(
     async (data: IDataProps) => {
       formRef.current?.setErrors({})
+      setLoading(true)
 
       try {
         const schema = Yup.object().shape({
@@ -82,6 +84,8 @@ const FormSignUp = () => {
               })
         }
       }
+
+      setLoading(false)
     },
     [addToast]
   )
@@ -119,7 +123,9 @@ const FormSignUp = () => {
         type="password"
       />
 
-      <Button style={{ marginTop: 20 }}>Create your Tip My Life account</Button>
+      <Button disabled={loading} loading={loading} style={{ marginTop: 20 }}>
+        Create your Tip My Life account
+      </Button>
     </S.Wrapper>
   )
 }

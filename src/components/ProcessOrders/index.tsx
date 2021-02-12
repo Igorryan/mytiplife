@@ -54,13 +54,13 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
       }
 
       setTimeout(() => {
+        localStorage.removeItem('@MyTipLife:cart')
         handleSetStage(4)
       }, 3000)
       return
     }
 
     setTimeout(async () => {
-      console.log(`processando pedido`)
       await ProcessOrder(
         sendingElement,
         `order_${sendingElement}_${username}.pdf`

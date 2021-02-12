@@ -12,7 +12,9 @@ import { FiUser, FiLock } from 'react-icons/fi'
 
 import Input from 'components/Input'
 import Button from 'components/Button'
-import ConfirmAccount from 'components/ConfirmAccount'
+import ConfirmAccount, {
+  ConfirmationAccountData
+} from 'components/ConfirmAccount'
 
 const FormSignIn = () => {
   const formRef = useRef<FormHandles>(null)
@@ -20,7 +22,7 @@ const FormSignIn = () => {
   const [loading, setLoading] = useState(false)
   const [confirmAccount, setConfirmAccount] = useState(false)
   const [dataToConfirmAccount, setDataToConfirmAccount] = useState(
-    {} as SignInCredentials
+    {} as ConfirmationAccountData
   )
 
   const { signIn } = useAuth()
@@ -34,8 +36,7 @@ const FormSignIn = () => {
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          username: Yup.string().required('Username required'),
-          password: Yup.string().min(6, 'At least 6 digits')
+          username: Yup.string().required('Username required')
         })
 
         await schema.validate(data, {
@@ -51,7 +52,6 @@ const FormSignIn = () => {
           Redirect('')
         }
       } catch (err) {
-        setLoading(false)
         const errors = getValidationErrors(err)
 
         if (err instanceof Yup.ValidationError) {
@@ -59,6 +59,7 @@ const FormSignIn = () => {
         } else {
           const errorMessage = err.response.data.message
           const errorStatus = err.response.status
+
           errorMessage
             ? addToast({
                 type: 'error',
@@ -73,11 +74,19 @@ const FormSignIn = () => {
 
           //Identificando necessidade de confirmar conta e redirecionando
           if (errorStatus === 403) {
-            setDataToConfirmAccount(data)
+            const { email, resend_url } = err.response.data
+
+            setDataToConfirmAccount({
+              ...data,
+              email,
+              resend_url
+            })
+
             setConfirmAccount(true)
           }
         }
       }
+      setLoading(false)
     },
     [addToast, products.length, signIn]
   )
@@ -87,6 +96,8 @@ const FormSignIn = () => {
       <ConfirmAccount
         username={dataToConfirmAccount.username}
         password={dataToConfirmAccount.password}
+        resend_url={dataToConfirmAccount.resend_url}
+        email={dataToConfirmAccount.email}
       />
     )
   else
@@ -115,8 +126,15 @@ const FormSignIn = () => {
           and <span>Privacy Notice</span>
         </a>
 
-        <Button loading={loading}>Continue</Button>
-        <a className="forgotPassword" href="ForgotPassword">
+        <Button disabled={loading} loading={loading}>
+          Continue
+        </Button>
+        <a
+          // eslint-disable-next-line react/jsx-no-target-blank
+          target="_blank"
+          className="forgotPassword"
+          href="https://www.mytiplife.com/forgot_password"
+        >
           Forgot your password?
         </a>
       </S.Wrapper>
