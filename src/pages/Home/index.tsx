@@ -23,9 +23,6 @@ const Home: React.FC = () => {
         if (windowTop > element.offsetTop) {
           element.classList.add(animationClass)
           element.classList.remove('animateOut')
-        } else {
-          element.classList.remove(animationClass)
-          element.classList.add('animateOut')
         }
       })
     }

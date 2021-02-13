@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 import {
-  slideInBlurredRightAnimation,
-  slideInBlurredLeftAnimation,
   scaleInAnimation,
   flipInHorBottomAnimation,
-  slideOutBlurredLeftAnimation,
-  slideOutBlurredRightAnimation
+  swingInTopFwdAnimation
 } from 'styles/keyframes'
 
 export const Wrapper = styled.main`
@@ -384,20 +381,13 @@ export const Products = styled.div`
 
   [data-anime='left'] {
     &.animate {
-      ${slideInBlurredRightAnimation}
-    }
-
-    &.animateOut {
-      ${slideOutBlurredRightAnimation}
+      ${swingInTopFwdAnimation}
     }
   }
 
   [data-anime='right'] {
     &.animate {
-      ${slideInBlurredLeftAnimation}
-    }
-    &.animateOut {
-      ${slideOutBlurredLeftAnimation}
+      ${swingInTopFwdAnimation}
     }
   }
 `

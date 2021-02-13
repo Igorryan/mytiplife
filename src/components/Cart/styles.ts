@@ -1,8 +1,5 @@
 import styled, { css, keyframes } from 'styled-components'
-import {
-  scaleInAnimation,
-  slideInBlurredRightAnimation
-} from 'styles/keyframes'
+import { scaleInAnimation } from 'styles/keyframes'
 
 const mobile = 620
 
@@ -73,14 +70,6 @@ export const Header = styled.div<ICartProps>`
   background: #ffa340;
 
   img {
-    ${(props) =>
-      props.isOpen === 1 &&
-      css`
-        ${slideInBlurredRightAnimation}
-        animation-delay: 0.6s;
-        animation-duration: 1s;
-      `}
-
     margin-top: -1px;
   }
 
