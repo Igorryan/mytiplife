@@ -19,16 +19,23 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
   const { products } = useCart()
   const { username } = useAuth()
 
-  const [sendingElement, setSendingElement] = useState(0)
+  const [sendingElement, setSendingElement] = useState(-1)
   const [exitElement, setExitElement] = useState<number>()
 
   //animation
   const refAnimationContainerValidated = useRef<HTMLDivElement>(null)
   const [animation, setAnimation] = useState<AnimationItem | null>(null)
 
-  const ProcessOrder = useCallback(async (order: number, pdfName: string) => {
+  const ProcessOrder = useCallback(async (order: number) => {
+    console.log(`Processando pedido numero ${order}`)
     const Element = document.getElementById(`Card_${order}`)
-    Element && (await downloadComponentInPDF(Element, pdfName))
+
+    if (!Element) return
+
+    const pdfDone = await downloadComponentInPDF(Element)
+    console.log('Imprimindo resultado do envio de PDFs')
+
+    console.log(pdfDone)
   }, [])
 
   useEffect(() => {
@@ -54,17 +61,14 @@ const ProcessOrders: React.FC<IProps> = ({ handleSetStage }) => {
       }
 
       setTimeout(() => {
-        localStorage.removeItem('@MyTipLife:cart')
+        // localStorage.removeItem('@MyTipLife:cart')
         handleSetStage(4)
       }, 3000)
       return
     }
 
     setTimeout(async () => {
-      await ProcessOrder(
-        sendingElement,
-        `order_${sendingElement}_${username}.pdf`
-      )
+      await ProcessOrder(sendingElement)
       setExitElement(sendingElement)
       setTimeout(() => {
         setSendingElement(sendingElement + 1)

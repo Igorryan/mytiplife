@@ -22,7 +22,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/pages/_app.tsx",
+    "**/*.tsx", "src/pages/_app.tsx", "src/services/s3.js",
   ],
   "exclude": [
     "node_modules"
