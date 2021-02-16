@@ -56,7 +56,7 @@ const OrderHistory = () => {
     if (!isAuthenticated()) {
       addToast({
         type: 'error',
-        title: 'You need to log in again',
+        title: 'You need to log in again!',
         description: 'We will redirect you',
         timer: true
       })
