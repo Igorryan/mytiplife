@@ -53,7 +53,7 @@ const OrderHistory = () => {
   }, [])
 
   const GetDateByDeliveryDate = useCallback((delivery_date: string) => {
-    const [month, day] = delivery_date.split('/')
+    const [, month, day] = delivery_date.split('/')
 
     return `${day}/${month}`
   }, [])
