@@ -71,6 +71,8 @@ const ProcessOrders: React.FC<IProps> = ({
       products: productsFormatted
     }
 
+    console.log(order)
+
     const response = await api.post('/order', order, {
       headers: {
         Authorization: `Bearer ${token}`
