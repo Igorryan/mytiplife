@@ -10,7 +10,6 @@ import { useAuth } from 'hooks/auth'
 import { useCart } from 'hooks/cart'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 import Redirect from 'utils/Redirect'
-import { ILocationData } from 'components/DeliveryAddress'
 import Products from 'data/Products'
 import api from 'services/api'
 
@@ -27,7 +26,14 @@ interface Order {
   products: ProductsProps[]
   fulfilled_at: string | null
   delivery_date: string
-  address: ILocationData
+  address: {
+    id: number
+    location: string
+    complete_address: string
+    type: string
+    floor?: string
+    how_to_reach?: string
+  }
 }
 
 const OrderHistory = () => {
@@ -215,9 +221,9 @@ const OrderHistory = () => {
               <S.AddressWrapper>
                 <div>
                   <p>{order.address.location}</p>
-                  <p>{order.address.completeAddress}</p>
+                  <p>{order.address.complete_address}</p>
                   <p>{order.address?.floor}</p>
-                  <p>{order.address?.howToReach}</p>
+                  <p>{order.address?.how_to_reach}</p>
                 </div>
               </S.AddressWrapper>
             </S.OrderBodyWrapper>
