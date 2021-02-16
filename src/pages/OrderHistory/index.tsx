@@ -4,26 +4,29 @@ import { format } from 'date-fns'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useToast } from 'hooks/toast'
 import { useAuth } from 'hooks/auth'
 import { useCart } from 'hooks/cart'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 import Redirect from 'utils/Redirect'
 import { ILocationData } from 'components/DeliveryAddress'
+import Products from 'data/Products'
+import api from 'services/api'
 
 interface ProductsProps {
   quantity: number
-  name: string
-  unitPrice: number
+  product_id: number
+  unit_price: number
 }
 
 interface Order {
-  orderNumber: string
-  placedOn: Date
+  request_number: string
+  total_price: string
+  created_at: string
   products: ProductsProps[]
-  status: 'Fulfilled' | 'In progress'
-  orderArrival: Date
+  fulfilled_at: string | null
+  delivery_date: string
   address: ILocationData
 }
 
@@ -33,6 +36,21 @@ const OrderHistory = () => {
   const { products } = useCart()
 
   const [filter, setFilter] = useState('All orders')
+  const [ordersFromAPI, setOrdersFromAPI] = useState<Order[]>([])
+
+  const GetProductTitle = useCallback((id) => {
+    const product = Products.find((p) => p.id === id)
+
+    if (!product) return
+
+    return product.title
+  }, [])
+
+  const GetDateByDeliveryDate = useCallback((delivery_date: string) => {
+    const [month, day] = delivery_date.split('/')
+
+    return `${day}/${month}`
+  }, [])
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -50,74 +68,34 @@ const OrderHistory = () => {
   }, [addToast, isAuthenticated, products.length])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const ordersFromAPI: Order[] = [
-    {
-      orderNumber: '0001',
-      placedOn: new Date(2020, 10, 16, 12),
-      products: [
-        {
-          quantity: 600,
-          name: 'Sticker Card',
-          unitPrice: 23.32
-        },
-        {
-          quantity: 2,
-          name: 'Sticker Card',
-          unitPrice: 23.32
-        }
-      ],
-      status: 'In progress',
-      orderArrival: new Date(2020, 10, 24, 12),
-      address: {
-        type: 'Home',
-        location: '160 Gordon rd - 302',
-        completeAddress: 'Valley Stream, NY 11581-3430'
+  useMemo(async () => {
+    if (!localStorage) return
+
+    const token = localStorage.getItem('@MyTipLife:token')
+
+    if (!token) return
+
+    const response = await api.get('/order', {
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-    },
-    {
-      orderNumber: '0002',
-      placedOn: new Date(2020, 10, 27, 15, 12),
-      products: [
-        {
-          quantity: 4,
-          name: 'Big Plastic',
-          unitPrice: 98.12
-        },
-        {
-          quantity: 1,
-          name: 'Sticker Card',
-          unitPrice: 32
-        }
-      ],
-      status: 'Fulfilled',
-      orderArrival: new Date(2020, 11, 3, 9),
-      address: {
-        type: 'Work',
-        location: '1230 American rw - 98',
-        completeAddress: 'New Jersey, NJ 193817-2182',
-        floor: 'Number',
-        howToReach: 'Follow the street of the first restaurant'
-      }
-    }
-  ]
+    })
+
+    setOrdersFromAPI(response.data)
+    console.log(response.data)
+  }, [])
 
   const orders = useMemo(() => {
     if (filter !== 'All orders') {
-      return ordersFromAPI.filter((order) => order.status === filter)
+      if (filter === 'FulFilled')
+        return ordersFromAPI.filter((order) => order.fulfilled_at !== null)
+      else {
+        return ordersFromAPI.filter((order) => order.fulfilled_at === null)
+      }
     }
 
     return ordersFromAPI
   }, [filter, ordersFromAPI])
-
-  const totalVales = useMemo(() => {
-    return orders.map((order) => {
-      let total = 0
-      order.products.forEach((p) => {
-        total += p.quantity * p.unitPrice
-      })
-      return total
-    })
-  }, [orders])
 
   return (
     <S.Wrapper>
@@ -155,34 +133,40 @@ const OrderHistory = () => {
         {orders.map((order, i) => (
           <S.Order
             style={{ animationDelay: `${i / 5}s` }}
-            key={order.orderNumber}
+            key={order.request_number}
           >
-            <S.OrderHeader status={order.status}>
+            <S.OrderHeader
+              status={order.fulfilled_at ? 'Fulfilled' : 'In progress'}
+            >
               <div>
-                <h2>Order #{order.orderNumber}</h2>
+                <h2>Order #{order.request_number}</h2>
                 <p>
                   {format(
-                    order.placedOn,
+                    new Date(order.created_at),
                     `'Placed on' MMMM',' dd yyyy 'at' hh':'mm aaaa`
                   )}
                 </p>
               </div>
 
-              <div>
-                <h2>Shipping Address</h2>
-                <p
-                  className="addressTag"
-                  onClick={() => {
-                    Redirect('Addresses')
-                  }}
-                >
-                  {order.address.type}
-                </p>
-              </div>
+              {order.address.type && (
+                <div>
+                  <h2>Shipping Address</h2>
+                  <p
+                    className="addressTag"
+                    onClick={() => {
+                      Redirect('Addresses')
+                    }}
+                  >
+                    {order.address.type}
+                  </p>
+                </div>
+              )}
             </S.OrderHeader>
 
             <S.OrderBodyWrapper>
-              <S.PriceWrapper status={order.status}>
+              <S.PriceWrapper
+                status={order.fulfilled_at ? 'Fulfilled' : 'In progress'}
+              >
                 <ul>
                   {order.products.map((p, i) => (
                     <li
@@ -190,14 +174,14 @@ const OrderHistory = () => {
                       key={i}
                     >
                       <a href="#">
-                        {p.quantity} x {p.name} ($
-                        {getIntegerAndFractionalValues(p.unitPrice).fullValue})
+                        {p.quantity} x {GetProductTitle(p.product_id)} ($
+                        {getIntegerAndFractionalValues(p.unit_price).fullValue})
                       </a>
                       <span>
                         $
                         {
                           getIntegerAndFractionalValues(
-                            p.unitPrice * p.quantity
+                            p.unit_price * p.quantity
                           ).fullValue
                         }
                       </span>
@@ -207,24 +191,24 @@ const OrderHistory = () => {
 
                 <div>
                   <span>
-                    {order.status === 'Fulfilled'
+                    {order.fulfilled_at !== null
                       ? format(
-                          order.orderArrival,
-                          `'${order.status}' MMMM dd',' yyyy`
+                          new Date(order.fulfilled_at),
+                          `'Fulfilled' MMMM dd',' yyyy`
                         )
-                      : order.status}
+                      : 'In Progress'}
                     <br />
-                    {order.status !== 'Fulfilled' ? (
+                    {!order.fulfilled_at ? (
                       <label>
                         Your order will arrive by day{' '}
-                        {order.orderArrival.getDate()}
+                        {GetDateByDeliveryDate(order.delivery_date)}
                       </label>
                     ) : (
                       ''
                     )}
                   </span>
                   <p>
-                    Total: <strong>${totalVales[i]}</strong> USD
+                    Total: <strong>${order.total_price}</strong> USD
                   </p>
                 </div>
               </S.PriceWrapper>

@@ -63,7 +63,7 @@ const Cart: React.FC = () => {
 
       <S.ProductList>
         {products &&
-          products.map(({ id, product, total, quantity }, i) => (
+          products.map(({ product, total, quantity }, i) => (
             <S.Product key={i}>
               <img src={product.productImage} alt="" />
               <div className="description">
@@ -83,7 +83,7 @@ const Cart: React.FC = () => {
                       .{getIntegerAndFractionalValues(total).fractionalPart}
                     </span>
                   </strong>
-                  <button onClick={() => removeProduct(id)}>
+                  <button onClick={() => removeProduct(i)}>
                     TO REMOVE
                     <AiFillCloseCircle
                       size={26}

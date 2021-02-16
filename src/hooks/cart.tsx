@@ -88,8 +88,8 @@ const CartProvider: React.FC = ({ children }) => {
     }
   }, [])
 
-  const removeProduct = useCallback((product_id: number) => {
-    const products = getStorage().filter((p) => p.id !== product_id)
+  const removeProduct = useCallback((index: number) => {
+    const products = getStorage().filter((p, i) => i !== index)
     setData(products)
     localStorage.setItem('@MyTipLife:cart', JSON.stringify(products))
   }, [])
