@@ -92,13 +92,12 @@ const OrderHistory = () => {
   }, [])
 
   const orders = useMemo(() => {
-    if (filter !== 'All orders') {
-      if (filter === 'FulFilled')
-        return ordersFromAPI.filter((order) => order.fulfilled_at !== null)
-      else {
-        return ordersFromAPI.filter((order) => order.fulfilled_at === null)
-      }
-    }
+    if (filter === 'All orders') return ordersFromAPI
+    if (filter === 'Fulfilled')
+      return ordersFromAPI.filter((order) => order.fulfilled_at !== null)
+
+    if (filter === 'In progress')
+      return ordersFromAPI.filter((order) => order.fulfilled_at === null)
 
     return ordersFromAPI
   }, [filter, ordersFromAPI])
