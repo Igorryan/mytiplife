@@ -2,7 +2,9 @@ import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import { uploadFileToS3 } from 'services/s3'
 
-export default async function downloadComponentInPDF(Component: HTMLElement) {
+export default async function downloadComponentInPDF(
+  Component: HTMLElement
+): Promise<string> {
   let result
 
   await html2canvas(Component).then(async (canvas) => {
@@ -31,5 +33,5 @@ export default async function downloadComponentInPDF(Component: HTMLElement) {
     result = response
   })
 
-  return result
+  return String(result)
 }

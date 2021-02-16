@@ -15,9 +15,22 @@ import ProcessOrders from 'components/ProcessOrders'
 export interface IOrderData {
   deliveryAddress: ILocationData
   username: string
-  deliveryData: string
+  deliveryDate: string
   requestNumber: string
   cartTotal: number
+}
+
+export interface IProductData {
+  productId: number
+  quantity: number
+  file: string
+  priceUnity: number
+}
+
+interface IFinishOrderData {
+  totalPrice: string
+  address: ILocationData
+  products: IProductData[]
 }
 
 const FinishCart: React.FC = () => {
@@ -37,6 +50,11 @@ const FinishCart: React.FC = () => {
 
   const handleSetStage = useCallback(
     (toStage: number) => {
+      if (totalCartValue === 0) {
+        alert('Nenhum item no carrinho!')
+        window.location.href = '/Home'
+      }
+
       if (toStage === 3) {
         animated('', '', toStage, 700)
         return
@@ -52,7 +70,7 @@ const FinishCart: React.FC = () => {
 
       animated(outEffect, inEffect, toStage, 700)
     },
-    [stage]
+    [stage, totalCartValue]
   )
 
   useEffect(() => {
@@ -65,8 +83,8 @@ const FinishCart: React.FC = () => {
       const response = {
         deliveryAddress,
         username,
-        deliveryData: 'Your order will arrive by day X',
-        requestNumber: 'MKJ2345HQ',
+        deliveryDate: 'Your order will arrive by day X',
+        requestNumber: '',
         cartTotal: totalCartValue
       }
 
@@ -135,7 +153,11 @@ const FinishCart: React.FC = () => {
               setPaymentAccept={setPaymentAccept}
             />
           ) : stage === 3 ? (
-            <ProcessOrders handleSetStage={handleSetStage}></ProcessOrders>
+            <ProcessOrders
+              setOrderData={setOrderData}
+              orderData={orderData}
+              handleSetStage={handleSetStage}
+            ></ProcessOrders>
           ) : (
             <Finished orderData={orderData} />
           )}

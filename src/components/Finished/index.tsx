@@ -2,12 +2,20 @@ import * as S from './styles'
 import { FiArrowLeft } from 'react-icons/fi'
 import { IOrderData } from 'pages/FinishCart'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
+import { useMemo, useState } from 'react'
 
 interface IFinishedProps {
   orderData: IOrderData
 }
 
 const Finished: React.FC<IFinishedProps> = ({ orderData }) => {
+  const [deliveryDay, setDeliveryDay] = useState('')
+
+  useMemo(() => {
+    const [, , day] = orderData.deliveryDate.split('/')
+    setDeliveryDay(day)
+  }, [orderData])
+
   return (
     <S.Wrapper>
       <div>
@@ -24,8 +32,8 @@ const Finished: React.FC<IFinishedProps> = ({ orderData }) => {
         <S.OrderDetail>
           <img width={24} src="/img/calendar_icon.svg" alt="" />
           <div>
-            <span>Delivery date (00/00/00)</span>
-            <p>{orderData.deliveryData}</p>
+            <span>Delivery date {orderData.deliveryDate}</span>
+            <p>Your order will arrive by day {deliveryDay}</p>
           </div>
         </S.OrderDetail>
 

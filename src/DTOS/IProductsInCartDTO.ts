@@ -1,7 +1,7 @@
 import { IProductsProps } from 'data/Products'
 
 export default interface IProductToCart {
-  id: string
+  id: number
   name: string
   job: string
   color: string

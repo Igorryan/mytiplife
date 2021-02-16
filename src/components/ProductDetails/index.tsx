@@ -1,7 +1,6 @@
 import * as S from './styles'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { useCart } from 'hooks/cart'
-import { v4 } from 'uuid'
 import getIntegerAndFractionalValues from 'utils/getIntegerAndFractionalValues'
 import { IProductsProps } from 'data/Products'
 import ScrollContainer from 'react-indiana-drag-scroll'
@@ -38,7 +37,7 @@ const ProductDetails: React.FC<IProps> = ({
   const { addProduct, openCart } = useCart()
   const { addToast } = useToast()
 
-  const { title, description } = product
+  const { title, description, id } = product
   const { name, job, color, image, currentCard } = states
   const { setName, setJob, setColor, setImage } = setStates
 
@@ -145,7 +144,7 @@ const ProductDetails: React.FC<IProps> = ({
 
   const handleAddProductToCart = useCallback(() => {
     const order = {
-      id: v4(),
+      id,
       name,
       job,
       color,
@@ -162,6 +161,7 @@ const ProductDetails: React.FC<IProps> = ({
     addProduct,
     color,
     currentCard,
+    id,
     image,
     job,
     name,

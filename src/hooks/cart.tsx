@@ -14,7 +14,7 @@ interface ICartContextData {
   totalCartValue: number
   isOpen: number
   addProduct(product: IProductToCart): void
-  removeProduct(product_id: string): void
+  removeProduct(product_id: number): void
   openCart(): void
   closeCart(): void
 }
@@ -88,7 +88,7 @@ const CartProvider: React.FC = ({ children }) => {
     }
   }, [])
 
-  const removeProduct = useCallback((product_id: string) => {
+  const removeProduct = useCallback((product_id: number) => {
     const products = getStorage().filter((p) => p.id !== product_id)
     setData(products)
     localStorage.setItem('@MyTipLife:cart', JSON.stringify(products))
