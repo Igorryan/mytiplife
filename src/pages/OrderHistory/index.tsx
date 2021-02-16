@@ -1,4 +1,4 @@
-import * as S from './styles'
+import * as S from 'styles/OrderHistory/styles'
 import { format } from 'date-fns'
 
 import Header from 'components/Header'

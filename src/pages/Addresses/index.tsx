@@ -1,4 +1,4 @@
-import * as S from './styles'
+import * as S from 'styles/Addresses/styles'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { useCallback, useEffect, useMemo, useState } from 'react'
