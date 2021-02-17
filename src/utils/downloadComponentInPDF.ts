@@ -7,39 +7,49 @@ export default async function downloadComponentInPDF(
 ): Promise<string> {
   let result
 
-  await html2canvas(Component).then(async (canvas) => {
-    window.scrollTo(0, 0)
-    const componentWidth = Component.offsetWidth
-    const componentHeight = Component.offsetHeight
+  await html2canvas(Component, { allowTaint: true, useCORS: true }).then(
+    async (canvas) => {
+      window.scrollTo(0, 0)
+      const componentWidth = Component.offsetWidth
+      const componentHeight = Component.offsetHeight
 
-    const orientation = componentWidth >= componentHeight ? 'l' : 'p'
+      const orientation = componentWidth >= componentHeight ? 'l' : 'p'
 
-    const imgData = canvas.toDataURL('image/png')
-    const pdf = new jsPDF({
-      orientation,
-      unit: 'px'
-    })
+      alert('convertendo componente em PDF')
 
-    pdf.internal.pageSize.width = componentWidth
-    pdf.internal.pageSize.height = componentHeight
+      const pdf = new jsPDF({
+        orientation,
+        unit: 'px'
+      })
 
-    pdf.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight)
+      pdf.internal.pageSize.width = componentWidth
+      pdf.internal.pageSize.height = componentHeight
 
-    alert(`PDF criado`)
-    alert(pdf)
+      pdf.addImage(
+        canvas.toDataURL('image/png'),
+        'PNG',
+        0,
+        0,
+        componentWidth,
+        componentHeight
+      )
 
-    const output = pdf.output('arraybuffer')
+      alert(`PDF criado`)
+      alert(pdf)
 
-    alert(`Output criado`)
-    alert(output)
+      const output = pdf.output('arraybuffer')
 
-    const response = await uploadFileToS3(
-      output,
-      `pdfs/${new Date().getTime()}.pdf`
-    )
+      alert(`Output criado`)
+      alert(output)
 
-    result = response
-  })
+      const response = await uploadFileToS3(
+        output,
+        `pdfs/${new Date().getTime()}.pdf`
+      )
+
+      result = response
+    }
+  )
 
   return String(result)
 }

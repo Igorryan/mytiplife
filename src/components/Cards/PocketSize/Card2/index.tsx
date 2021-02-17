@@ -10,7 +10,12 @@ const Card2 = ({ color, name, job }: ICardProps) => (
         <h2>{name}</h2>
         <p>{job}</p>
         <QRCode />
-        <img className="logoCard" src="/img/logo_v2.svg" alt="MyTipLife Logo" />
+        <img
+          crossOrigin="anonymous"
+          className="logoCard"
+          src="/img/logo_v2.svg"
+          alt="MyTipLife Logo"
+        />
       </div>
     </div>
   </S.CardOption>

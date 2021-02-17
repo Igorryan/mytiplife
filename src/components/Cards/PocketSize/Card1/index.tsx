@@ -26,6 +26,7 @@ const Card1 = ({ image, color, name, job }: ICardProps) => {
           <QRCode />
 
           <img
+            crossOrigin="anonymous"
             className="logoCard"
             src="/img/logo_v2.svg"
             alt="MyTipLife Logo"

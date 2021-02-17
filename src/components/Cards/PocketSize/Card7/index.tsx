@@ -7,6 +7,7 @@ const Card7 = ({ color, name, job }: ICardProps) => (
   <S.CardOption className="card">
     <div className="content" style={{ backgroundColor: color }}>
       <img
+        crossOrigin="anonymous"
         className="illustration"
         src="/img/illustration1.svg"
         alt="illustration of a man playing the drums"
@@ -16,7 +17,12 @@ const Card7 = ({ color, name, job }: ICardProps) => (
       <QRCode />
     </div>
     <div className="footer">
-      <img className="logoCard" src="/img/logo_v2.svg" alt="MyTipLife Logo" />
+      <img
+        crossOrigin="anonymous"
+        className="logoCard"
+        src="/img/logo_v2.svg"
+        alt="MyTipLife Logo"
+      />
     </div>
   </S.CardOption>
 )

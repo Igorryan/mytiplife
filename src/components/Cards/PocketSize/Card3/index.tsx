@@ -22,6 +22,7 @@ const Card3 = ({ image, color, name, job }: ICardProps) => (
         </div>
       </div>
       <img
+        crossOrigin="anonymous"
         className="logoCard"
         src="/img/logo_v2_white.svg"
         alt="MyTipLife Logo"

@@ -13,6 +13,7 @@ const Card5 = ({ image, color, name, job }: ICardProps) => (
     <div className="background" style={{ backgroundColor: color }}></div>
     <div className="logoWrapper">
       <img
+        crossOrigin="anonymous"
         className="logoCard"
         src="/img/logo_v2_white.svg"
         alt="MyTipLife Logo"
