@@ -63,6 +63,8 @@ const ProcessOrders: React.FC<IProps> = ({
 
     const token = localStorage.getItem('@MyTipLife:token')
 
+    console.log(token)
+
     if (!token) return
 
     const order = {
@@ -70,8 +72,6 @@ const ProcessOrders: React.FC<IProps> = ({
       address: orderData.deliveryAddress,
       products: productsFormatted
     }
-
-    console.log(order)
 
     const response = await api.post('/order', order, {
       headers: {

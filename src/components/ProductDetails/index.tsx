@@ -47,23 +47,25 @@ const ProductDetails: React.FC<IProps> = ({
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
   const [formCompleted, setFormCompleted] = useState(false)
-  const [imageSubmited, setImageSubmited] = useState<FormData>()
-  console.log(imageSubmited)
 
   useEffect(() => {
     setTotal(quantity * product.price)
   }, [product.price, quantity])
 
   useEffect(() => {
-    const buttonAddCardAvailable =
-      !!color &&
-      name !== 'Your name' &&
-      job !== 'Your Job' &&
-      !!image &&
-      !!quantity
+    const imageRequired = product.cardsImageRequired.find(
+      (cardRequired) => cardRequired === currentCard + 1
+    )
 
-    setFormCompleted(buttonAddCardAvailable)
-  }, [color, image, job, name, quantity])
+    if (!!color && name !== 'Your name' && job !== 'Your Job' && !!quantity) {
+      if (imageRequired && !image) {
+        setFormCompleted(false)
+        return
+      }
+
+      setFormCompleted(true)
+    }
+  }, [color, currentCard, image, job, name, product, quantity])
 
   const handleSendImage = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +84,6 @@ const ProductDetails: React.FC<IProps> = ({
           //Salvando imagem em estado
           const data = new FormData()
           data.append('avatar', compressedFile)
-          setImageSubmited(data)
 
           //Exibindo imagem nos cards
           const file = new FileReader()
