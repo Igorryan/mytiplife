@@ -37,13 +37,10 @@ const ProcessOrders: React.FC<IProps> = ({
   const ProcessOrder = useCallback(
     async (order: number) => {
       const Element = document.getElementById(`Card_${order}`)
-      alert(`Processando pedido: ${order}`)
 
       if (!Element) return
 
       const folderAndFileName = await downloadComponentInPDF(Element)
-
-      alert(`Pedido enviado para S3: ${folderAndFileName}`)
 
       const priceUnity = Number(
         (products[order].total / products[order].quantity).toFixed(2)
@@ -62,13 +59,9 @@ const ProcessOrders: React.FC<IProps> = ({
   )
 
   const registeringPurchase = useCallback(async () => {
-    alert('Registrando compra')
-
     const token = localStorage.getItem('@MyTipLife:token')
 
     if (!token) return
-
-    alert(`Autenticado ${token}`)
 
     const order = {
       totalPrice: totalCartValue,
@@ -76,19 +69,13 @@ const ProcessOrders: React.FC<IProps> = ({
       products: productsFormatted
     }
 
-    alert(`Pedido pronto para ser processado`)
-
     const response = await api.post('/order', order, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
 
-    alert(`Requisição de pedido enviada`)
-
     if (!response.data) return
-
-    alert(`Requisica passou`)
 
     const { deliveryDate, requestNumber } = response.data.data
 
@@ -101,7 +88,6 @@ const ProcessOrders: React.FC<IProps> = ({
     setOrderData(newOrderData)
 
     setTimeout(() => {
-      alert(`Redirecionando usuário em 3 segundos para Finish`)
       localStorage.removeItem('@MyTipLife:cart')
       handleSetStage(4)
     }, 3000)

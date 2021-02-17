@@ -15,8 +15,6 @@ export default async function downloadComponentInPDF(
 
       const orientation = componentWidth >= componentHeight ? 'l' : 'p'
 
-      alert('convertendo componente em PDF')
-
       const pdf = new jsPDF({
         orientation,
         unit: 'px'
@@ -35,12 +33,8 @@ export default async function downloadComponentInPDF(
       )
 
       alert(`PDF criado`)
-      alert(pdf)
 
       const output = pdf.output('arraybuffer')
-
-      alert(`Output criado`)
-      alert(output)
 
       const response = await uploadFileToS3(
         output,
