@@ -25,8 +25,16 @@ export default async function downloadComponentInPDF(
 
     pdf.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight)
 
+    alert(`PDF criado`)
+    alert(pdf)
+
+    const output = pdf.output('arraybuffer')
+
+    alert(`Output criado`)
+    alert(output)
+
     const response = await uploadFileToS3(
-      pdf.output('arraybuffer'),
+      output,
       `pdfs/${new Date().getTime()}.pdf`
     )
 
