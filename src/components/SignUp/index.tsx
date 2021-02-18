@@ -64,6 +64,20 @@ const FormSignUp = () => {
           title: `Welcome ${data.username}`,
           description: response.data.message
         })
+
+        const button = document.querySelector<HTMLButtonElement>(
+          '#signInButton'
+        )
+        const usernameInput = document.querySelector<HTMLInputElement>(
+          '#username'
+        )
+        const passwordInput = document.querySelector<HTMLInputElement>(
+          '#password'
+        )
+
+        if (usernameInput) usernameInput.value = data.username
+        if (passwordInput) passwordInput.value = data.password
+        if (button) button.click()
       } catch (err) {
         const errors = getValidationErrors(err)
 

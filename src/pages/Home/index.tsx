@@ -95,7 +95,7 @@ const Home: React.FC = () => {
                 <h1>{title}</h1>
                 <p>{description}</p>
 
-                <div>
+                <S.ButtonWrapper>
                   <p>
                     $<strong>{price.toFixed(2)}</strong>
                   </p>
@@ -104,7 +104,7 @@ const Home: React.FC = () => {
                   >
                     Personalize
                   </Button>
-                </div>
+                </S.ButtonWrapper>
               </div>
             </div>
           )

@@ -266,38 +266,6 @@ export const Products = styled.div`
         font-size: 20px;
         margin-bottom: 20px;
       }
-
-      p {
-        width: 230px;
-        font-size: 12px;
-        line-height: 18px;
-      }
-
-      div {
-        display: flex;
-        align-items: center;
-        margin-top: 30px;
-
-        p {
-          font-size: 24px;
-          width: 140px;
-          margin-top: 6px;
-
-          strong {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            margin-left: 7px;
-            font-size: 38px;
-          }
-        }
-
-        button {
-          width: 135px;
-          height: 45px;
-          font-size: 14px;
-          margin-top: -60px;
-        }
-      }
     }
   }
 
@@ -389,6 +357,31 @@ export const Products = styled.div`
     &.animate {
       ${swingInTopFwdAnimation}
     }
+  }
+`
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+
+  p {
+    font-size: 24px;
+    width: 140px;
+    margin-top: 6px;
+
+    strong {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      margin-left: 7px;
+      font-size: 38px;
+    }
+  }
+
+  button {
+    width: 135px;
+    height: 45px;
+    font-size: 14px;
   }
 `
 

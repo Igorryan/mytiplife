@@ -303,7 +303,7 @@ const PaymentDetails: React.FC<IProps> = ({
             mask="9999 9999 9999 9999"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.currentTarget.value)}
-            type="text"
+            type="tel"
             error={errorFields === 'cardNumber' ? 1 : 0}
           />
           <img
@@ -321,7 +321,7 @@ const PaymentDetails: React.FC<IProps> = ({
               mask="99/9999"
               value={cardValidUntil}
               onChange={(e) => setCardValidUntil(e.currentTarget.value)}
-              type="text"
+              type="tel"
               error={errorFields === 'cardValidUntil' ? 1 : 0}
             />
           </div>
@@ -331,7 +331,7 @@ const PaymentDetails: React.FC<IProps> = ({
             <S.Input
               value={cardCVV}
               onChange={(e) => handleSetCVV(e)}
-              type="text"
+              type="tel"
               error={errorFields === 'cardCVV' ? 1 : 0}
             />
           </div>

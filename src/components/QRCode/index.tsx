@@ -14,7 +14,7 @@ const QRCode = () => {
     [isAuthenticated, username]
   )
 
-  return <QrCode className="qrCode" value={link} />
+  return <QrCode crossOrigin="anonymous" className="qrCode" value={link} />
 }
 
 export default QRCode

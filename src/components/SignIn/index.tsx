@@ -102,10 +102,15 @@ const FormSignIn = () => {
     )
   else
     return (
-      <S.Wrapper ref={formRef} onSubmit={(e) => handleSubmit(e)}>
+      <S.Wrapper
+        id="signInForm"
+        ref={formRef}
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <h1>Sign-in</h1>
 
         <Input
+          id="username"
           style={{ textTransform: 'lowercase' }}
           icon={FiUser}
           placeholder="Username"
@@ -114,6 +119,7 @@ const FormSignIn = () => {
         />
 
         <Input
+          id="password"
           icon={FiLock}
           placeholder="Password"
           name="password"
@@ -126,7 +132,7 @@ const FormSignIn = () => {
           and <span>Privacy Notice</span>
         </a>
 
-        <Button disabled={loading} loading={loading}>
+        <Button id="signInButton" disabled={loading} loading={loading}>
           Continue
         </Button>
         <a
