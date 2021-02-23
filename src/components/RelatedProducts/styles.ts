@@ -41,6 +41,7 @@ export const Wrapper = styled.article`
 export const Product = styled.div`
   width: 30rem;
   padding: 2.4rem;
+
   margin: 1rem 2rem 0;
   border-radius: 4rem 4rem 0 0;
   text-align: center;
@@ -96,7 +97,6 @@ export const Product = styled.div`
     padding: 1rem 3rem 0.5rem 1.5rem;
     text-align: start;
     position: relative;
-    height: 260px;
     border-radius: 4rem;
     margin: 2rem;
 
@@ -105,7 +105,6 @@ export const Product = styled.div`
     }
 
     :hover.selected {
-      height: 260px;
       margin-top: 1rem;
       transform: scale(1.01);
 
@@ -141,14 +140,12 @@ export const Product = styled.div`
 
   @media (max-width: 530px) {
     flex-direction: column;
-    height: 470px;
     width: 30rem;
     padding: 2rem 2rem 1rem;
     text-align: center;
     margin: 2rem 0;
 
     :hover.selected {
-      height: 470px;
       transform: scale(1.03);
       margin: 2rem 0;
     }

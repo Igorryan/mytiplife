@@ -136,11 +136,14 @@ export const Product = styled.li`
 
   img {
     height: 160px;
+    width: 160px;
+
+    border-radius: 10px;
+    object-fit: cover;
   }
 
   .description {
     margin-left: 25px;
-    margin-top: 10px;
 
     header {
       display: flex;
@@ -150,6 +153,7 @@ export const Product = styled.li`
         font-size: 16px;
         text-transform: uppercase;
         font-weight: 700;
+        width: 70%;
         color: #153d57;
       }
 

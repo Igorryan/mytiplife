@@ -51,7 +51,7 @@ export default [
       allowing your fans to go directly back to your profile for Tips, Updates, and a way to promote you to
       their friends and family.`,
     price: 31.95,
-    productImage: '/img/bigplastic.png',
+    productImage: '/img/bigplastic.jpg',
     toProductPageURL: 'BigPlastic',
     units: [100, 500, 1000, 1500, 1872, 1273, 1209],
     colors: ['#59C398', '#59A5E5', '#CF5289', '#FCCA4C', '#D55EFF', '#313131'],

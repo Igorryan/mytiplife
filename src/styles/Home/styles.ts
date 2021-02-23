@@ -136,7 +136,7 @@ export const Wrapper = styled.main`
     display: flex;
     justify-content: space-between;
 
-    margin: 100px auto 120px;
+    margin: 150px auto 120px;
     flex-wrap: wrap;
     width: 1300px;
 
@@ -151,6 +151,7 @@ export const Wrapper = styled.main`
     @media (max-width: 720px) {
       width: 300px;
       margin-bottom: 60px;
+      margin-top: 60px;
 
       > div {
         margin-bottom: 40px;
@@ -200,7 +201,7 @@ export const Products = styled.div`
   > div {
     display: flex;
     position: relative;
-    margin: 40px 0 60px;
+    margin: 100px 0;
 
     &::after {
       content: '';
@@ -218,7 +219,8 @@ export const Products = styled.div`
 
     img {
       width: 300px;
-      height: 300px;
+      border-radius: 10px;
+      object-fit: cover;
     }
 
     .description {
