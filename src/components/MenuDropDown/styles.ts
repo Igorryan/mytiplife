@@ -15,8 +15,7 @@ export const Wrapper = styled.div<MenuProps>`
   justify-content: center;
   position: absolute;
   top: 70px;
-  padding: 30px;
-  padding-top: 10px;
+  padding: 10px 30px 20px;
   background: #003d59;
   width: 150px;
   border-radius: 12px;
@@ -62,7 +61,7 @@ export const Wrapper = styled.div<MenuProps>`
     text-transform: initial !important;
     font-weight: 500;
     line-height: 120%;
-    margin-top: 20px;
+    margin-top: 10px;
 
     &:hover {
       color: rgba(255, 255, 255, 1) !important;
