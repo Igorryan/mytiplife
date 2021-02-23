@@ -88,6 +88,7 @@ const Header = () => {
             <a href="#">My Account</a>
             <MenuDropDown
               open={myAccountMenuOpen}
+              style={{ zIndex: 16 }}
               links={[
                 {
                   name: isAuthenticated() ? 'Sign Out' : 'Sign In',

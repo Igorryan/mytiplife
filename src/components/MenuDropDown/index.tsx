@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react'
 import * as S from './styles'
 
 interface ILinksProps {
@@ -6,14 +7,14 @@ interface ILinksProps {
   action?: () => void
 }
 
-interface IProps {
+interface IProps extends HTMLAttributes<HTMLDivElement> {
   links: ILinksProps[]
   open: boolean | 'init'
 }
 
-const MenuDropDown: React.FC<IProps> = ({ links, open }) => {
+const MenuDropDown: React.FC<IProps> = ({ links, open, ...rest }) => {
   return (
-    <S.Wrapper open={open}>
+    <S.Wrapper open={open} {...rest}>
       {links.map(({ link, name, action }) => (
         <a key={name} onClick={action} href={link || '#'}>
           {name}
