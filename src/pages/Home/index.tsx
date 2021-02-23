@@ -111,8 +111,6 @@ const Home: React.FC = () => {
         )}
       </S.Products>
 
-      <div className="divisor"></div>
-
       <div className="cards" data-anime="center">
         <S.Card>
           <Tilt

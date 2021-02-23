@@ -55,10 +55,6 @@ const Cart: React.FC = () => {
       >
         <S.AnimationWrapper ref={animationContainerRef}></S.AnimationWrapper>
         <h1>Your cart is empty :(</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
-        </p>
       </S.EmptyCart>
 
       <S.ProductList>

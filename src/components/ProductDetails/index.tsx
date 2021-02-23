@@ -12,6 +12,8 @@ interface IProps {
   colorsOptions: string[]
   unitsOptions: number[]
   product: IProductsProps
+  title: string
+  description: string
   states: {
     name: string
     job: string
@@ -28,6 +30,8 @@ interface IProps {
 }
 
 const ProductDetails: React.FC<IProps> = ({
+  title,
+  description,
   product,
   colorsOptions,
   unitsOptions,
@@ -37,7 +41,7 @@ const ProductDetails: React.FC<IProps> = ({
   const { addProduct, openCart } = useCart()
   const { addToast } = useToast()
 
-  const { title, description, id } = product
+  const { id } = product
   const { name, job, color, image, currentCard } = states
   const { setName, setJob, setColor, setImage } = setStates
 

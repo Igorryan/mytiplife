@@ -51,7 +51,6 @@ export const Product = styled.div`
     background: #f4f4f4;
     transition: 0.2s;
     transform: scale(1.05);
-    margin-top: -0.5rem;
   }
 
   img {

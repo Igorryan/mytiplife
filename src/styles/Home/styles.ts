@@ -132,22 +132,13 @@ export const Wrapper = styled.main`
     }
   }
 
-  div.divisor {
-    height: 20vw;
-    width: 100%;
-    background: url(/img/mask-divisor.svg) no-repeat center;
-    background-size: contain;
-    margin-bottom: 60px;
-  }
-
   div.cards {
     display: flex;
     justify-content: space-between;
 
-    margin: 0 auto;
+    margin: 100px auto 120px;
     flex-wrap: wrap;
     width: 1300px;
-    margin-bottom: 120px;
 
     @media (max-width: 1315px) {
       width: 630px;
@@ -208,7 +199,6 @@ export const Products = styled.div`
 
   > div {
     display: flex;
-    align-items: center;
     position: relative;
     margin: 40px 0 60px;
 
@@ -233,6 +223,7 @@ export const Products = styled.div`
 
     .description {
       margin-left: 50px;
+      margin-top: 10px;
 
       ul {
         display: flex;

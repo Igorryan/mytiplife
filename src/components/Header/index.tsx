@@ -1,5 +1,5 @@
 import * as S from './styles'
-import { AiOutlineSearch } from 'react-icons/ai'
+// import { AiOutlineSearch } from 'react-icons/ai'
 import { useState, useCallback, useEffect } from 'react'
 import { useCart } from 'hooks/cart'
 import { useAuth } from 'hooks/auth'
@@ -20,8 +20,11 @@ const Header = () => {
   const [myAccountMenuOpen, setMyAccountMenuOpen] = useState<boolean | 'init'>(
     'init'
   )
+  const [categoriesMenuOpen, setCategoriesMenuOpen] = useState<
+    boolean | 'init'
+  >('init')
   const [headerToggle, setHeaderToggle] = useState(true)
-  const [inputSearchFocus, setInputSearchFocus] = useState(false)
+  // const [inputSearchFocus, setInputSearchFocus] = useState(false)
 
   useEffect(() => {
     if (window.location.href.indexOf('Home') !== -1) {
@@ -58,13 +61,13 @@ const Header = () => {
     setMenuOpen(!menuOpen)
   }, [menuOpen])
 
-  const handleInputSearchFocus = useCallback(() => {
-    setInputSearchFocus(true)
-  }, [])
+  // const handleInputSearchFocus = useCallback(() => {
+  //   setInputSearchFocus(true)
+  // }, [])
 
-  const handleInputSearchBlur = useCallback(() => {
-    setInputSearchFocus(false)
-  }, [])
+  // const handleInputSearchBlur = useCallback(() => {
+  //   setInputSearchFocus(false)
+  // }, [])
 
   return (
     <S.Wrapper
@@ -102,39 +105,28 @@ const Header = () => {
               ]}
             />
           </S.Item>
-          <S.Item>
-            <a
-              // eslint-disable-next-line react/jsx-no-target-blank
-              target="_blank"
-              href="https://www.mytiplife.com/site-pages/wetipyou"
-            >
-              Funding
-            </a>
-          </S.Item>
-          <S.Item>
-            <a
-              // eslint-disable-next-line react/jsx-no-target-blank
-              target="_blank"
-              href="https://www.mytiplife.com"
-            >
-              Video
-            </a>
-          </S.Item>
-          <S.Item>
-            {anchor.indexOf('/') === -1 ? (
-              <S.LinkMenu
-                activeClass="active"
-                to={anchor}
-                spy={true}
-                smooth={true}
-                offset={-220}
-                duration={500}
-              >
-                Categories
-              </S.LinkMenu>
-            ) : (
-              <a href={anchor}>Categories</a>
-            )}
+          <S.Item
+            onMouseOver={() => setCategoriesMenuOpen(true)}
+            onMouseLeave={() => setCategoriesMenuOpen(false)}
+          >
+            <a href="#">Categories</a>
+            <MenuDropDown
+              open={categoriesMenuOpen}
+              links={[
+                {
+                  link: '/Products/PocketSize',
+                  name: 'Badges and Business Cards'
+                },
+                {
+                  link: '/Products/SmallAcrilic',
+                  name: 'Tip Jars - Establishment'
+                },
+                {
+                  link: '/Products/BigPlastic',
+                  name: 'Tip Jars – Artists & Performers'
+                }
+              ]}
+            />
           </S.Item>
           <S.Item>
             <S.IconCart
@@ -147,7 +139,7 @@ const Header = () => {
             </S.IconCart>
           </S.Item>
         </S.MenuList>
-
+        {/*
         <S.SearchBar
           style={{
             borderColor: inputSearchFocus ? '#FF7300' : '#bdbdbd'
@@ -167,7 +159,7 @@ const Header = () => {
             onBlur={handleInputSearchBlur}
             placeholder="Search"
           />
-        </S.SearchBar>
+        </S.SearchBar> */}
 
         <S.IconCart
           className="iconInMobileHeader"

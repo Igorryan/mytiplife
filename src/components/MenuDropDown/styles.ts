@@ -15,11 +15,13 @@ export const Wrapper = styled.div<MenuProps>`
   justify-content: center;
   position: absolute;
   top: 70px;
-  padding-bottom: 10px;
+  padding: 30px;
+  padding-top: 10px;
   background: #003d59;
   width: 150px;
   border-radius: 12px;
   left: -10px;
+  text-align: center;
   z-index: 15;
 
   ${(props) =>
@@ -56,10 +58,15 @@ export const Wrapper = styled.div<MenuProps>`
   a {
     margin: 0px;
     padding: 0;
-    color: #fff !important;
+    color: rgba(255, 255, 255, 0.7) !important;
     text-transform: initial !important;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 120%;
+    margin-top: 20px;
+
+    &:hover {
+      color: rgba(255, 255, 255, 1) !important;
+    }
 
     :first-of-type {
       margin-top: 11px;

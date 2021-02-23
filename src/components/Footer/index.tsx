@@ -13,21 +13,45 @@ const Footer = () => (
 
     <nav>
       <li>
-        <a href="#">Terms of use</a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.mytiplife.com/terms/terms"
+        >
+          Terms of use
+        </a>
       </li>
       <li>
-        <a href="#">Privacy Policy</a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.mytiplife.com/terms/privacy-policy"
+        >
+          Privacy Policy
+        </a>
       </li>
       <li>
-        <a href="#">About us</a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.mytiplife.com/terms/about-us"
+        >
+          About us
+        </a>
       </li>
       <li>
-        <a href="#">Contact us</a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.mytiplife.com/contact-us"
+        >
+          Contact us
+        </a>
       </li>
     </nav>
 
     <div className="copyright">
-      Copyright © 2019 Mytiplife. All rights reserved.
+      Copyright © {new Date().getFullYear()} Mytiplife. All rights reserved.
     </div>
   </S.Wrapper>
 )

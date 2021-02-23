@@ -66,6 +66,10 @@ const SmallAcrilic: React.FC = () => {
         </Carousel>
 
         <ProductDetails
+          title="BRAND YOUR TIP JAR"
+          description="In this section, we personalize Tip Jar. The QR code to your profile is already on the badge it is up
+          to you now to choose the design/color and quantity you would like to order. See all your changes
+          immediately!"
           product={Products[1]}
           states={{ name, job, color, image, currentCard }}
           setStates={{ setName, setJob, setColor, setImage }}

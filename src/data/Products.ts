@@ -14,10 +14,12 @@ export interface IProductsProps {
 export default [
   {
     id: 1,
-    tags: ['Customizable', 'Novelty', 'Launch'],
-    title: 'Pocket Size',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    tags: ['Design', 'Order', 'Receive'],
+    title: 'Badges and Business Cards',
+    description: `The perfect way to get more tips and keep in touch with your customers is through a personally
+      branded Badge or Business Card. They can scan your MyTipLife QR Code on the badges/business
+      cards and go directly to your profile on MyTipLife.com to learn more about you and increase your
+      tips and share your profile with others.`,
     price: 12.65,
     productImage: '/img/pocketsize.png',
     toProductPageURL: 'PocketSize',
@@ -27,10 +29,11 @@ export default [
   },
   {
     id: 2,
-    tags: ['Customizable', 'Novelty', 'Launch'],
-    title: 'Small Acrilic',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    tags: ['Design', 'Order', 'Receive'],
+    title: 'Tip Jars - Establishment',
+    description: `Our Tip Jars are sturdy and durable and perfect for any Restaurant, Coffee Shop, Bar, or other
+      Establishments. You can personalize the Tip Jar to your brand and our QR code take your
+      customers directly to your profile on MyTipLife.com.`,
     price: 23.8,
     productImage: '/img/smallacrilic.png',
     toProductPageURL: 'SmallAcrilic',
@@ -40,10 +43,13 @@ export default [
   },
   {
     id: 3,
-    tags: ['Customizable', 'Novelty', 'Launch'],
-    title: 'Big Plastic',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    tags: ['Design', 'Order', 'Receive'],
+    title: 'Tip Jars – Artists/Performers',
+    description: `The Artist Tip Jar is unique for many reasons. It is strong and durable and can carry your
+      performance materials and then act as a Tip Jar. You personalize it to your Brand with contact info
+      making you much more professional. The QR code is place on it from your MyTipLife.com profile
+      allowing your fans to go directly back to your profile for Tips, Updates, and a way to promote you to
+      their friends and family.`,
     price: 31.95,
     productImage: '/img/bigplastic.png',
     toProductPageURL: 'BigPlastic',

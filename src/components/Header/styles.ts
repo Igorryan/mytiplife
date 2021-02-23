@@ -37,7 +37,7 @@ export const Wrapper = styled.header`
 
     img {
       width: 180px;
-      margin-right: 40px;
+      margin-right: 500px;
       cursor: pointer;
     }
 
@@ -45,6 +45,7 @@ export const Wrapper = styled.header`
       justify-content: space-between;
       img {
         padding-left: 50px;
+        margin-right: 40px;
       }
     }
   }

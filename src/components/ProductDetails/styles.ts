@@ -24,6 +24,7 @@ export const Wrapper = styled.div`
     font-weight: 700;
     color: #153d57;
     margin-bottom: 14px;
+    line-height: 120%;
   }
 
   p {
