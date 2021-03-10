@@ -87,19 +87,19 @@ const ProcessOrders: React.FC<IProps> = ({
 
     setOrderData(newOrderData)
 
-    setTimeout(() => {
-      localStorage.removeItem('@MyTipLife:cart')
-      handleSetStage(4)
-    }, 3000)
+    // setTimeout(() => {
+    //   localStorage.removeItem('@MyTipLife:cart')
+    //   handleSetStage(4)
+    // }, 3000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleSetStage, productsFormatted])
 
-  const getCard = useCallback((title: string, cardNumber: number) => {
-    if (title === 'Pocket Size') {
+  const getCard = useCallback((id: number, cardNumber: number) => {
+    if (id === 1) {
       return PocketSize[cardNumber]
-    } else if (title === 'Small Acrilic') {
+    } else if (id === 2) {
       return SmallAcrilic[cardNumber]
-    } else if (title === 'Big Plastic') {
+    } else if (id === 3) {
       return BigPlastic[cardNumber]
     }
   }, [])
@@ -158,7 +158,7 @@ const ProcessOrders: React.FC<IProps> = ({
 
       {products &&
         products.map((product, i) => {
-          const Card = getCard(product.product.title, product.currentCard)
+          const Card = getCard(product.product.id, product.currentCard)
 
           if (Card) {
             return (

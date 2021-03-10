@@ -12,35 +12,38 @@ export default async function downloadComponentInPDF(
     useCORS: true
   }).then(async (canvas) => {
     window.scrollTo(0, 0)
-    const componentWidth = Component.offsetWidth
-    const componentHeight = Component.offsetHeight
+    setTimeout(async () => {
+      const componentWidth = Component.offsetWidth
+      const componentHeight = Component.offsetHeight
 
-    const orientation = componentWidth >= componentHeight ? 'l' : 'p'
+      const orientation = componentWidth >= componentHeight ? 'l' : 'p'
 
-    const pdf = new jsPDF({
-      orientation,
-      unit: 'px'
-    })
+      const pdf = new jsPDF({
+        orientation,
+        unit: 'px'
+      })
 
-    const url = canvas.toDataURL('image/png')
+      alert('Tentando capturar URL do canvas')
+      const url = canvas.toDataURL('image/png')
+      alert('Conseguiu')
 
-    alert(url)
+      alert(url)
+      if (!url) return
 
-    pdf.internal.pageSize.width = componentWidth
-    pdf.internal.pageSize.height = componentHeight
+      pdf.internal.pageSize.width = componentWidth
+      pdf.internal.pageSize.height = componentHeight
 
-    pdf.addImage(url, 'PNG', 0, 0, componentWidth, componentHeight)
+      pdf.addImage(url, 'PNG', 0, 0, componentWidth, componentHeight)
 
-    alert(`PDF criado`)
+      const output = pdf.output('arraybuffer')
 
-    const output = pdf.output('arraybuffer')
+      const response = await uploadFileToS3(
+        output,
+        `pdfs/${new Date().getTime()}.pdf`
+      )
 
-    const response = await uploadFileToS3(
-      output,
-      `pdfs/${new Date().getTime()}.pdf`
-    )
-
-    result = response
+      result = response
+    }, 200)
   })
 
   return String(result)

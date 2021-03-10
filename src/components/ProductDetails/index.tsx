@@ -85,6 +85,9 @@ const ProductDetails: React.FC<IProps> = ({
         try {
           const compressedFile = await imageCompression(imageFile, options)
 
+          const image = new Image()
+          image.crossOrigin = 'anonymous'
+
           //Salvando imagem em estado
           const data = new FormData()
           data.append('avatar', compressedFile)

@@ -80,15 +80,14 @@ const FinishCart: React.FC = () => {
 
       console.log('Pagamento aceito, enviando PDF...')
 
-      const response = {
+      setOrderData({
         deliveryAddress,
         username,
         deliveryDate: 'Your order will arrive by day X',
         requestNumber: '',
         cartTotal: totalCartValue
-      }
+      })
 
-      setOrderData(response)
       handleSetStage(3)
       //limpar carrinho
     }
