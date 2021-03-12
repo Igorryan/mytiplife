@@ -4,8 +4,24 @@ import GlobalStyles from 'styles/global'
 
 //Components
 import AppProvider from 'hooks'
+import { useEffect, useState } from 'react'
 
 function App({ Component, pageProps }: AppProps) {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true)
+
+    const documentLoadedInterval = setInterval(() => {
+      if (document.readyState === 'complete') {
+        clearInterval(documentLoadedInterval)
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000)
+      }
+    }, 1000)
+  }, [])
+
   return (
     <>
       <Head>
@@ -23,7 +39,9 @@ function App({ Component, pageProps }: AppProps) {
         ></link>
       </Head>
       <GlobalStyles />
-
+      <div className={`loading ${!loading && 'out'}`}>
+        <img src="/animations/coin-loader.gif" alt="coin loader" />
+      </div>
       <AppProvider>
         <Component {...pageProps} />
       </AppProvider>

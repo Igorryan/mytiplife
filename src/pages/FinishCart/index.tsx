@@ -36,7 +36,7 @@ interface IFinishOrderData {
 const FinishCart: React.FC = () => {
   const { addToast } = useToast()
   const { isAuthenticated, username } = useAuth()
-  const { totalCartValue, products } = useCart()
+  const { totalCartValue } = useCart()
 
   const [deliveryAddress, setDeliveryAddress] = useState<ILocationData>(
     {} as ILocationData
@@ -50,11 +50,6 @@ const FinishCart: React.FC = () => {
 
   const handleSetStage = useCallback(
     (toStage: number) => {
-      if (totalCartValue === 0) {
-        alert('Nenhum item no carrinho!')
-        window.location.href = '/Home'
-      }
-
       if (toStage === 3) {
         animated('', '', toStage, 700)
         return
@@ -70,7 +65,7 @@ const FinishCart: React.FC = () => {
 
       animated(outEffect, inEffect, toStage, 700)
     },
-    [stage, totalCartValue]
+    [stage]
   )
 
   useEffect(() => {
@@ -107,7 +102,7 @@ const FinishCart: React.FC = () => {
         window.location.href = '/Sign'
       }, 3500)
     }
-  }, [addToast, isAuthenticated, products.length])
+  }, [addToast, isAuthenticated])
 
   function animated(
     animationOut: string,

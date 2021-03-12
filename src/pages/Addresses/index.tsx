@@ -3,16 +3,12 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useToast } from 'hooks/toast'
-import { useAuth } from 'hooks/auth'
-import { useCart } from 'hooks/cart'
 import AddressModal from 'components/ModalAddress'
 import { ILocationData } from 'components/DeliveryAddress'
 import api from 'services/api'
 
 const Addresses = () => {
   const { addToast } = useToast()
-  const { isAuthenticated } = useAuth()
-  const { products } = useCart()
 
   const [editingAddress, setEditingAddress] = useState<
     ILocationData | undefined
@@ -65,21 +61,6 @@ const Addresses = () => {
       })
     }
   }, [addToast])
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      addToast({
-        type: 'error',
-        title: 'You need to log in again',
-        description: 'We will redirect you',
-        timer: true
-      })
-
-      setTimeout(() => {
-        window.location.href = '/Sign'
-      }, 3500)
-    }
-  }, [addToast, isAuthenticated, products.length])
 
   const fixedAddresses = useMemo(() => {
     const home = locations.find((l) => l.type === 'Home')

@@ -86,6 +86,7 @@ export const ProductsWrapper = styled.div`
 
         p {
           margin-top: 12px;
+          margin-bottom: 80px;
 
           font-size: 10px;
           line-height: 16px;
@@ -93,8 +94,8 @@ export const ProductsWrapper = styled.div`
 
         div {
           display: flex;
-          align-items: center;
           justify-content: space-between;
+          flex-direction: column;
           position: absolute;
           margin-top: 15px;
           bottom: 0;
@@ -102,7 +103,7 @@ export const ProductsWrapper = styled.div`
 
           strong {
             font-family: 'Roboto', sans-serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #153d57;
 
@@ -119,12 +120,27 @@ export const ProductsWrapper = styled.div`
           button {
             display: flex;
             align-items: center;
+            justify-content: center;
 
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
 
-            color: #d2d2d2;
+            color: crimson;
             background: none;
+
+            padding: 10px 0px;
+
+            margin-top: 10px;
+
+            border: 1px solid crimson;
+            border-radius: 6px;
+
+            transition: 0.3s ease;
+
+            &:hover {
+              background: crimson;
+              color: #fff;
+            }
           }
         }
       }

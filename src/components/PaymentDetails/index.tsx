@@ -1,6 +1,5 @@
 import * as S from './styles'
 import { useCart } from 'hooks/cart'
-import { AiFillCloseCircle } from 'react-icons/ai'
 import { FiArrowLeft } from 'react-icons/fi'
 import { useCallback, useEffect, useState } from 'react'
 import CreditCardType from 'credit-card-type'
@@ -43,6 +42,21 @@ const PaymentDetails: React.FC<IProps> = ({
 
   const [creditCardFlag, setCreditCardFlag] = useState('none')
   const { products, removeProduct, totalCartValue } = useCart()
+
+  useEffect(() => {
+    if (products.length === 0) {
+      addToast({
+        type: 'error',
+        title: 'No items in your cart',
+        description: 'We will redirect you',
+        timer: true
+      })
+
+      setTimeout(() => {
+        window.location.href = '/Home'
+      }, 3500)
+    }
+  }, [addToast, products])
 
   const recoveryCreditCard = useCallback(async () => {
     try {
@@ -249,7 +263,7 @@ const PaymentDetails: React.FC<IProps> = ({
       <S.ProductsWrapper className="customScrollBar">
         <ul>
           {products &&
-            products.map(({ id, product, total, quantity }, i) => (
+            products.map(({ product, total, quantity }, i) => (
               <li key={i}>
                 <img src={product.productImage} alt="" />
                 <div className="description">
@@ -269,15 +283,7 @@ const PaymentDetails: React.FC<IProps> = ({
                         .{getIntegerAndFractionalValues(total).fractionalPart}
                       </span>
                     </strong>
-                    <button onClick={() => removeProduct(id)}>
-                      TO REMOVE
-                      <AiFillCloseCircle
-                        size={26}
-                        style={{
-                          marginLeft: 5
-                        }}
-                      />
-                    </button>
+                    <button onClick={() => removeProduct(i)}>TO REMOVE</button>
                   </div>
                 </div>
               </li>
@@ -353,7 +359,7 @@ const PaymentDetails: React.FC<IProps> = ({
             <FiArrowLeft size={22} color="#11cea2" />
           </a>
 
-          <Button loading={loading}>
+          <Button loading={loading} disabled={!products.length}>
             <strong>
               $ {getIntegerAndFractionalValues(totalCartValue).fullValue}
             </strong>

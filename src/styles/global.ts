@@ -1,4 +1,32 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, keyframes } from 'styled-components'
+
+const loadingOut = keyframes`
+  from {
+    width: 100vw;
+  }
+
+  to {
+    width: 0vw;
+  }
+`
+
+const scaleIn = keyframes`
+  from {
+    transform: scale(0)
+  }
+  to {
+    transform: scale(1)
+  }
+`
+
+const scaleOut = keyframes`
+  from {
+    transform: scale(1)
+  }
+  to {
+    transform: scale(0)
+  }
+`
 
 const GlobalStyles = createGlobalStyle`
  *{
@@ -57,8 +85,49 @@ main  {
       border-radius: 10px;
  }
 
+ .loading {
+   position: fixed;
 
+   display: flex;
+   align-items: center;
+   justify-content: center;
 
+   z-index: 16;
+   overflow: hidden;
+
+   width: 100vw;
+   height: 100vh;
+
+   background: #fff;
+
+   img {
+    width: 700px;
+    transform: scale(0);
+
+    animation: ${scaleIn} 0.4s ease forwards;
+    animation-delay: 0.2s;
+   }
+
+   @media (max-width: 768px){
+     img {
+       margin-top: -150px;
+       width: 100%;
+     }
+   }
+ }
+
+ .out {
+  animation: ${loadingOut} .8s ease-in-out forwards;
+  animation-delay: 0.2s;
+
+  img {
+    animation: ${scaleOut} 0.4s ease forwards;
+  }
+
+  @media (max-width: 768px){
+    animation-duration: 0.6s;
+   }
+ }
 
 `
 

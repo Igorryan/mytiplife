@@ -228,6 +228,7 @@ export const Product = styled.li`
     width: 100%;
 
     img {
+      width: 60px;
       height: 60px;
     }
 
