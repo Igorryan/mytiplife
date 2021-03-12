@@ -110,7 +110,6 @@ main  {
 
    @media (max-width: 768px){
      img {
-       margin-top: -150px;
        width: 100%;
      }
    }
